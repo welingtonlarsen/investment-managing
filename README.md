@@ -62,11 +62,68 @@ $ npm run test:cov
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## Payloads Bovespa translation
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+This session is responsible for translating English words into Bovespa brokerage order words (Portugues).
+
+#### POST /brokerage-order
+
+    {
+        "generalInformation (informação geral)": {
+            "brokerageOrderNumber (numero da nota)": 51198038,
+            "tradingFlorDate (data pregao)": "2022-06-24",
+            "clientId (cliente)": "2079101"
+        },
+        "orders (negocios realizados)": [
+            {
+                "market (negociacao)": "BOVESPA",
+                "buyOrSell (c/v)": "BUY",
+                "marketType (tipo mercado)": "VISTA",
+                "title (especificacao do titulo)": "SANEPAR UNT N2",
+                "quantity (quantidade)": 100,
+                "price (preco/ajuste)": 18.50,
+                "total (valor operacao)": 1850.00,
+                "debitOrCredit (d/c)": "DEBIT"
+            }
+        ],
+        "businessSummary (resumo dos negócios)": {
+            "debentures (Debêntures)": 0.00,
+            "sellInCash (Vendasà vista)": 0.00,
+            "buyInCash (Compras à vista)": 1850.00,
+            "optionsBuy (Opções - compras)": 0.00,
+            "optionsSell (Opções - vendas)": 0.00,
+            "termOptions (Operações à termo)": 0.00,
+            "federalSecurities (Valor das oper. c/ títulos públ. (v. nom.))": 0.00,
+            "operationValues (Valor das operações)": 1850.00
+        },
+        "financialSummary (Resumo Financeiro)": {
+            "clearing (Clearing)": {
+                "operationsNetValue (Valor líquido das operações)": -1850.00,
+                "settlementFee (Taxa deliquidação)": 0.46,
+                "registryFee (Taxa de Registro)": 0.00,
+                "totalCblc (Total CBLC)": 1850.46
+            },
+            "exchange (Bolsa)": {
+                "termOrOptionsFee (Taxa determo/opções)": 0.00,
+                "anaFee (Taxa A.N.A.)": 0.00,
+                "fees (Emolumentos)": 0.09,
+                "total (Total Bovespa / Soma)": 0.09
+            },
+            "operationalCosts (Custos Operacionais)": {
+                "operationalFee (TaxaOperacional)": 4.90,
+                "execution (Execução)": 0.00,
+                "custody (Taxa deCustódia)": 0.00,
+                "taxes (Impostos)": 0.52,
+                "irrf (I.R.R.F. s/ operações, base R$0,00)": 0.00,
+                "others (Outros)": 0.19,
+                "totalCosts (Total Custos /Despesas)": 5.61
+            },
+            "netDate (Data de líquidação": "2022-06-28",
+            "netTotalValue (Total líquido)": 1856.16,
+            "netDebitOrCredit (D/V)": "DEBIT"
+        }
+    }
+
 
 ## License
 
