@@ -19,7 +19,7 @@ describe('Brokerage Order TypeORM Repository tests', () => {
 
   let brokerageOrderTypeormRepository: BrokerageOrderTypeormRepository;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     const databaseConnection = await databaseIntegrationSetup();
     const module: TestingModule = await Test.createTestingModule({
       imports: [

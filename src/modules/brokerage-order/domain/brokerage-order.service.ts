@@ -12,6 +12,8 @@ export class BrokerageOrderService {
   public async create(data: CreateBrokerageOrderDto): Promise<void> {
     const brokerageOrderEntity = BrokerageOrderEntityFactory.from(data);
     brokerageOrderEntity.validateTotalNetValue();
-    await this.brokerageOrderRepository.save(brokerageOrderEntity);
+    const brokerageOrderEntityFloatValues =
+      brokerageOrderEntity.parseFinancialValuesToFloat();
+    await this.brokerageOrderRepository.save(brokerageOrderEntityFloatValues);
   }
 }
