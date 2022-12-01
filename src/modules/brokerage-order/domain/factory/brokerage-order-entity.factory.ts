@@ -1,8 +1,6 @@
 import { CreateBrokerageOrderDto } from '../dto/create-brokerage-order.dto';
 import { BrokerageOrderEntity } from '../entity/brokerage-order.entity';
 import { FloatParser } from '../../../../util/float-parser';
-import { OrderDto } from '../../controllers/dto/order.dto';
-import { FinancialSummary } from '../dto/financial-summary.dto';
 
 export class BrokerageOrderEntityFactory {
   static from(dto: CreateBrokerageOrderDto): BrokerageOrderEntity {
@@ -14,10 +12,10 @@ export class BrokerageOrderEntityFactory {
 
     const orders = ordersDto.map((order) => {
       const obj = {
-        quantity: FloatParser.moneyAsCent(order.quantity),
+        ...order,
+        quantity: order.quantity,
         price: FloatParser.moneyAsCent(order.price),
         total: FloatParser.moneyAsCent(order.total),
-        ...order,
       };
       return obj;
     });
@@ -44,6 +42,7 @@ export class BrokerageOrderEntityFactory {
     } = financialSummaryDto;
 
     const financialSummary = {
+      ...financialSummaryDto,
       clearing: {
         operationsNetValue: FloatParser.moneyAsCent(
           clearingDto.operationsNetValue,
@@ -70,7 +69,6 @@ export class BrokerageOrderEntityFactory {
         totalCosts: FloatParser.moneyAsCent(operationalCostsDto.totalCosts),
       },
       netTotalValue: FloatParser.moneyAsCent(financialSummaryDto.netTotalValue),
-      ...financialSummaryDto,
     };
 
     return new BrokerageOrderEntity(

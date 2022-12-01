@@ -1,6 +1,6 @@
 export class FloatParser {
   public static moneyAsCent(float: number) {
-    return float * 100;
+    return Math.round(float * 100);
   }
 
   public static floatMoney(integer: number) {

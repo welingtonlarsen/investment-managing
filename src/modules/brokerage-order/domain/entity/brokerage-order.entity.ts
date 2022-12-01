@@ -2,7 +2,6 @@ import { GeneralInformationEntity } from './general-information.entity';
 import { OrderEntity } from './order.entity';
 import { BusinessSummaryEntity } from './business-summary.entity';
 import { FinancialSummaryEntity } from './financial-summary.entity';
-import { CreateBrokerageOrderDto } from '../dto/create-brokerage-order.dto';
 import { DebitOrCredit } from '../dto/financial-summary.dto';
 import { InvalidTotalNetValue } from '../error/create-brokerage-order.usecase';
 import { FloatParser } from '../../../../util/float-parser';
