@@ -12,6 +12,11 @@ import {
 import { Injectable } from '@nestjs/common';
 import { BrokerageOrderEntity } from '../../domain/entity/brokerage-order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class BrokerageOrderTypeormRepository {
@@ -101,5 +106,11 @@ export class BrokerageOrderTypeormRepository {
     await this.brokerageOrderRepository.save(brokerageOrderTypeOrm);
 
     return Promise.resolve();
+  }
+
+  async findAll(
+    options: IPaginationOptions,
+  ): Promise<Pagination<BrokerageOrder>> {
+    return paginate<BrokerageOrder>(this.brokerageOrderRepository, options);
   }
 }

@@ -6,6 +6,9 @@ import {
   Patch,
   Param,
   Delete,
+  DefaultValuePipe,
+  ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { CreateBrokerageOrderDto } from './dto/create-brokerage-order.dto';
 import { BrokerageOrderService } from '../domain/brokerage-order.service';
@@ -19,11 +22,17 @@ export class BrokerageOrderController {
     return this.brokerageOrderService.create(createBrokerageOrderDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.brokerageOrderService.findAll();
-  // }
-  //
+  @Get()
+  findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
+  ) {
+    return this.brokerageOrderService.findAll({
+      page,
+      limit,
+    });
+  }
+
   // @Get(':id')
   // findOne(@Param('id') id: string) {
   //   return this.brokerageOrderService.findOne(+id);
