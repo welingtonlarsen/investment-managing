@@ -114,13 +114,16 @@ describe('Brokerage Order TypeORM Repository tests', () => {
     });
   });
 
-  it('should succesful find all brokerage orders', async () => {
+  it('should successful find all brokerage orders', async () => {
     await brokerageOrderRepository.save(brokerageOrderEntity);
 
-    const result = await brokerageOrderTypeormRepository.findAll();
+    const { items } = await brokerageOrderTypeormRepository.findAll({
+      page: 1,
+      limit: 1,
+    });
 
-    expect(result.length).toEqual(1);
-    expect(JSON.stringify(result[0])).toStrictEqual(
+    expect(items.length).toEqual(1);
+    expect(JSON.stringify(items[0])).toStrictEqual(
       JSON.stringify({
         generalInformation: {
           brokerageOrderNumber: 51198038,
