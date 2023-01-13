@@ -1,9 +1,7 @@
-import RegistrationForm from "./components/registration-form";
+import RegistrationForm from './components/registration-form'
 
-function App() {
-  return (
-    <RegistrationForm />
-  );
+const App = () => {
+  return <RegistrationForm />
 }
 
-export default App;
+export default App
