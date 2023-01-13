@@ -34,8 +34,8 @@ const GeneralInformation: React.FC<Props> = ({control, errors}) => {
                             {...field}
                             error={!!errors.brokerageOrderNumber}
                             helperText={errors.brokerageOrderNumber?.message}
-                            required
-                            id="brokerageOrderNumber"
+                            //required
+                            //id="brokerageOrderNumber"
                             label="Numero"
                             fullWidth
                             autoComplete="cc-name"

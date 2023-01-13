@@ -7,6 +7,7 @@ import * as yup from "yup";
 import Header from "../header";
 import GeneralInformation from "./general-information";
 import Orders from "./orders";
+import BusinessSumary from "./business-sumary";
 
 type Inputs = {
     brokerageOrderNumber: string,
@@ -15,12 +16,12 @@ type Inputs = {
 }
 
 type OrdersInput = {
-    name: string
+    market: string
 }
 
 const theme = createTheme();
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Informações gerais', 'Ordens', 'Review your order'];
 
 const schema = yup.object({
     brokerageOrderNumber: yup.string().required('Número da nota é obrigatório.'),
@@ -29,9 +30,11 @@ const schema = yup.object({
   }).required();
 
 const schemaOrders = yup.object({
-    name: yup.string().required('Name.....'),
+    market: yup.string().required('Negociação é obrigatório.'),
 })
-
+const schemaBusinessSumary = yup.object({
+    market: yup.string().required('ABC.....'),
+})
 
 const RegistrationForm = () => {
     const { control, register, handleSubmit, watch, formState: { errors } } = useForm<Inputs>({
@@ -40,15 +43,24 @@ const RegistrationForm = () => {
     const { control: ordersControl, handleSubmit: ordersHandleSubmit, formState: { errors: ordersErrors } } = useForm<OrdersInput>({
         resolver: yupResolver(schemaOrders)
     });
+    const { control: businessSumaryControl, handleSubmit: businessSumaryHandleSubmit, formState: { errors: businessSumaryErrors } } = useForm<any>({
+        resolver: yupResolver(schemaOrders)
+    });
 
-    const [activeStep, setActiveStep] = useState(0)
+    const [activeStep, setActiveStep] = useState(1)
 
-    console.log(errors)
+    const [formState, setFormState] = useState<Inputs & OrdersInput>({
+        brokerageOrderNumber: '', 
+        tradingFlorDate: '',
+        clientId: '',
+        market: ''
+    })
 
     const handleNext: any = (data: any) => {
         console.log('apsokdopasdk')
         console.log(data)
-        console.log(errors)
+        //console.log(errors)
+        setFormState({...formState, ...data})
         setActiveStep(activeStep + 1);
     }
 
@@ -59,6 +71,9 @@ const RegistrationForm = () => {
                 break;
             case 1:
                 ordersHandleSubmit(handleNext)();
+                break;
+            case 2:
+                businessSumaryHandleSubmit(handleNext)();
                 break;
             default:
                 throw new Error('Unknown step');
@@ -75,7 +90,9 @@ const RegistrationForm = () => {
           case 0:
             return <GeneralInformation control={control} errors={errors}/>;
           case 1:
-            return <Orders control={ordersControl} errors={ordersErrors}/>;
+            return <Orders />;
+          case 2:
+            return <BusinessSumary />;
           default:
             throw new Error('Unknown step');
         }
@@ -86,7 +103,7 @@ const RegistrationForm = () => {
         <>
             <CssBaseline />
             <Header />
-            <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+            <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
                 <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                     <Typography component="h1" variant="h4" align="center">
                         Checkout
