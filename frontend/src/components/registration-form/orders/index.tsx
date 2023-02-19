@@ -6,12 +6,17 @@ import SelectControlled from '../../@ui/SelectControlled'
 import { BuyOrSell, Market, MarketType, Title, useOrdersForm } from './ordersForm'
 import NumberFieldControled from '../../@ui/NumberFieldControled'
 
-const Orders = () => {
+type Props = {
+  handlePrevious: () => void
+  handleNextCallback: () => void
+}
+
+const Orders: React.FC<Props> = ({ handlePrevious, handleNextCallback }) => {
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isSubmitted, isValid },
     formState,
   } = useOrdersForm()
   const { fields, append, remove } = useFieldArray({
@@ -21,7 +26,7 @@ const Orders = () => {
 
   const handleNext = (data: any) => {
     if (formState.isValid) {
-      console.log(data)
+      handleNextCallback()
     }
   }
 
@@ -126,9 +131,16 @@ const Orders = () => {
           </IconButton>
         </Grid>
         <Grid container xs={12} md={12} justifyContent="flex-end" sx={{ mt: 3 }}>
-          <Button sx={{ mt: 3, ml: 1 }}>Voltar</Button>
+          <Button onClick={handlePrevious} sx={{ mt: 3, ml: 1 }}>
+            Voltar
+          </Button>
 
-          <Button onClick={handleSubmit(handleNext)} variant="contained" sx={{ mt: 3, ml: 1 }}>
+          <Button
+            disabled={!isValid && (isSubmitted || isDirty)}
+            onClick={handleSubmit(handleNext)}
+            variant="contained"
+            sx={{ mt: 3, ml: 1 }}
+          >
             Next
           </Button>
         </Grid>

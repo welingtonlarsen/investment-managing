@@ -45,7 +45,11 @@ const schemaOrders = yup.object({
         .typeError('Quantidade é obrigatório.')
         .required('Quantidade é obrigatório.')
         .moreThan(0, 'Quantidade invalida.'),
-      price: yup.number().typeError('Preço é obrigatório.').required('Preço é obrigatório.'),
+      price: yup
+        .number()
+        .typeError('Preço é obrigatório.')
+        .required('Preço é obrigatório.')
+        .moreThan(0, 'Preço é invalido.'),
     })
   ),
 })

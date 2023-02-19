@@ -1,25 +1,27 @@
-import { Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material'
-import { Control, Controller, FieldErrorsImpl, useForm, UseFormReturn } from 'react-hook-form'
+import { Button, Grid, TextField, Typography } from '@mui/material'
+import { Control, Controller, FieldErrorsImpl } from 'react-hook-form'
 import InputMask from 'react-input-mask'
-
-type Inputs = {
-  brokerageOrderNumber: string
-  tradingFlorDate: string
-  clientId: string
-}
+import { useGeneralInformationForm } from './generalInformationForm'
 
 type Props = {
-  control: Control<Inputs, any>
-  errors: Partial<
-    FieldErrorsImpl<{
-      brokerageOrderNumber: string
-      tradingFlorDate: string
-      clientId: string
-    }>
-  >
+  handleNextCallback: () => void
 }
 
-const GeneralInformation: React.FC<Props> = ({ control, errors }) => {
+const GeneralInformation: React.FC<Props> = ({ handleNextCallback }) => {
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitted, isDirty, isValid },
+    formState,
+  } = useGeneralInformationForm()
+
+  const handleNext = (data: any) => {
+    if (formState.isValid) {
+      handleNextCallback()
+    }
+  }
+
   return (
     <>
       <Typography variant="h6" gutterBottom>
@@ -97,6 +99,17 @@ const GeneralInformation: React.FC<Props> = ({ control, errors }) => {
             )}
           />
         </Grid>
+      </Grid>
+
+      <Grid container xs={12} md={12} justifyContent="flex-end" sx={{ mt: 3 }}>
+        <Button
+          disabled={!isValid && (isSubmitted || isDirty)}
+          onClick={handleSubmit(handleNext)}
+          variant="contained"
+          sx={{ mt: 3, ml: 1 }}
+        >
+          Next
+        </Button>
       </Grid>
     </>
   )
