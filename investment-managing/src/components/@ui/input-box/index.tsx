@@ -1,9 +1,9 @@
 import { FieldValues, UseFormRegisterReturn } from "react-hook-form"
 
 type TInputBox = {
-    register: UseFormRegisterReturn<string>
+    register?: UseFormRegisterReturn<string>
     title: string
-	errorMessage: string | undefined
+	errorMessage?: string | undefined
     type: React.HTMLInputTypeAttribute | undefined
     id: string
 }
@@ -11,7 +11,7 @@ type TInputBox = {
 export const InputBox: React.FC<TInputBox> = ({register, title, errorMessage: error, type, id}) => {
     return (
         <div className="mb-4 min-w-full">
-            <label htmlFor={id} className="block text-gray-700 font-bold mb-2">
+            <label htmlFor={id} className="block text-gray-700 font-bold">
                 {title}:
             </label>
             <input
