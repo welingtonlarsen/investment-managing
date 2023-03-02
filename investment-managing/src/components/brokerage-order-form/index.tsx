@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRegistrationForm } from "../../hooks/registration-form";
+import { BusinessSummary } from "./business-summary";
 import { Footer } from "./footer";
 import { GeneralInformation } from "./general-information"
 import { Orders } from "./orders";
@@ -33,11 +34,13 @@ export const BrokerageOrderForm = () => {
             await trigger('orders')
         }
        
-
         const isGeneralInformationTouched = Object.keys(touchedFields.generalInformation || {}).length > 0
         const withoutGeneralInformationErrors = !errors.generalInformation
         
         if(currentForm === 0 && isGeneralInformationTouched && withoutGeneralInformationErrors) {
+            setCurrentForm(currentForm + 1);
+        }
+        if(currentForm === 1) {
             setCurrentForm(currentForm + 1);
         }
     }
@@ -54,6 +57,9 @@ export const BrokerageOrderForm = () => {
                 </div>
                 <div className={`max-w-6xl ${currentForm !== 1 && 'hidden'}`}>
                     <Orders control={control} register={register} errors={errors}/>
+                </div>
+                <div className={`max-w-6xl ${currentForm !== 2 && 'hidden'}`}>
+                    <BusinessSummary />
                 </div>
                 <button type="button" onClick={() =>console.log(getValues())}>get values</button>
                 <Footer isNextDisabled={isNextDisabled()} isPreviousDisabled={true} showNext={true} showPrevious={true} handleNext={async () => await handleNext()} handlePrevious={handlePrevious}/>
