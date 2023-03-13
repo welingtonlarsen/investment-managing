@@ -4,6 +4,8 @@ import { BusinessSummary } from "./business-summary";
 import { Footer } from "./footer";
 import { GeneralInformation } from "./general-information"
 import { Orders } from "./orders";
+import { FinancialSummary } from "./financial-summary";
+import { Exchange } from "./exchange";
 
 export const BrokerageOrderForm = () => {
     const [currentForm, setCurrentForm] = useState(0);
@@ -12,6 +14,9 @@ export const BrokerageOrderForm = () => {
     const isNextDisabled = () => {
         const hasGeneralInformationErrors = !!errors.generalInformation
         const hasOrdersErrors = !!errors.orders
+        const hasBusinessSummaryErrors = !!errors.businessSummary
+        const hasClearingErrors = !!errors.financialSummary?.clearing
+        const hasExchangeErrors = !!errors.financialSummary?.clearing
 
         switch (currentForm) {
             case 0: {
@@ -19,6 +24,15 @@ export const BrokerageOrderForm = () => {
             }
             case 1: {
                 return hasOrdersErrors && !isValid;
+            }
+            case 2: {
+                return hasBusinessSummaryErrors && !isValid;
+            }
+            case 3: {
+                return hasClearingErrors && !isValid;
+            }
+            case 4: {
+                return hasExchangeErrors && !isValid;
             }
             default: {
                 return false;
@@ -33,14 +47,32 @@ export const BrokerageOrderForm = () => {
         if(currentForm === 1) {
             await trigger('orders')
         }
-       
+        if(currentForm === 2) {
+            await trigger('businessSummary')
+        }
+        if (currentForm === 3) {
+            await trigger('financialSummary.clearing')
+        }
+        if (currentForm === 4) {
+            await trigger('financialSummary.exchange')
+        }
+
         const isGeneralInformationTouched = Object.keys(touchedFields.generalInformation || {}).length > 0
         const withoutGeneralInformationErrors = !errors.generalInformation
-        
+
         if(currentForm === 0 && isGeneralInformationTouched && withoutGeneralInformationErrors) {
             setCurrentForm(currentForm + 1);
         }
         if(currentForm === 1) {
+            setCurrentForm(currentForm + 1);
+        }
+        if (currentForm === 2) {
+            setCurrentForm(currentForm + 1);
+        }
+        if (currentForm === 3) {
+            setCurrentForm(currentForm + 1);
+        }
+        if (currentForm === 3) {
             setCurrentForm(currentForm + 1);
         }
     }
@@ -59,7 +91,13 @@ export const BrokerageOrderForm = () => {
                     <Orders control={control} register={register} errors={errors}/>
                 </div>
                 <div className={`max-w-6xl ${currentForm !== 2 && 'hidden'}`}>
-                    <BusinessSummary />
+                    <BusinessSummary control={control} register={register} errors={errors}/>
+                </div>
+                <div className={`max-w-6xl ${currentForm !== 3 && 'hidden'}`}>
+                    <FinancialSummary control={control} register={register} errors={errors}/>
+                </div>
+                <div className={`max-w-6xl ${currentForm !== 4 && 'hidden'}`}>
+                    <Exchange control={control} register={register} errors={errors}/>
                 </div>
                 <button type="button" onClick={() =>console.log(getValues())}>get values</button>
                 <Footer isNextDisabled={isNextDisabled()} isPreviousDisabled={true} showNext={true} showPrevious={true} handleNext={async () => await handleNext()} handlePrevious={handlePrevious}/>

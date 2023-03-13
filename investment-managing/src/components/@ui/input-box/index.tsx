@@ -19,20 +19,20 @@ export const InputBox: React.FC<TInputBox> = ({register, title, errorMessage: er
         }
         return {};
     }
-    
+
     return (
-        <div className="mb-4 min-w-full">
+        <div>
             <label htmlFor={id} className="block text-gray-700 font-bold">
                 {title}:
             </label>
             <input
-            name={name}
-            {...registerReturn()}
-            id={id}
-            type={type}
-            className={`${error && 'border-red-600'} input`}
+              name={name}
+              {...registerReturn()}
+              id={id}
+              type={type}
+              className={`${error && 'border-red-600'} input`}
             />
-            <p className="text-red-600 mt-1">{error}</p>
+            <p className="text-red-600">{error}</p>
         </div>
     )
 }
