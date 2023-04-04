@@ -50,7 +50,7 @@ export const Orders: React.FC<TRegistrationFormProps> = ({ control, register, er
             <div onClick={handdleAppend} className="w-12 h-12 flex justify-center items-center">
                 <PlusCircle className="w-10 h-10 hover:w-12 hover:h-12 hover:cursor-pointer hover:fill-green-100 stroke-green-600 stroke-2"/>
             </div>
-            
+
         </div>
 
     )

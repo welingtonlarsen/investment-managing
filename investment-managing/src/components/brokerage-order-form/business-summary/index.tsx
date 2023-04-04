@@ -7,91 +7,84 @@ import {
 import { InputBox } from "../../@ui/input-box";
 
 export const BusinessSummary: React.FC<TRegistrationFormProps> = ({register, errors}) => {
+    const { businessSummary: businessSummaryErrors } = errors
+
+    const fields = [
+        {
+            id: 'debentures',
+            title: 'Debentures',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.debentures?.message,
+            inputProps: {...register('businessSummary.debentures')}
+        },
+        {
+            id: 'sellInCash',
+            title: 'Vendas à vista',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.sellInCash?.message,
+            inputProps: {...register('businessSummary.sellInCash')}
+        },
+        {
+            id: 'buyInCash',
+            title: 'Compras à vista',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.buyInCash?.message,
+            inputProps: {...register('businessSummary.buyInCash')}
+        },
+        {
+            id: 'optionsBuy',
+            title: 'Opções - compra',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.optionsBuy?.message,
+            inputProps: {...register('businessSummary.optionsBuy')}
+        },
+        {
+            id: 'optionsSell',
+            title: 'Opções - venda',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.optionsSell?.message,
+            inputProps: {...register('businessSummary.optionsSell')}
+        },
+        {
+            id: 'termOptions',
+            title: 'Operações a termo',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.termOptions?.message,
+            inputProps: {...register('businessSummary.termOptions')}
+        },
+        {
+            id: 'federalSecurities',
+            title: 'Valor das oper. c/ título púb',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.federalSecurities?.message,
+            inputProps: {...register('businessSummary.federalSecurities')}
+        },
+        {
+            id: 'operationValues',
+            title: 'Valor das operações',
+            type: 'number',
+            errorMessage: businessSummaryErrors?.operationValues?.message,
+            inputProps: {...register('businessSummary.operationValues')}
+        }
+    ]
+
     return(
         <div className="flex flex-col">
             <div className="grid grid-cols-4 gap-2">
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Debentures'}
-                      id={TBusinessSummary.debentures}
-                      errorMessage={errors?.businessSummary?.debentures?.message}
-                      type={'number'}
-                      formStep={FormStep.debentures}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Vendas à vista'}
-                      id={TBusinessSummary.sellInCash}
-                      errorMessage={errors?.businessSummary?.sellInCash?.message}
-                      type={'number'}
-                      formStep={FormStep.sellInCash}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Compras à vista'}
-                      id={TBusinessSummary.buyInCash}
-                      errorMessage={errors?.businessSummary?.buyInCash?.message}
-                      type={'number'}
-                      formStep={FormStep.buyInCash}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Opções - compra'}
-                      id={TBusinessSummary.optionsBuy}
-                      errorMessage={errors?.businessSummary?.optionsBuy?.message}
-                      type={'number'}
-                      formStep={FormStep.optionsBuy}
-                    />
-                </div>
-            </div>
-            <div className="grid grid-cols-4 gap-2">
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Opções - venda'}
-                      id={TBusinessSummary.optionsSell}
-                      errorMessage={errors?.businessSummary?.optionsSell?.message}
-                      type={'number'}
-                      formStep={FormStep.optionsSell}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Operações a termo'}
-                      id={TBusinessSummary.termOptions}
-                      errorMessage={errors?.businessSummary?.termOptions?.message}
-                      type={'number'}
-                      formStep={FormStep.termOptions}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Valor das oper. c/ título púb'}
-                      id={TBusinessSummary.federalSecurities}
-                      errorMessage={errors?.businessSummary?.federalSecurities?.message}
-                      type={'number'}
-                      formStep={FormStep.federalSecurities}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <InputBox
-                      register={register}
-                      title={'Valor das operações'}
-                      id={TBusinessSummary.operationValues}
-                      errorMessage={errors?.businessSummary?.operationValues?.message}
-                      type={'number'}
-                      formStep={FormStep.operationValues}
-                    />
-                </div>
+                {
+                    fields.map(({id, title, type, errorMessage, inputProps}, key) => {
+                        return (
+                          <InputBox
+                            key={key}
+                            id={id}
+                            title={title}
+                            type={type}
+                            errorMessage={errorMessage}
+                            inputProps={inputProps}
+                          />
+                        )
+                    })
+                }
             </div>
         </div>
     )
