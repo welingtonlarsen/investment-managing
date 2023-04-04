@@ -28,6 +28,34 @@ export enum FormStep {
 	clearingRegistryFeeDorC = 'financialSummary.clearing.registryFeeDorC',
 	clearingTotalCblc = 'financialSummary.clearing.totalCblc',
 	clearingTotalCblcDorC = 'financialSummary.clearing.totalCblcDorC',
+
+	termOrOptionsFee = 'financialSummary.exchange.termOrOptionsFee',
+	termOrOptionsFeeDorC = 'financialSummary.exchange.termOrOptionsFeeDorC',
+	anaFee = 'financialSummary.exchange.anaFee',
+	anaFeeDorC = 'financialSummary.exchange.anaFeeDorC',
+	fees = 'financialSummary.exchange.fees',
+	feesDorC = 'financialSummary.exchange.feesDorC',
+	total = 'financialSummary.exchange.total',
+	totalDorC = 'financialSummary.exchange.totalDorC',
+
+	operationalFee = 'financialSummary.operationalCosts.operationalFee',
+	operationalFeeDorC = 'financialSummary.operationalCosts.operationalFeeDorC',
+	execution = 'financialSummary.operationalCosts.execution',
+	executionDorC = 'financialSummary.operationalCosts.executionDorC',
+	custody = 'financialSummary.operationalCosts.custody',
+	custodyDorC = 'financialSummary.operationalCosts.custodyDorC',
+	taxes = 'financialSummary.operationalCosts.taxes',
+	taxesDorC = 'financialSummary.operationalCosts.taxesDorC',
+	irrf = 'financialSummary.operationalCosts.irrf',
+	irrfDorC = 'financialSummary.operationalCosts.irrfDorC',
+	others = 'financialSummary.operationalCosts.others',
+	othersDorC = 'financialSummary.operationalCosts.othersDorC',
+	totalCosts = 'financialSummary.operationalCosts.totalCosts',
+	totalCostsDorC = 'financialSummary.operationalCosts.totalCostsDorC',
+
+	netDate = 'total.netDate',
+	netValue = 'total.netValue',
+	netValueDorC = 'total.netValueDorC',
 }
 
 export enum TOrderProp {
@@ -65,6 +93,22 @@ export enum TExchange {
 	anaFee = 'anaFee',
 	fees = 'fees',
 	total = 'total'
+}
+
+export enum TOperationalCosts {
+	operationalFee = 'operationalFee',
+	execution = 'execution',
+	custody = 'custody',
+	taxes = 'taxes',
+	irrf = 'irrf',
+	others = 'others',
+	totalCosts = 'totalCosts'
+}
+
+export enum TTotal {
+	netDate = 'netDate',
+	netValue = 'netValue',
+	netValueDorC = 'netValueDorC'
 }
 
 export type TRegistrationForm = {
@@ -113,7 +157,28 @@ export type TRegistrationForm = {
 			feesDorC: string | undefined,
 			total: number,
 			totalDorC: string | undefined,
+		},
+		operationCosts: {
+			operationalFee: number,
+			operationalFeeDorC: string | undefined,
+			execution: number,
+			executionDorC: string | undefined,
+			custody: number,
+			custodyDorC: string | undefined,
+			taxes: number,
+			taxesDorC: string | undefined,
+			irrf: number,
+			irrfDorC: string | undefined,
+			others: number,
+			othersDorC: string | undefined,
+			totalCosts: number,
+			totalCostsDorC: string | undefined,
 		}
+	},
+	total: {
+		netDate: Date,
+		netValue: number,
+		netValueDorC: string | undefined
 	}
 }
 

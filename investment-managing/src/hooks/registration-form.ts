@@ -63,6 +63,27 @@ const schema: yup.SchemaOf<TRegistrationForm> = yup.object({
         total: yup.number().required('Total é obrigatório.').typeError('Total é obrigatório.'),
         totalDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.')
       }),
+      operationCosts: yup.object({
+        operationalFee: yup.number().required('Taxa operacional é obrigatório.').typeError('Taxa operacional é obrigatório.'),
+        operationalFeeDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.'),
+        execution: yup.number().required('Execução é obrigatório.').typeError('Execução é obrigatório.'),
+        executionDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.'),
+        custody: yup.number().required('Custódia é obrigatório.').typeError('Custódia é obrigatório.'),
+        custodyDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.'),
+        taxes: yup.number().required('Impostos é obrigatório.').typeError('Impostos é obrigatório.'),
+        taxesDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.'),
+        irrf: yup.number().required('IRRF é obrigatório.').typeError('IRRF é obrigatório.'),
+        irrfDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.'),
+        others: yup.number().required('Outros é obrigatório.').typeError('Outros é obrigatório.'),
+        othersDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.'),
+        totalCosts: yup.number().required('Total de custos é obrigatório.').typeError('Total de custos é obrigatório.'),
+        totalCostsDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.')
+      })
+    }),
+    total: yup.object({
+      netDate: yup.date().required('Data líquida é obrigatório.').typeError('Data líquida é obrigatório.'),
+      netValue: yup.number().required('Valor líquido é obrigatório.').typeError('Valor líquido é obrigatório.'),
+      netValueDorC: yup.string().required('D/C é obrigatório.').typeError('D/C é obrigatório.')
     })
 })
 

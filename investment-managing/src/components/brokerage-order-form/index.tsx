@@ -6,6 +6,8 @@ import { GeneralInformation } from "./general-information"
 import { Orders } from "./orders";
 import { FinancialSummary } from "./financial-summary";
 import { Exchange } from "./exchange";
+import { OperationCosts } from "./operational-costs";
+import { Total } from "./total";
 
 export const BrokerageOrderForm = () => {
     const [currentForm, setCurrentForm] = useState(0);
@@ -16,7 +18,10 @@ export const BrokerageOrderForm = () => {
         const hasOrdersErrors = !!errors.orders
         const hasBusinessSummaryErrors = !!errors.businessSummary
         const hasClearingErrors = !!errors.financialSummary?.clearing
-        const hasExchangeErrors = !!errors.financialSummary?.clearing
+        const hasExchangeErrors = !!errors.financialSummary?.exchange
+        const hasOperationCostsErrors = !!errors.financialSummary?.operationCosts
+
+        console.log(currentForm)
 
         switch (currentForm) {
             case 0: {
@@ -33,6 +38,9 @@ export const BrokerageOrderForm = () => {
             }
             case 4: {
                 return hasExchangeErrors && !isValid;
+            }
+            case 5: {
+                return hasOperationCostsErrors && !isValid;
             }
             default: {
                 return false;
@@ -56,6 +64,9 @@ export const BrokerageOrderForm = () => {
         if (currentForm === 4) {
             await trigger('financialSummary.exchange')
         }
+        if (currentForm === 5) {
+            await trigger('total')
+        }
 
         const isGeneralInformationTouched = Object.keys(touchedFields.generalInformation || {}).length > 0
         const withoutGeneralInformationErrors = !errors.generalInformation
@@ -72,13 +83,24 @@ export const BrokerageOrderForm = () => {
         if (currentForm === 3) {
             setCurrentForm(currentForm + 1);
         }
-        if (currentForm === 3) {
+        if (currentForm === 4) {
+            setCurrentForm(currentForm + 1);
+        }
+        if (currentForm === 5) {
             setCurrentForm(currentForm + 1);
         }
     }
 
     const handlePrevious = () => {
         setCurrentForm(currentForm - 1);
+    }
+
+    const showSubmit = () => {
+        return currentForm === 6;
+    }
+
+    const handleFormSubmit = () => {
+        console.log(getValues())
     }
 
     return (
@@ -99,8 +121,13 @@ export const BrokerageOrderForm = () => {
                 <div className={`max-w-6xl ${currentForm !== 4 && 'hidden'}`}>
                     <Exchange control={control} register={register} errors={errors}/>
                 </div>
-                <button type="button" onClick={() =>console.log(getValues())}>get values</button>
-                <Footer isNextDisabled={isNextDisabled()} isPreviousDisabled={true} showNext={true} showPrevious={true} handleNext={async () => await handleNext()} handlePrevious={handlePrevious}/>
+                <div className={`max-w-6xl ${currentForm !== 5 && 'hidden'}`}>
+                    <OperationCosts control={control} register={register} errors={errors}/>
+                </div>
+                <div className={`max-w-6xl ${currentForm !== 6 && 'hidden'}`}>
+                    <Total control={control} register={register} errors={errors}/>
+                </div>
+                <Footer isNextDisabled={isNextDisabled()} isPreviousDisabled={true} showNext={true} showPrevious={true} handleNext={async () => await handleNext()} handlePrevious={handlePrevious} showSubmit={showSubmit()} handleSubmit={() => handleFormSubmit()}/>
             </form>
         </div>
     )
