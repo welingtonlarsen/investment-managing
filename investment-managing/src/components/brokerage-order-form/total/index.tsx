@@ -1,4 +1,4 @@
-import { FormStep, TGeneralInformation, TRegistrationFormProps, TTotal } from "../../../types/registration-form";
+import { FormStep, TRegistrationFormProps, TTotal } from "../../../types/registration-form";
 import { InputBox } from "../../@ui/input-box";
 import { SelectBox } from "../../@ui/select-box";
 import React from "react";

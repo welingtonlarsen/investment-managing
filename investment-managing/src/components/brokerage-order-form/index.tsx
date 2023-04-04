@@ -127,6 +127,7 @@ export const BrokerageOrderForm = () => {
                 <div className={`max-w-6xl ${currentForm !== 6 && 'hidden'}`}>
                     <Total control={control} register={register} errors={errors}/>
                 </div>
+                <button type={'button'} onClick={() => console.log(getValues())}>getValues</button>
                 <Footer isNextDisabled={isNextDisabled()} isPreviousDisabled={true} showNext={true} showPrevious={true} handleNext={async () => await handleNext()} handlePrevious={handlePrevious} showSubmit={showSubmit()} handleSubmit={() => handleFormSubmit()}/>
             </form>
         </div>

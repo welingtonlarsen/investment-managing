@@ -1,20 +1,24 @@
-import { FieldValues, UseFormRegister, UseFormRegisterReturn } from "react-hook-form"
-import { FormStep, TGeneralInformation, TRegistrationForm } from "../../../types/registration-form"
+import { UseFormRegister } from "react-hook-form"
+import { TRegistrationForm } from "../../../types/registration-form"
+import { DetailedHTMLProps, InputHTMLAttributes } from "react";
 
 type TInputBox = {
-    register: UseFormRegister<TRegistrationForm>
-    title: string
-	errorMessage?: string | undefined
-    type: React.HTMLInputTypeAttribute | undefined
-    id: string
-    formStep: any
-    index?: number
-    name?: string
+  id: string
+  title: string
+  type: React.HTMLInputTypeAttribute | undefined
+  errorMessage?: string | undefined
+  inputProps?: DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+
+  // todo: remove all these props, because it should be parent component responsibility
+  register?: UseFormRegister<TRegistrationForm>
+  formStep?: any
+  index?: number
+  name?: string
 }
 
-export const InputBox: React.FC<TInputBox> = ({register, title, errorMessage: error, type, id, formStep, name}) => {
+export const InputBox: React.FC<TInputBox> = ({register, title, errorMessage: error, type, id, formStep, name, inputProps}) => {
     const registerReturn = () => {
-        if(register) {
+        if(register && formStep) {
             return register(formStep);
         }
         return {};
@@ -28,6 +32,7 @@ export const InputBox: React.FC<TInputBox> = ({register, title, errorMessage: er
             <input
               name={name}
               {...registerReturn()}
+              {...inputProps}
               id={id}
               type={type}
               className={`${error && 'border-red-600'} input`}

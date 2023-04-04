@@ -1,11 +1,5 @@
 import { Control, FieldErrors, UseFormRegister } from "react-hook-form"
 
-export enum TGeneralInformation {
-	brokerageOrderNumber = 'brokerageOrderNumber',
-	tradingFlorDate = 'tradingFlorDate',
-	clientId = 'clientId'
-}
-
 export enum FormStep {
 	brokerageOrderNumber = 'generalInformation.brokerageOrderNumber',
 	tradingFlorDate = 'generalInformation.tradingFlorDate',
@@ -186,7 +180,7 @@ export type TRegistrationFormProps = {
 	control?: Control<TRegistrationForm, any>
 	register: UseFormRegister<TRegistrationForm>
 	errors: FieldErrors<TRegistrationForm>
-	name?: TOrderProp | TGeneralInformation | TFinancialSummary | string
+	name?: TOrderProp | TFinancialSummary | string
 	title?: string
 	options?: {value: string, title: string}[]
 	index?: number
