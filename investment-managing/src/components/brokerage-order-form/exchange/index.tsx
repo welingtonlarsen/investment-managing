@@ -1,63 +1,57 @@
 import React from "react";
-import { FormStep, TExchange, TFinancialSummary, TRegistrationFormProps } from "../../../types/registration-form";
+import { FormStep, TExchange, TRegistrationFormProps } from "../../../types/registration-form";
 import { InputBox } from "../../@ui/input-box";
-import { SelectBox } from "../../@ui/select-box";
 
 export const Exchange: React.FC<TRegistrationFormProps> = ({register, errors}) => {
+  const { financialSummary: financialSummaryErrors } = errors;
+
+  const fields = [
+    {
+      id: 'termOrOptionsFee',
+      title: 'Taxa termo/opc',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.exchange?.termOrOptionsFee?.message,
+      inputProps: {...register('financialSummary.exchange.termOrOptionsFee')}
+    },
+    {
+      id: 'anaFee',
+      title: 'Taxa A.N.A',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.exchange?.anaFee?.message,
+      inputProps: {...register('financialSummary.exchange.anaFee')}
+    },
+    {
+      id: 'fees',
+      title: 'Emolumentos',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.exchange?.fees?.message,
+      inputProps: {...register('financialSummary.exchange.fees')}
+    },
+    {
+      id: 'total',
+      title: 'Total Bovespa',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.exchange?.total?.message,
+      inputProps: {...register('financialSummary.exchange.total')}
+    }
+  ]
+
   return (
     <div className='grid grid-cols-4 gap-2'>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Taxa termo/opc'
-          id={TExchange.termOrOptionsFee}
-          errorMessage={errors?.financialSummary?.exchange?.termOrOptionsFee?.message}
-          type={'number'}
-          formStep={FormStep.termOrOptionsFee}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.termOrOptionsFeeDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Taxa A.N.A'
-          id={TExchange.anaFee}
-          errorMessage={errors?.financialSummary?.exchange?.anaFee?.message}
-          type={'number'}
-          formStep={FormStep.anaFee}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.anaFeeDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Emolumentos'
-          id={TExchange.fees}
-          errorMessage={errors?.financialSummary?.exchange?.fees?.message}
-          type={'number'}
-          formStep={FormStep.fees}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.feesDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Total Bovespa'
-          id={TExchange.total}
-          errorMessage={errors?.financialSummary?.exchange?.total?.message}
-          type={'number'}
-          formStep={FormStep.total}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.totalDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
+      {
+        fields.map(({id, title, type, errorMessage, inputProps}, key) => {
+          return (
+            <InputBox
+              key={key}
+              id={id}
+              title={title}
+              type={type}
+              errorMessage={errorMessage}
+              inputProps={inputProps}
+            />
+          )
+        })
+      }
     </div>
   )
 }

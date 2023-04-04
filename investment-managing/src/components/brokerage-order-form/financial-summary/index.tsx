@@ -4,7 +4,7 @@ import {
 import { InputBox } from "../../@ui/input-box";
 import React from "react";
 
-// todo: change component name to clearing
+// todo: change component name to clearing ou unificar com exchange
 export const FinancialSummary: React.FC<TRegistrationFormProps> = ({register, errors}) => {
   const { financialSummary: financialSummaryErrors } = errors;
 
