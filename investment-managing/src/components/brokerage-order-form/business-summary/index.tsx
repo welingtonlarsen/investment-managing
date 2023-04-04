@@ -1,7 +1,5 @@
 import React from "react";
 import {
-    FormStep,
-    TBusinessSummary,
     TRegistrationFormProps
 } from "../../../types/registration-form";
 import { InputBox } from "../../@ui/input-box";

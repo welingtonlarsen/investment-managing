@@ -1,68 +1,60 @@
 import {
-  FormStep,
-  TBusinessSummary,
-  TFinancialSummary, TOrderProp,
   TRegistrationFormProps
 } from "../../../types/registration-form";
 import { InputBox } from "../../@ui/input-box";
 import React from "react";
-import { SelectBox } from "../../@ui/select-box";
 
+// todo: change component name to clearing
 export const FinancialSummary: React.FC<TRegistrationFormProps> = ({register, errors}) => {
+  const { financialSummary: financialSummaryErrors } = errors;
+
+  const fields = [
+    {
+      id: 'operationsNetValue',
+      title: 'Valor líq op',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.clearing?.operationsNetValue?.message,
+      inputProps: {...register('financialSummary.clearing.operationsNetValue')}
+    },
+    {
+      id: 'settlementFee',
+      title: 'Taxa liquidação',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.clearing?.settlementFee?.message,
+      inputProps: {...register('financialSummary.clearing.settlementFee')}
+    },
+    {
+      id: 'registryFee',
+      title: 'Taxa registro',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.clearing?.registryFee?.message,
+      inputProps: {...register('financialSummary.clearing.registryFee')}
+    },
+    {
+      id: 'totalCblc',
+      title: 'Total CBLC',
+      type: 'number',
+      errorMessage: financialSummaryErrors?.clearing?.totalCblc?.message,
+      inputProps: {...register('financialSummary.clearing.totalCblc')}
+    }
+  ]
+
   return (
     <div className='grid grid-cols-4 gap-2'>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Valor líq op'
-          id={TFinancialSummary.operationsNetValue}
-          errorMessage={errors?.financialSummary?.clearing?.operationsNetValue?.message}
-          type={'number'}
-          formStep={FormStep.clearingOperationsNetValue}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.clearingOperationsNetValueDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Taxa liquidação'
-          id={TFinancialSummary.settlementFee}
-          errorMessage={errors?.financialSummary?.clearing?.settlementFee?.message}
-          type={'number'}
-          formStep={FormStep.clearingSettlementFee}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.clearingSettlementFeeDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Taxa registro'
-          id={TFinancialSummary.registryFee}
-          errorMessage={errors?.financialSummary?.clearing?.registryFee?.message}
-          type={'number'}
-          formStep={FormStep.clearingRegistryFee}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.clearingRegistryFeeDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
-      <div className="col-span-1">
-        <InputBox
-          register={register}
-          title='Total CBLC'
-          id={TFinancialSummary.totalCblc}
-          errorMessage={errors?.financialSummary?.clearing?.totalCblc?.message}
-          type={'number'}
-          formStep={FormStep.clearingTotalCblc}
-        />
-      </div>
-      <div className="col-span-1">
-        <SelectBox name={FormStep.clearingTotalCblcDorC} register={register} errors={errors} title="D/C" options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}/>
-      </div>
+        {
+          fields.map(({id, title, type, errorMessage, inputProps}, key) => {
+            return (
+              <InputBox
+                key={key}
+                id={id}
+                title={title}
+                type={type}
+                errorMessage={errorMessage}
+                inputProps={inputProps}
+              />
+            )
+          })
+        }
     </div>
   )
 }
