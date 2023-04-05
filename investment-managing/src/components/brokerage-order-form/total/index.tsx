@@ -9,28 +9,30 @@ export const Total: React.FC<TRegistrationFormProps> = ({register, errors}) => {
   return (
     <>
       <InputBox
-        register={register}
+        id={'netDate'}
         title={'Líquido para'}
-        id={TTotal.netDate}
-        errorMessage={totalErrors?.netDate?.message}
         type={'date'}
-        formStep='total.netDate'
+        errorMessage={totalErrors?.netDate?.message}
+        inputProps={{...register('total.netDate')}}
       />
       <InputBox
-        register={register}
-        title={'Valor total'}
         id={TTotal.netValue}
-        errorMessage={totalErrors?.netValue?.message}
+        title={'Valor total'}
         type={'number'}
-        formStep='total.netValue'
+        errorMessage={totalErrors?.netValue?.message}
+        inputProps={{...register('total.netValue')}}
       />
       <div className="col-span-1">
         <SelectBox
-          name={FormStep.netValueDorC}
+          id={'netValueDorC'}
+          title={'D/C'}
+          options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}
+          inputProps={{...register('total.netValueDorC')}}
+          name={'total.netValueDorC'}
+
+          // todo: remove
           register={register}
           errors={errors}
-          title="D/C"
-          options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}
         />
       </div>
     </>
