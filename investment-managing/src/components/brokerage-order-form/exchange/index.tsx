@@ -1,5 +1,5 @@
 import React from "react";
-import { FormStep, TExchange, TRegistrationFormProps } from "../../../types/registration-form";
+import { TRegistrationFormProps } from "../../../types/registration-form";
 import { InputBox } from "../../@ui/input-box";
 
 export const Exchange: React.FC<TRegistrationFormProps> = ({register, errors}) => {
