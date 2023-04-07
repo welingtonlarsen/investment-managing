@@ -41,7 +41,6 @@ export const Footer: React.FC<TFooter> = ({isNextDisabled, isPreviousDisabled, s
               </button>
             )
           }
-
         </div>
     );
 }

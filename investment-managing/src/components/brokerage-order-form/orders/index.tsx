@@ -95,7 +95,6 @@ export const Orders: React.FC<TRegistrationFormProps> = ({ control, register, er
                                         title={title}
                                         options={options}
                                         inputProps={inputProps}
-                                        name={name}
 
                                         // todo: remove
                                         register={register}

@@ -11,6 +11,7 @@ import { Total } from "./total";
 
 export const BrokerageOrderForm = () => {
     const [currentForm, setCurrentForm] = useState(0);
+    
     const { register, control, handleSubmit, formState: { errors, isValid, isDirty, touchedFields }, trigger, getValues, watch } = useRegistrationForm();
 
     const isNextDisabled = () => {
@@ -21,7 +22,7 @@ export const BrokerageOrderForm = () => {
         const hasExchangeErrors = !!errors.financialSummary?.exchange
         const hasOperationCostsErrors = !!errors.financialSummary?.operationCosts
 
-        console.log(currentForm)
+        console.log(errors.financialSummary?.clearing)
 
         switch (currentForm) {
             case 0: {
@@ -70,23 +71,33 @@ export const BrokerageOrderForm = () => {
 
         const isGeneralInformationTouched = Object.keys(touchedFields.generalInformation || {}).length > 0
         const withoutGeneralInformationErrors = !errors.generalInformation
+        const isOrdersTouched = Object.keys(touchedFields.orders || {}).length > 0;
+        const withoutOrdersErrors = !errors.orders;
+        const isBusinessSummaryTouched = Object.keys(touchedFields.businessSummary || {}).length > 0;
+        const withoutBusinessSummaryErrors = !errors.businessSummary;
+        const isClearingTouched = Object.keys(touchedFields.financialSummary?.clearing || {}).length > 0;
+        const withoutClearingErrors = !errors.financialSummary?.clearing;
+        const isExchangeTouched = Object.keys(touchedFields.financialSummary?.exchange || {}).length > 0;
+        const withoutExchangeErrors = !errors.financialSummary?.exchange;
+        const isOperationCostsTouched = Object.keys(touchedFields.financialSummary?.operationCosts || {}).length > 0;
+        const withoutOperationCostsErrors = !errors.financialSummary?.operationCosts;
 
         if(currentForm === 0 && isGeneralInformationTouched && withoutGeneralInformationErrors) {
             setCurrentForm(currentForm + 1);
         }
-        if(currentForm === 1) {
+        if(currentForm === 1 && isOrdersTouched && withoutOrdersErrors) {
             setCurrentForm(currentForm + 1);
         }
-        if (currentForm === 2) {
+        if (currentForm === 2 && isBusinessSummaryTouched && withoutBusinessSummaryErrors) {
             setCurrentForm(currentForm + 1);
         }
-        if (currentForm === 3) {
+        if (currentForm === 3 && isClearingTouched && withoutClearingErrors) {
             setCurrentForm(currentForm + 1);
         }
-        if (currentForm === 4) {
+        if (currentForm === 4 && isExchangeTouched && withoutExchangeErrors) {
             setCurrentForm(currentForm + 1);
         }
-        if (currentForm === 5) {
+        if (currentForm === 5 && isOperationCostsTouched && withoutOperationCostsErrors) {
             setCurrentForm(currentForm + 1);
         }
     }
@@ -100,7 +111,17 @@ export const BrokerageOrderForm = () => {
     }
 
     const handleFormSubmit = () => {
-        console.log(getValues())
+        const isLastStepFieldsTouched = Object.keys(touchedFields.total|| {}).length > 0;
+        const withoutLastStepErrors = !errors.total;
+
+        if(isLastStepFieldsTouched && withoutLastStepErrors) {
+            // submit
+            console.log(getValues());
+        } else {
+            console.log('tem erro');
+        }
+
+
     }
 
     return (

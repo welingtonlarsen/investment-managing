@@ -1,4 +1,4 @@
-import { FormStep, TRegistrationFormProps, TTotal } from "../../../types/registration-form";
+import { TRegistrationFormProps } from "../../../types/registration-form";
 import { InputBox } from "../../@ui/input-box";
 import { SelectBox } from "../../@ui/select-box";
 import React from "react";
@@ -16,7 +16,7 @@ export const Total: React.FC<TRegistrationFormProps> = ({register, errors}) => {
         inputProps={{...register('total.netDate')}}
       />
       <InputBox
-        id={TTotal.netValue}
+        id={'netValue'}
         title={'Valor total'}
         type={'number'}
         errorMessage={totalErrors?.netValue?.message}
@@ -28,7 +28,6 @@ export const Total: React.FC<TRegistrationFormProps> = ({register, errors}) => {
           title={'D/C'}
           options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}
           inputProps={{...register('total.netValueDorC')}}
-          name={'total.netValueDorC'}
 
           // todo: remove
           register={register}
