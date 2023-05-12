@@ -67,6 +67,7 @@ const schema: yup.SchemaOf<TRegistrationForm> = yup.object({
     total: yup.object({
       netDate: yup.date().required('Data líquida é obrigatório.').typeError('Data líquida é obrigatório.'),
       netValue: yup.number().required('Valor líquido é obrigatório.').typeError('Valor líquido é obrigatório.'),
+      netValueDorC: yup.string().required()
     })
 })
 

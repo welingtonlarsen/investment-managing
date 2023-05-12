@@ -28,10 +28,6 @@ export const Total: React.FC<TRegistrationFormProps> = ({register, errors}) => {
           title={'D/C'}
           options={[{value: 'DEBIT', title: 'Débito'}, {value: 'CREDIT', title: 'Crédito'}]}
           inputProps={{...register('total.netValueDorC')}}
-
-          // todo: remove
-          register={register}
-          errors={errors}
         />
       </div>
     </>
