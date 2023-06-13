@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigType } from '@nestjs/config';
 import { BrokerageOrderModule } from './brokerage-order/brokerage-order.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import databaseConfig from '../config/database.config';
 import { BrokerageOrder } from './brokerage-order/adapter/repository/entity/brokerage-order.db.entity';
 import { GeneralInformation } from './brokerage-order/adapter/repository/entity/general-information.typeorm.entity';
 import {
@@ -15,29 +17,31 @@ import { BusinessSummary } from './brokerage-order/adapter/repository/entity/bus
 @Module({
   imports: [
     BrokerageOrderModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3308,
-      username: 'root',
-      password: 'root',
-      database: 'investment-managing',
-      // entities: [__dirname + '/../../../../**/*.entity{.ts,.js}'],
-      synchronize: true,
-      entities: [
-        BrokerageOrder,
-        GeneralInformation,
-        Order,
-        BusinessSummary,
-        Clearing,
-        Exchange,
-        OperationalCosts,
-        FinancialSummary,
-      ],
-      logging: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule.forRoot({ load: [databaseConfig] })],
+      useFactory: (configDatabase: ConfigType<typeof databaseConfig>): TypeOrmModuleOptions => ({
+        type: configDatabase.type,
+        host: configDatabase.host,
+        port: configDatabase.port,
+        username: configDatabase.username,
+        password: configDatabase.password,
+        entities: [
+          BrokerageOrder,
+          GeneralInformation,
+          Order,
+          BusinessSummary,
+          Clearing,
+          Exchange,
+          OperationalCosts,
+          FinancialSummary,
+        ],
+        logging: true,
+        synchronize: true,
+        database: configDatabase.database,
+      }),
+      inject: [databaseConfig.KEY]
     }),
   ],
-  //controllers: [AppController],
-  //providers: [AppService],
 })
 export class AppModule {}

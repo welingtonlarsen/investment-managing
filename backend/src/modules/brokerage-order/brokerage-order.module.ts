@@ -13,6 +13,7 @@ import {
   OperationalCosts,
 } from './adapter/repository/entity/financial-summary.typeorm.entity';
 import { BusinessSummary } from './adapter/repository/entity/business-summary.typeorm.entity';
+import { provideBrokerageOrderRepository } from './brokerage-order.repository.provider';
 
 @Module({
   imports: [
@@ -28,6 +29,6 @@ import { BusinessSummary } from './adapter/repository/entity/business-summary.ty
     ]),
   ],
   controllers: [BrokerageOrderController],
-  providers: [BrokerageOrderService, BrokerageOrderTypeormRepository],
+  providers: [BrokerageOrderService, ...provideBrokerageOrderRepository()],
 })
 export class BrokerageOrderModule {}

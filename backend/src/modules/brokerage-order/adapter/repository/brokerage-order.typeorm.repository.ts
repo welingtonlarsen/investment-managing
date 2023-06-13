@@ -9,7 +9,7 @@ import {
   FinancialSummary,
   OperationalCosts,
 } from './entity/financial-summary.typeorm.entity';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { BrokerageOrderEntity } from '../../domain/entity/brokerage-order.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
@@ -17,15 +17,15 @@ import {
   Pagination,
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
+import { BrokerageOrderRepository } from './brokerage-order.interface';
 
 @Injectable()
-export class BrokerageOrderTypeormRepository {
+export class BrokerageOrderTypeormRepository implements BrokerageOrderRepository {
   constructor(
-    @InjectRepository(BrokerageOrder)
     private readonly brokerageOrderRepository: Repository<BrokerageOrder>,
   ) {}
 
-  async save(entity: BrokerageOrderEntity): Promise<any> {
+  async save(entity: BrokerageOrderEntity): Promise<void> {
     const { generalInformation, orders, businessSummary, financialSummary } =
       entity;
     const { clearing, exchange, operationalCosts } = financialSummary;
