@@ -1,20 +1,17 @@
-import { useState } from 'react'
 import './App.css'
-import IncomePage from './pages/income'
-
-import {Button} from 'primereact/button';
-import 'primereact/resources/themes/saga-blue/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import CssBaseline from '@mui/material/CssBaseline';
+import LayoutPage from './pages/layout';
 
 function App() {
   return (
-    <>
-      <div>
-        <IncomePage />
-      </div>
-    </>
+    <div>
+      <CssBaseline />
+      <LayoutPage />
+    </div>
   )
 }
 
