@@ -1,6 +1,6 @@
-import { TBrokerageNote } from "../../utils/types/brokerage-note.type";
+import { TBrokerageNoteSummary } from "../../utils/types/brokerage-note-summary.type";
 
-export const brokerageNotes: TBrokerageNote[] = [
+export const brokerageNotes: TBrokerageNoteSummary[] = [
     {
       id: 1,
       date: '2015-09-13',

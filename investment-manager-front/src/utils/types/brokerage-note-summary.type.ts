@@ -1,4 +1,4 @@
-export type TBrokerageNote = {
+export type TBrokerageNoteSummary = {
     id: number,
     date: string,
     exchange: string,

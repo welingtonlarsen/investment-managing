@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import Header from "../../components/header";
-import IncomePage from "../income";
+import BrokerageNotesPage from "../brokerage-notes-table";
 
 const LayoutPage = () => {
     return (
@@ -8,7 +8,7 @@ const LayoutPage = () => {
             <Box sx={{mb: 3}}>
                 <Header />
             </Box>
-            <IncomePage />
+            <BrokerageNotesPage />
         </>
     )
 }

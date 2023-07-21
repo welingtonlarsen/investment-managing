@@ -12,7 +12,7 @@ const formatMoney = (value: number) => {
     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 }
 
-export default function Income() {
+export default function BrokerageNotesTable() {
     return (
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
