@@ -2,8 +2,8 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Grid, IconButton, Typography } from '@mui/material';
-import { useFieldArray, useForm } from 'react-hook-form';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useBrokerageNoteForm } from '../../hooks/useBrokerageNoteForm';
 
 
 type FormValues = {
@@ -35,23 +35,7 @@ const defaultOrder = {
 
 const BrokerageNoteForm = () => {
 
-    const form = useForm<FormValues>({
-        defaultValues: {
-            number: undefined,
-            date: '',
-            client: '',
-            orders: [
-                defaultOrder
-            ]
-        }
-    })
-
-    const {register, handleSubmit, control} = form
-
-    const { fields, append } = useFieldArray({
-        control,
-        name: 'orders'
-    })
+    const {form, fields, append, handleSubmit, register} = useBrokerageNoteForm();
 
     const onSubmit = (data: FormValues) => {
         console.log(data);
