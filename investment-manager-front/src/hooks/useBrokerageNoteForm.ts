@@ -37,6 +37,32 @@ export type FormValues = {
         termOptions: number,
         federalSecurities: number,
         operationalValues: number
+    },
+    financialSummary: {
+        clearing: {
+            operationsNetValue: number,
+            settlementFee: number,
+            registryFee: number,
+            totalCblc: number
+        },
+        exchange: {
+            termOrOptionsFee: number,
+            anaFee: number,
+            fees: number,
+            total: number
+        },
+        operationalCosts: {
+            operationalFee: number,
+            execution: number,
+            custody: number,
+            taxes: number,
+            irrf: number,
+            others: number,
+            totalCosts: number
+        },
+        netDate: string,
+        netTotalValue: string,
+        netDebitOrCredit: number
     }
 }
 
@@ -71,6 +97,32 @@ export const useBrokerageNoteForm = () => {
                 termOptions: undefined,
                 federalSecurities: undefined,
                 operationalValues: undefined
+            },
+            financialSummary: {
+                clearing: {
+                    operationsNetValue: undefined,
+                    settlementFee: undefined,
+                    registryFee: undefined,
+                    totalCblc: undefined
+                },
+                exchange: {
+                    termOrOptionsFee: undefined,
+                    anaFee: undefined,
+                    fees: undefined,
+                    total: undefined
+                },
+                operationalCosts: {
+                    operationalFee: undefined,
+                    execution: undefined,
+                    custody: undefined,
+                    taxes: undefined,
+                    irrf: undefined,
+                    others: undefined,
+                    totalCosts: undefined
+                },
+                netDate: undefined,
+                netTotalValue: undefined,
+                netDebitOrCredit: undefined
             }
         }
     })

@@ -18,7 +18,7 @@ const BrokerageNoteForm = () => {
     const {form, fields, append, handleSubmit, register: formRegister} = useBrokerageNoteForm();
     const {current: register} = useRef(formRegister);
     
-    const [currentStep, setCurrentStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState(0);
 
     const onSubmit = (data: FormValues) => {
         console.log(data);
@@ -66,7 +66,7 @@ const BrokerageNoteForm = () => {
                     <Button type='submit'>Fim</Button>
                     {currentStep === 0 && <OrdersForm fields={fields} append={append} register={register} />}
                     {currentStep === 1 && <BusinessForm register={register}/>}
-                    {currentStep === 2 && <FinancialForm />}
+                    {currentStep === 2 && <FinancialForm register={register}/>}
                     {renderNavigation()}
                 </Box>
             </>

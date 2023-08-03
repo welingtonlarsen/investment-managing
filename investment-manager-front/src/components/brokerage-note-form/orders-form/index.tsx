@@ -29,7 +29,7 @@ const OrdersForm: React.FC<TProps> = ({fields, append, register}) => {
                         <TextField sx={{display: 'flex'}} {...register('generalInformation.number')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Número" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={2}>
-                        <TextField sx={{display: 'flex'}} {...register('generalInformation.date')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Data" variant="outlined" />
+                        <TextField type="date" sx={{display: 'flex'}} {...register('generalInformation.date')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Data" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={2}>
                         <TextField sx={{display: 'flex'}} {...register('generalInformation.client')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Cliente" variant="outlined" />
