@@ -1,6 +1,6 @@
 import { UseFormRegister } from "react-hook-form";
 import { FormValues } from "../../../hooks/useBrokerageNoteForm";
-import { Box, TextField, Button, Grid, IconButton, Typography } from '@mui/material';
+import { Box, TextField, Grid, Typography } from '@mui/material';
 
 type TProps = {
     register: UseFormRegister<FormValues>

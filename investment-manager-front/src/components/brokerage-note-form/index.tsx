@@ -6,16 +6,21 @@ import OrdersForm from './orders-form';
 import { useRef, useState } from 'react';
 import BusinessForm from './business-form';
 import FinancialForm from './financial-form';
+import OperationalCostsForm from './operational-costs-form';
+import EndForm from './end-form';
 
 const steps = [
     'Ordens',
     'Negócios',
     'Financeiro',
+    'Despesas',
+    'Final'
 ];
 
 const BrokerageNoteForm = () => {
 
     const {form, fields, append, handleSubmit, register: formRegister} = useBrokerageNoteForm();
+    // TODO: Pass to custom hook
     const {current: register} = useRef(formRegister);
     
     const [currentStep, setCurrentStep] = useState(0);
@@ -32,11 +37,26 @@ const BrokerageNoteForm = () => {
         }
     }
 
-    const renderNavigation = () => 
-        <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
-            {shouldShowNextButton() && <Button onClick={handlePreviousClick} type='button' variant='outlined' color='error'>Voltar</Button>}
-            <Button onClick={() => setCurrentStep(currentStep + 1)} type='button' variant='outlined' color="success" sx={{ml: 2}}>Próximo</Button>
+    const handleNextClick = () => {
+        if (currentStep < steps.length - 1) {
+            setCurrentStep(currentStep + 1);
+        } else if(currentStep === steps.length - 1) {
+            alert('Submeter form')
+        }
+    }
+
+    const renderNavigation = () => {
+        const nextButtonText = currentStep === steps.length - 1 ? 'Salvar' : 'Próximo';
+        const nextButtonVariant = currentStep === steps.length - 1 ? 'contained' : 'outlined';
+
+        return (
+            <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
+                {shouldShowNextButton() && <Button onClick={handlePreviousClick} type='button' variant='outlined' color='error'>Voltar</Button>}
+            <Button onClick={handleNextClick} type='button' variant={nextButtonVariant} color="success" sx={{ml: 2}}>{nextButtonText}</Button>
         </Box>
+        )
+    } 
+        
     
     const renderStepsHeader = () =>
         <Box sx={{ width: '100%', mb: 8 }}>
@@ -67,6 +87,8 @@ const BrokerageNoteForm = () => {
                     {currentStep === 0 && <OrdersForm fields={fields} append={append} register={register} />}
                     {currentStep === 1 && <BusinessForm register={register}/>}
                     {currentStep === 2 && <FinancialForm register={register}/>}
+                    {currentStep === 3 && <OperationalCostsForm register={register} />}
+                    {currentStep === 4 && <EndForm register={register} />}
                     {renderNavigation()}
                 </Box>
             </>
