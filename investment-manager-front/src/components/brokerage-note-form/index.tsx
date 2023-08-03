@@ -1,130 +1,73 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { Button, Grid, IconButton, Typography } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { useBrokerageNoteForm } from '../../hooks/useBrokerageNoteForm';
+import { Button, Step, StepLabel, Stepper } from '@mui/material';
+import { FormValues, useBrokerageNoteForm } from '../../hooks/useBrokerageNoteForm';
+import OrdersForm from './orders-form';
+import { useRef, useState } from 'react';
+import BusinessForm from './business-form';
+import FinancialForm from './financial-form';
 
-
-type FormValues = {
-    number: number,
-    date: string,
-    client: string
-    orders: {
-        market: string,
-        buyOrSell: string,
-        marketType: string,
-        title: string,
-        quantity: number | undefined,
-        price: number | undefined,
-        total: number | undefined,
-        debitOrCredit: string
-    }[]
-}
-
-const defaultOrder = {
-    market: '',
-    buyOrSell: '',
-    marketType: '',
-    title: '',
-    quantity: undefined,
-    price: undefined,
-    total: undefined,
-    debitOrCredit: ''
-}
+const steps = [
+    'Ordens',
+    'Negócios',
+    'Financeiro',
+];
 
 const BrokerageNoteForm = () => {
 
-    const {form, fields, append, handleSubmit, register} = useBrokerageNoteForm();
+    const {form, fields, append, handleSubmit, register: formRegister} = useBrokerageNoteForm();
+    const {current: register} = useRef(formRegister);
+    
+    const [currentStep, setCurrentStep] = useState(1);
 
     const onSubmit = (data: FormValues) => {
         console.log(data);
     }
 
-    const onIncrementOrder = () => {
-        append(defaultOrder);
+    const shouldShowNextButton = () => currentStep !== 0;
+
+    const handlePreviousClick = () => {
+        if (currentStep > 0) {
+            setCurrentStep(currentStep - 1);
+        }
     }
 
-    const renderGeneralInformation = () => {
-        return (
-            <Box>
-                <Typography sx={{mb: 2}} variant="h6" gutterBottom>
-                    Informações gerais
-                </Typography>
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6} lg={2}>
-                        <TextField sx={{display: 'flex'}} {...register('number')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Número" variant="outlined" />
-                    </Grid>
-                    <Grid item xs={12} sm={6} lg={2}>
-                        <TextField sx={{display: 'flex'}} {...register('date')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Data" variant="outlined" />
-                    </Grid>
-                    <Grid item xs={12} sm={6} lg={2}>
-                        <TextField sx={{display: 'flex'}} {...register('client')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Cliente" variant="outlined" />
-                    </Grid>
-                </Grid>
-            </Box>
-        )
-    }
-
-    const renderOrders = () => {
-        return (
-            <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                <Typography sx={{my: 2}} variant="h6" gutterBottom>
-                    Ordens
-                </Typography>
-                {
-                    fields.map((_, index) => {
-                            return (
-                                    <Grid key={index} sx={{mb: 4}} container spacing={2} >
-                                        <Grid item xs={12} sm={6} lg={2}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.market`)}} label="Mercado" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.buyOrSell`)}} label="C/V" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={3} lg={2}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.marketType`)}} label="Tipo mercado" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6} lg={2}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.title`)}} label="Título" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.quantity`)}} label="Quantidade" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.price`)}} label="Preço" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.total`)}} label="Total" variant="outlined"  InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                        <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.debitOrCredit`)}} label="D/C" variant="outlined" InputLabelProps={{shrink: true}} />
-                                        </Grid>
-                                    </Grid>
-                        )
-                    })
-                }
-                <Box sx={{display: 'flex', justifyContent: 'center', my: -2}}>
-                    <IconButton size="small" sx={{display: 'flex'}} aria-label="fingerprint" color="success" onClick={onIncrementOrder}>
-                        <AddCircleIcon fontSize="large"/>
-                    </IconButton>
-                </Box>
-            </Box>
-        )
-    }
+    const renderNavigation = () => 
+        <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
+            {shouldShowNextButton() && <Button onClick={handlePreviousClick} type='button' variant='outlined' color='error'>Voltar</Button>}
+            <Button onClick={() => setCurrentStep(currentStep + 1)} type='button' variant='outlined' color="success" sx={{ml: 2}}>Próximo</Button>
+        </Box>
+    
+    const renderStepsHeader = () =>
+        <Box sx={{ width: '100%', mb: 8 }}>
+            <Stepper activeStep={currentStep} alternativeLabel>
+                {steps.map((label) => (
+                <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                </Step>
+                ))}
+            </Stepper>
+        </Box>
 
     return (
         <>
             <Box
                 component="form"
-                sx={{mt: 3}}
+                sx={{margin: {
+                    xs: 2,
+                    sm: 1,
+                    md: 10
+                }}}
                 noValidate
                 autoComplete="off"
                 onSubmit={handleSubmit(onSubmit)}
                 >   
+                    {renderStepsHeader()}
                     <Button type='submit'>Fim</Button>
-                    {renderGeneralInformation()}
-                    {renderOrders()}
+                    {currentStep === 0 && <OrdersForm fields={fields} append={append} register={register} />}
+                    {currentStep === 1 && <BusinessForm register={register}/>}
+                    {currentStep === 2 && <FinancialForm />}
+                    {renderNavigation()}
                 </Box>
             </>
 

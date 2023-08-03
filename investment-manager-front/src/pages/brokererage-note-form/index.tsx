@@ -13,25 +13,7 @@ const steps = [
 const BrokerageNoteFormPage = () => {
     return( 
     <>
-        <Box sx={{ width: '100%' }}>
-                <Stepper activeStep={2} alternativeLabel>
-                    {steps.map((label) => (
-                    <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                    </Step>
-                    ))}
-                </Stepper>
-            </Box>
-        
-        <Box sx={{
-            margin: {
-                xs: 2,
-                sm: 1,
-                md: 10
-            }
-        }}>
             <BrokerageNoteForm />
-        </Box>
     </>
     
     )
