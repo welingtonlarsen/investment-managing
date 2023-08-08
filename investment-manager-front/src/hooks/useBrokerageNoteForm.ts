@@ -12,7 +12,7 @@ type TOrder = {
     debitOrCredit: string
 }
 
-export type FormValues = {
+export type TBrokerageOrder = {
     generalInformation: {
         number: number,
         date: string,
@@ -78,7 +78,7 @@ export const defaultOrder = {
 }
 
 export const useBrokerageNoteForm = () => {
-    const form = useForm<FormValues>({
+    const form = useForm<TBrokerageOrder>({
         defaultValues: {
             generalInformation: {
                 number: undefined,

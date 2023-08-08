@@ -1,10 +1,10 @@
 import { UseFormRegister } from "react-hook-form";
-import { FormValues } from "../../../hooks/useBrokerageNoteForm";
+import { TBrokerageOrder } from "../../../hooks/useBrokerageNoteForm";
 import { Box, TextField, Grid, Typography } from '@mui/material';
 import React from "react";
 
 type TProps = {
-    register: UseFormRegister<FormValues>
+    register: UseFormRegister<TBrokerageOrder>
 }
 
 export const EndForm: React.FC<TProps> = ({register}) => {

@@ -1,5 +1,5 @@
 import { FieldArrayWithId, UseFieldArrayAppend, UseFormRegister } from "react-hook-form";
-import { FormValues, defaultOrder } from "../../../hooks/useBrokerageNoteForm";
+import { TBrokerageOrder, defaultOrder } from "../../../hooks/useBrokerageNoteForm";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Button, Grid, IconButton, Typography } from '@mui/material';
@@ -7,9 +7,9 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import React from "react";
 
 type TProps = {
-    fields: FieldArrayWithId<FormValues, "orders", "id">[]
-    append: UseFieldArrayAppend<FormValues, "orders">
-    register: UseFormRegister<FormValues>
+    fields: FieldArrayWithId<TBrokerageOrder, "orders", "id">[]
+    append: UseFieldArrayAppend<TBrokerageOrder, "orders">
+    register: UseFormRegister<TBrokerageOrder>
 }
 
 const OrdersForm: React.FC<TProps> = ({fields, append, register}) => {

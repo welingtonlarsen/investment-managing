@@ -1,19 +1,18 @@
-import { Box, Step, StepLabel, Stepper } from "@mui/material";
 import BrokerageNoteForm from "../../components/brokerage-note-form";
-
-const steps = [
-    'Informações gerais',
-    'Negociações',
-    'Negócios',
-    'Financeiro',
-    'Custos',
-    'Final',
-];
+import { TBrokerageOrder } from "../../hooks/useBrokerageNoteForm";
+import useBrokerageNoteService from "../../service/useBrokerageService";
 
 const BrokerageNoteFormPage = () => {
+
+    const { create } = useBrokerageNoteService()
+
+    const submitCallback = (formValues: TBrokerageOrder) => {
+        create(formValues)
+    }
+
     return( 
     <>
-            <BrokerageNoteForm />
+        <BrokerageNoteForm submitCallback={submitCallback} />
     </>
     
     )

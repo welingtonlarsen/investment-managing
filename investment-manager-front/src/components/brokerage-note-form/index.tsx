@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import Box from '@mui/material/Box';
 import { Button, Step, StepLabel, Stepper } from '@mui/material';
-import { FormValues, useBrokerageNoteForm } from '../../hooks/useBrokerageNoteForm';
+import { TBrokerageOrder, useBrokerageNoteForm } from '../../hooks/useBrokerageNoteForm';
 import OrdersForm from './orders-form';
 import { useRef, useState } from 'react';
 import BusinessForm from './business-form';
@@ -17,7 +17,11 @@ const steps = [
     'Final'
 ];
 
-const BrokerageNoteForm = () => {
+type TBrokerageNoteFormProps = {
+    submitCallback: (formValues: TBrokerageOrder) => void;
+}
+
+const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({submitCallback}) => {
 
     const {form, fields, append, handleSubmit, register: formRegister} = useBrokerageNoteForm();
     // TODO: Pass to custom hook
@@ -25,34 +29,28 @@ const BrokerageNoteForm = () => {
     
     const [currentStep, setCurrentStep] = useState(0);
 
-    const onSubmit = (data: FormValues) => {
-        console.log(data);
-    }
-
-    const shouldShowNextButton = () => currentStep !== 0;
-
-    const handlePreviousClick = () => {
-        if (currentStep > 0) {
-            setCurrentStep(currentStep - 1);
-        }
-    }
-
-    const handleNextClick = () => {
-        if (currentStep < steps.length - 1) {
-            setCurrentStep(currentStep + 1);
-        } else if(currentStep === steps.length - 1) {
-            alert('Submeter form')
-        }
-    }
-
     const renderNavigation = () => {
-        const nextButtonText = currentStep === steps.length - 1 ? 'Salvar' : 'Próximo';
-        const nextButtonVariant = currentStep === steps.length - 1 ? 'contained' : 'outlined';
+        const shouldShowPreviousButton = currentStep !== 0;
+        const shouldShowNextButton = currentStep !== steps.length - 1;
+        const shouldShowSubmitButton = currentStep === steps.length - 1;
 
+        const handlePreviousClick = () => {
+            if (currentStep > 0) {
+                setCurrentStep(currentStep - 1);
+            }
+        }
+
+        const handleNextClick = () => {
+            if (currentStep < steps.length - 1) {
+                setCurrentStep(currentStep + 1);
+            }
+        }
+        
         return (
             <Box sx={{display: 'flex', justifyContent: 'center', mt: 3}}>
-                {shouldShowNextButton() && <Button onClick={handlePreviousClick} type='button' variant='outlined' color='error'>Voltar</Button>}
-            <Button onClick={handleNextClick} type='button' variant={nextButtonVariant} color="success" sx={{ml: 2}}>{nextButtonText}</Button>
+                {shouldShowPreviousButton && <Button onClick={handlePreviousClick} type='button' variant='outlined' color='error'>Voltar</Button>}
+                {shouldShowNextButton && <Button onClick={handleNextClick} type='button' variant='outlined' color="success" sx={{ml: 2}}>Próximo</Button>}
+                {shouldShowSubmitButton && <Button type='submit' variant='contained' color="success" sx={{ml: 2}}>Salvar</Button>}
         </Box>
         )
     } 
@@ -80,7 +78,7 @@ const BrokerageNoteForm = () => {
                 }}}
                 noValidate
                 autoComplete="off"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(submitCallback)}
                 >   
                     {renderStepsHeader()}
                     <Button type='submit'>Fim</Button>

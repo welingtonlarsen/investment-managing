@@ -1,9 +1,9 @@
 import { UseFormRegister } from "react-hook-form";
-import { FormValues } from "../../../hooks/useBrokerageNoteForm";
+import { TBrokerageOrder } from "../../../hooks/useBrokerageNoteForm";
 import { Box, TextField, Grid, Typography } from '@mui/material';
 
 type TProps = {
-    register: UseFormRegister<FormValues>
+    register: UseFormRegister<TBrokerageOrder>
 }
 
 const FinancialForm: React.FC<TProps> = ({register}) => {
