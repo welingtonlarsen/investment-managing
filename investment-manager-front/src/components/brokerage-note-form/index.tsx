@@ -17,13 +17,13 @@ const steps = [
     'Final'
 ];
 
-type TBrokerageNoteFormProps = {
-    submitCallback: (formValues: TBrokerageOrder) => void;
+interface TBrokerageNoteFormProps {
+    submitCallback(formValues: TBrokerageOrder): Promise<void>;
 }
 
 const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({submitCallback}) => {
 
-    const {form, fields, append, handleSubmit, register: formRegister} = useBrokerageNoteForm();
+    const {form, fields, append, handleSubmit, register: formRegister, control} = useBrokerageNoteForm();
     // TODO: Pass to custom hook
     const {current: register} = useRef(formRegister);
     
@@ -82,11 +82,11 @@ const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({submitCallback}) 
                 >   
                     {renderStepsHeader()}
                     <Button type='submit'>Fim</Button>
-                    {currentStep === 0 && <OrdersForm fields={fields} append={append} register={register} />}
+                    {currentStep === 0 && <OrdersForm control={control} fields={fields} append={append} register={register} />}
                     {currentStep === 1 && <BusinessForm register={register}/>}
                     {currentStep === 2 && <FinancialForm register={register}/>}
                     {currentStep === 3 && <OperationalCostsForm register={register} />}
-                    {currentStep === 4 && <EndForm register={register} />}
+                    {currentStep === 4 && <EndForm control={control} register={register} />}
                     {renderNavigation()}
                 </Box>
             </>

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import axios from "axios";
 import { TBrokerageOrder } from "../hooks/useBrokerageNoteForm";
 
 /*
@@ -7,9 +9,23 @@ TODO:
 - Ir para tela de relatórios caso sucesso, (alert de sucesso antes)
 */
 export const useBrokerageNoteService = () => {
-    function create(brokerageOrder: TBrokerageOrder) {
-        console.log(brokerageOrder)
-        alert('inside service')
+    async function create(brokerageOrder: TBrokerageOrder) {
+        try {
+            console.log(brokerageOrder);
+            await axios.post('http://localhost:3000/brokerage-order', brokerageOrder)
+            alert('inside service')
+        } catch(error) {
+            if(axios.isAxiosError(error)) {
+                console.log('axios')
+                if(error.response?.status === axios.HttpStatusCode.BadRequest) {
+                    alert(error.response.data.message)
+                    return;
+                }
+            }
+            console.log(error)
+            alert('erro desconhecido')
+        }
+        
     }
     
     return {create}

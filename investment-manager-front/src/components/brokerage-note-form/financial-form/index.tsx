@@ -16,16 +16,16 @@ const FinancialForm: React.FC<TProps> = ({register}) => {
             </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.operationsNetValue')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Valor líquido das operações" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.operationsNetValue', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Valor líquido das operações" variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.settlementFee')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de liquidação" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.settlementFee', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de liquidação" variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.registryFee')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de registro" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.registryFee', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de registro" variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.totalCblc')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Total CBLC" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.clearing.totalCblc', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Total CBLC" variant="outlined" />
                 </Grid>
             </Grid>
         </Box>
@@ -37,16 +37,16 @@ const FinancialForm: React.FC<TProps> = ({register}) => {
             </Typography>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.termOrOptionsFee')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de termo/opções" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.termOrOptionsFee', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de termo/opções" variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.anaFee')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa A.N.A." variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.anaFee', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa A.N.A." variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.fees')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Emolumentos" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.fees', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Emolumentos" variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={3}>
-                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.total')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Total Bovespa" variant="outlined" />
+                    <TextField sx={{display: 'flex'}} {...register('financialSummary.exchange.total', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Total Bovespa" variant="outlined" />
                 </Grid>
             </Grid>
         </Box>

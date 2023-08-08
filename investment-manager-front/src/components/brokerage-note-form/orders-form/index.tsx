@@ -1,8 +1,8 @@
-import { FieldArrayWithId, UseFieldArrayAppend, UseFormRegister } from "react-hook-form";
+import { Control, Controller, FieldArrayWithId, UseFieldArrayAppend, UseFormRegister } from "react-hook-form";
 import { TBrokerageOrder, defaultOrder } from "../../../hooks/useBrokerageNoteForm";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Button, Grid, IconButton, Typography } from '@mui/material';
+import { Grid, IconButton, MenuItem, Typography } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import React from "react";
 
@@ -10,9 +10,10 @@ type TProps = {
     fields: FieldArrayWithId<TBrokerageOrder, "orders", "id">[]
     append: UseFieldArrayAppend<TBrokerageOrder, "orders">
     register: UseFormRegister<TBrokerageOrder>
+    control: Control<TBrokerageOrder, any>
 }
 
-const OrdersForm: React.FC<TProps> = ({fields, append, register}) => {
+const OrdersForm: React.FC<TProps> = ({fields, append, register, control}) => {
     
     const onIncrementOrder = () => {
         append(defaultOrder);
@@ -26,13 +27,13 @@ const OrdersForm: React.FC<TProps> = ({fields, append, register}) => {
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6} lg={2}>
-                        <TextField sx={{display: 'flex'}} {...register('generalInformation.number')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Número" variant="outlined" />
+                        <TextField type="number" sx={{display: 'flex'}} {...register('generalInformation.brokerageOrderNumber', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Número" variant="outlined"/>
                     </Grid>
                     <Grid item xs={12} sm={6} lg={2}>
-                        <TextField type="date" sx={{display: 'flex'}} {...register('generalInformation.date')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Data" variant="outlined" />
+                        <TextField type="date" sx={{display: 'flex'}} {...register('generalInformation.tradingFlorDate')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Data" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={2}>
-                        <TextField sx={{display: 'flex'}} {...register('generalInformation.client')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Cliente" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('generalInformation.clientId')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Cliente" variant="outlined" />
                     </Grid>
                 </Grid>
             </Box>
@@ -46,32 +47,106 @@ const OrdersForm: React.FC<TProps> = ({fields, append, register}) => {
                     Ordens
                 </Typography>
                 {
-                    fields.map((_, index) => {
+                    fields.map((field, index) => {
                             return (
                                     <Grid key={index} sx={{mb: 4}} container spacing={2} >
                                         <Grid item xs={12} sm={6} lg={2}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.market`)}} label="Mercado" variant="outlined" InputLabelProps={{shrink: true}} />
+                                            <Controller
+                                                name={`orders.${index}.market`}
+                                                control={control}
+                                                render={({ field }) => (
+                                                <TextField
+                                                    select
+                                                    sx={{ display: 'flex' }}
+                                                    label="Mercado"
+                                                    variant="outlined"
+                                                    InputLabelProps={{ shrink: true }}
+                                                    {...field}  // Passa os atributos do campo do Controller para o TextField
+                                                >
+                                                    <MenuItem key="BOVESPA" value="BOVESPA">
+                                                        BOVESPA
+                                                    </MenuItem>
+                                                </TextField>
+                                                )}
+                                            />
                                         </Grid>
                                         <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.buyOrSell`)}} label="C/V" variant="outlined" InputLabelProps={{shrink: true}} />
+                                            <Controller
+                                                name={`orders.${index}.buyOrSell`}
+                                                control={control}
+                                                render={({ field }) => (
+                                                <TextField
+                                                    select
+                                                    sx={{ display: 'flex' }}
+                                                    label="C/V"
+                                                    variant="outlined"
+                                                    InputLabelProps={{ shrink: true }}
+                                                    {...field}  // Passa os atributos do campo do Controller para o TextField
+                                                >
+                                                    <MenuItem key="BUY" value="BUY">
+                                                    Compra
+                                                    </MenuItem>
+                                                    <MenuItem key="SELL" value="SELL">
+                                                    Venda
+                                                    </MenuItem>
+                                                </TextField>
+                                                )}
+                                            />
                                         </Grid>
                                         <Grid item xs={12} sm={3} lg={2}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.marketType`)}} label="Tipo mercado" variant="outlined" InputLabelProps={{shrink: true}} />
+                                            <Controller
+                                                name={`orders.${index}.marketType`}
+                                                control={control}
+                                                render={({ field }) => (
+                                                <TextField
+                                                    select
+                                                    sx={{ display: 'flex' }}
+                                                    label="Tipo Mercado"
+                                                    variant="outlined"
+                                                    InputLabelProps={{ shrink: true }}
+                                                    {...field}  // Passa os atributos do campo do Controller para o TextField
+                                                >
+                                                    <MenuItem key="VISTA" value="VISTA">
+                                                        VISTA
+                                                    </MenuItem>
+                                                </TextField>
+                                                )}
+                                            />
                                         </Grid>
                                         <Grid item xs={12} sm={6} lg={2}>
                                             <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.title`)}} label="Título" variant="outlined" InputLabelProps={{shrink: true}} />
                                         </Grid>
                                         <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.quantity`)}} label="Quantidade" variant="outlined" InputLabelProps={{shrink: true}} />
+                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.quantity`, {valueAsNumber: true})}} label="Quantidade" variant="outlined" InputLabelProps={{shrink: true}} />
                                         </Grid>
                                         <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.price`)}} label="Preço" variant="outlined" InputLabelProps={{shrink: true}} />
+                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.price`, {valueAsNumber: true})}} label="Preço" variant="outlined" InputLabelProps={{shrink: true}} />
                                         </Grid>
                                         <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.total`)}} label="Total" variant="outlined"  InputLabelProps={{shrink: true}} />
+                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.total`, {valueAsNumber: true})}} label="Total" variant="outlined"  InputLabelProps={{shrink: true}} />
                                         </Grid>
                                         <Grid item xs={12} sm={3} lg={1}>
-                                            <TextField sx={{display: 'flex'}} inputProps={{...register(`orders.${index}.debitOrCredit`)}} label="D/C" variant="outlined" InputLabelProps={{shrink: true}} />
+                                            <Controller
+                                                name={`orders.${index}.debitOrCredit`}
+                                                control={control}
+                                                render={({ field }) => (
+                                                <TextField
+                                                    select
+                                                    sx={{ display: 'flex' }}
+                                                    label="D/C"
+                                                    variant="outlined"
+                                                    InputLabelProps={{ shrink: true }}
+                                                    {...field}  // Passa os atributos do campo do Controller para o TextField
+                                                >
+                                                    <MenuItem key="DEBIT" value="DEBIT">
+                                                    Débito
+                                                    </MenuItem>
+                                                    <MenuItem key="CREDIT" value="CREDIT">
+                                                    Credito
+                                                    </MenuItem>
+                                                </TextField>
+                                                )}
+                                            />
                                         </Grid>
                                     </Grid>
                         )

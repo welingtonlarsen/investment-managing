@@ -14,25 +14,25 @@ export const OperationalCostsForm: React.FC<TProps> = ({register}) => {
                 </Typography>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.operationalFee')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa operacional" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.operationalFee', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa operacional" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.execution')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Execução" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.execution', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Execução" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.custody')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de custódia" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.custody', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Taxa de custódia" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.taxes')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Impostos" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.taxes', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Impostos" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.irrf')} InputLabelProps={{shrink: true}} id="outlined-basic" label="IRRF" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.irrf', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="IRRF" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.others')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Outros" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.others', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Outros" variant="outlined" />
                     </Grid>
                     <Grid item xs={12} sm={6} lg={3}>
-                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.totalCosts')} InputLabelProps={{shrink: true}} id="outlined-basic" label="Total Custos / Despesas" variant="outlined" />
+                        <TextField sx={{display: 'flex'}} {...register('financialSummary.operationalCosts.totalCosts', {valueAsNumber: true})} InputLabelProps={{shrink: true}} id="outlined-basic" label="Total Custos / Despesas" variant="outlined" />
                     </Grid>
                 </Grid>
             </Box>

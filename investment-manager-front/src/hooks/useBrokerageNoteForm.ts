@@ -14,9 +14,9 @@ type TOrder = {
 
 export type TBrokerageOrder = {
     generalInformation: {
-        number: number,
-        date: string,
-        client: string
+        brokerageOrderNumber: number,
+        tradingFlorDate: string,
+        clientId: string
     },
     orders: {
         market: string,
@@ -36,7 +36,7 @@ export type TBrokerageOrder = {
         optionsSell: number,
         termOptions: number,
         federalSecurities: number,
-        operationalValues: number
+        operationValues: number
     },
     financialSummary: {
         clearing: {
@@ -62,7 +62,7 @@ export type TBrokerageOrder = {
         },
         netDate: string,
         netTotalValue: string,
-        netDebitOrCredit: number
+        netDebitOrCredit: string
     }
 }
 
@@ -81,9 +81,9 @@ export const useBrokerageNoteForm = () => {
     const form = useForm<TBrokerageOrder>({
         defaultValues: {
             generalInformation: {
-                number: undefined,
-                date: '',
-                client: '',
+                brokerageOrderNumber: undefined,
+                tradingFlorDate: '',
+                clientId: '',
             },
             orders: [
                 defaultOrder
@@ -96,7 +96,7 @@ export const useBrokerageNoteForm = () => {
                 optionsSell: undefined,
                 termOptions: undefined,
                 federalSecurities: undefined,
-                operationalValues: undefined
+                operationValues: undefined
             },
             financialSummary: {
                 clearing: {
@@ -122,7 +122,7 @@ export const useBrokerageNoteForm = () => {
                 },
                 netDate: undefined,
                 netTotalValue: undefined,
-                netDebitOrCredit: undefined
+                netDebitOrCredit: ''
             }
         }
     })
@@ -134,5 +134,5 @@ export const useBrokerageNoteForm = () => {
         name: 'orders'
     })
 
-    return {form, fields, append, handleSubmit, register};
+    return {form, fields, append, handleSubmit, register, control};
 }
