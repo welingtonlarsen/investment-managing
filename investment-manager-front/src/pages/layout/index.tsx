@@ -7,25 +7,30 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   {
     path: '/brokeragenotes/table',
-    element: <BrokerageNotesPage />,
+    element: (
+      <>
+        <Box sx={{ mb: 3 }}>
+          <Header />
+        </Box>
+        <BrokerageNotesPage />
+      </>
+    ),
   },
   {
     path: '/brokeragenotes/form',
-    element: <BrokerageNoteFormPage />,
+    element: (
+      <>
+        <Box sx={{ mb: 3 }}>
+          <Header />
+        </Box>
+        <BrokerageNoteFormPage />
+      </>
+    ),
   },
 ]);
 
 const LayoutPage = () => {
-  return (
-    <>
-      <Box sx={{ mb: 3 }}>
-        <Header />
-      </Box>
-      <RouterProvider router={router} />
-      {/* <BrokerageNotesPage />
-            <BrokerageNoteForm /> */}
-    </>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default LayoutPage;

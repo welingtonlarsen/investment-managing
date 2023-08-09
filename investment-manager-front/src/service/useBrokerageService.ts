@@ -1,30 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import axios, { isAxiosError, HttpStatusCode } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { TBrokerageOrder } from '../hooks/useBrokerageNoteForm';
+import { useHttpService } from './http-service';
 
-/*
-TODO: 
-- Enviar requesição para o backend usando AXIOS
-- Ir para tela de erro caso a requisição falhe
-- Ir para tela de relatórios caso sucesso, (alert de sucesso antes)
-*/
 export const useBrokerageNoteService = () => {
+  const httpService = useHttpService();
+  const navigate = useNavigate();
+
   async function create(brokerageOrder: TBrokerageOrder) {
-    try {
-      console.log(brokerageOrder);
-      await axios.post('http://localhost:3000/brokerage-order', brokerageOrder);
-      alert('inside service');
-    } catch (error) {
-      if (isAxiosError(error)) {
-        console.log('axios');
-        if (error.response?.status === HttpStatusCode.BadRequest) {
-          alert(error.response.data.message);
-          return;
-        }
-      }
-      console.log(error);
-      alert('erro desconhecido');
+    const success = await httpService.post<TBrokerageOrder>(brokerageOrder);
+    if (success) {
+      alert('Nota cadastrada com sucesso.');
+    } else {
+      alert('Erro ao cadastrar nota! Comunique o suporte e tente novamente mais tarde.');
     }
+    navigate('/brokeragenotes/table');
   }
 
   return { create };
