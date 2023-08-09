@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -12,7 +12,7 @@ function App() {
       <CssBaseline />
       <LayoutPage />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
