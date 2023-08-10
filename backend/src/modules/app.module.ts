@@ -20,7 +20,9 @@ import { BusinessSummary } from './brokerage-order/adapter/repository/entity/bus
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule.forRoot({ load: [databaseConfig] })],
-      useFactory: (configDatabase: ConfigType<typeof databaseConfig>): TypeOrmModuleOptions => ({
+      useFactory: (
+        configDatabase: ConfigType<typeof databaseConfig>,
+      ): TypeOrmModuleOptions => ({
         type: configDatabase.type,
         host: configDatabase.host,
         port: configDatabase.port,
@@ -40,7 +42,7 @@ import { BusinessSummary } from './brokerage-order/adapter/repository/entity/bus
         synchronize: true,
         database: configDatabase.database,
       }),
-      inject: [databaseConfig.KEY]
+      inject: [databaseConfig.KEY],
     }),
   ],
 })

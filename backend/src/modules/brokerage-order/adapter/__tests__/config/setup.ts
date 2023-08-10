@@ -45,7 +45,7 @@ const connection = new DataSource({
 export async function databaseIntegrationSetup() {
   try {
     await masterConnection.initialize();
-    //await masterConnection.query(`CREATE DATABASE "${databaseName}"`);
+    await resetDatabase();
   } catch (err) {
     process.stderr.write(
       `${err instanceof Error ? err.stack : JSON.stringify(err)}\n`,
