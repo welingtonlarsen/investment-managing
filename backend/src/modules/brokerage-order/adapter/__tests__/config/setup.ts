@@ -11,14 +11,14 @@ import {
   OperationalCosts,
 } from '../../repository/entity/financial-summary.typeorm.entity';
 
-const databaseName = 'investment_managing_integration_test';
+const databaseName = process.env.TYPEORM_DATABASE;
 
 const masterConnection = new DataSource({
   type: 'mysql',
-  host: 'localhost',
-  port: 3309,
-  username: 'root',
-  password: 'root',
+  host: process.env.TYPEORM_HOST,
+  port: Number(process.env.TYPEORM_PORT),
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
   database: databaseName,
   // entities: [__dirname + '/../../../../**/*.entity{.ts,.js}'],
   synchronize: true,
@@ -45,6 +45,7 @@ const connection = new DataSource({
 export async function databaseIntegrationSetup() {
   try {
     await masterConnection.initialize();
+    // TODO: Incluir o reset tambem no close
     await resetDatabase();
   } catch (err) {
     process.stderr.write(
@@ -58,6 +59,7 @@ export async function databaseIntegrationSetup() {
 
 export async function closeDatabaseIntegrationConnections() {
   try {
+    await resetDatabase();
     await masterConnection.destroy();
   } catch (err) {
     process.stderr.write(

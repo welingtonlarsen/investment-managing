@@ -54,12 +54,30 @@ $ npm run start:prod
 ```
 
 ## Test
-
+### Kinds
+- End to end (e2e):
+    - Located in ```./test```.
+    - Run the entire application.
+    - Test the complete input/output flow.
+- Integration tests:
+    - Located inside modules directories.
+    - Run the entire application.
+    - Test external dependencies, like database.
+- Unit tests :
+    - Located inside modules directories.
+    - Mock dependencies
+    - Run functions and classes
+### Commands
 ```bash
 # unit tests
 $ npm run test
 
+# integration tests
+$ docker-compose up -d
+$ npm run test:int
+
 # e2e tests
+$ docker-compose up -d
 $ npm run test:e2e
 
 # test coverage

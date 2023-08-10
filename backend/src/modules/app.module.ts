@@ -17,7 +17,9 @@ import { BusinessSummary } from './brokerage-order/adapter/repository/entity/bus
 @Module({
   imports: [
     BrokerageOrderModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: globalThis.ENV_FILE || 'environments/.env',
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule.forRoot({ load: [databaseConfig] })],
       useFactory: (
