@@ -21,7 +21,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:int": "jest --config ./jest/jest-integration.js --runInBand",
-    "test:e2e": "jest --config ./jest/jest-e2e.js"
+    "test:e2e": "jest --config ./jest/jest-e2e.js",
+    "typeorm": "DOTENV_CONFIG_PATH=environments/.env node -r dotenv/config ./node_modules/typeorm/cli.js",
+    "premigration:generate": "npm run build",
+    "migration:generate": "npm run typeorm -- -d dist/src/modules/configuration/database/datasource.js migration:generate ./src/migrations/${npm_config_filename}",
+    "migration:run": "npm run typeorm -- -d dist/src/modules/configuration/database/datasource.js migration:run",
+    "migration:create": "npm run typeorm migration:create ./src/migrations/${npm_config_filename}"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",

@@ -13,6 +13,7 @@ import {
 } from './brokerage-order/adapter/repository/entity/financial-summary.typeorm.entity';
 import { Order } from './brokerage-order/adapter/repository/entity/order.typeorm.entity';
 import { BusinessSummary } from './brokerage-order/adapter/repository/entity/business-summary.typeorm.entity';
+import { Stock } from './brokerage-order/adapter/repository/entity/stock.typeorm.entity';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { BusinessSummary } from './brokerage-order/adapter/repository/entity/bus
           Exchange,
           OperationalCosts,
           FinancialSummary,
+          Stock,
         ],
         logging: true,
         synchronize: true,

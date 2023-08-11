@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { BrokerageOrderController } from './controllers/brokerage-order.controller';
 import { BrokerageOrderService } from './domain/brokerage-order.service';
-import { BrokerageOrderTypeormRepository } from './adapter/repository/brokerage-order.typeorm.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BrokerageOrder } from './adapter/repository/entity/brokerage-order.db.entity';
 import { GeneralInformation } from './adapter/repository/entity/general-information.typeorm.entity';
@@ -14,6 +13,9 @@ import {
 } from './adapter/repository/entity/financial-summary.typeorm.entity';
 import { BusinessSummary } from './adapter/repository/entity/business-summary.typeorm.entity';
 import { provideBrokerageOrderRepository } from './brokerage-order.repository.provider';
+import { GetStocksService } from './query/get-stocks.service';
+import { Stock } from './adapter/repository/entity/stock.typeorm.entity';
+import { StockController } from './query/stock.controller';
 
 @Module({
   imports: [
@@ -26,9 +28,14 @@ import { provideBrokerageOrderRepository } from './brokerage-order.repository.pr
       Exchange,
       OperationalCosts,
       FinancialSummary,
+      Stock,
     ]),
   ],
-  controllers: [BrokerageOrderController],
-  providers: [BrokerageOrderService, ...provideBrokerageOrderRepository()],
+  controllers: [BrokerageOrderController, StockController],
+  providers: [
+    BrokerageOrderService,
+    GetStocksService,
+    ...provideBrokerageOrderRepository(),
+  ],
 })
 export class BrokerageOrderModule {}

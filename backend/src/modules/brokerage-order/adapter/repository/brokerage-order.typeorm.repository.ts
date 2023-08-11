@@ -20,7 +20,9 @@ import {
 import { BrokerageOrderRepository } from './brokerage-order.interface';
 
 @Injectable()
-export class BrokerageOrderTypeormRepository implements BrokerageOrderRepository {
+export class BrokerageOrderTypeormRepository
+  implements BrokerageOrderRepository
+{
   constructor(
     private readonly brokerageOrderRepository: Repository<BrokerageOrder>,
   ) {}

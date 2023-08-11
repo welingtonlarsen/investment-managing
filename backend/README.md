@@ -4,7 +4,6 @@
 
 ![](https://img.shields.io/badge/Status-Development-blue)
 
-
 </div>
 <div align="center">
 
@@ -21,18 +20,23 @@ This application gives an accounting summary of an investment year. It's useful 
 ## Features
 
 ### API
+
 #### Done
+
 - Create brokerage order
 - List all brokerage orders
+
 #### To do
+
 - Calculate annual profit
 
 ### Frontend
+
 #### To do
+
 - Create brokerage order
 - List all brokerage orders
 - Calculate annual profit
-
 
 ## Installation
 
@@ -54,20 +58,24 @@ $ npm run start:prod
 ```
 
 ## Test
+
 ### Kinds
+
 - End to end (e2e):
-    - Located in ```./test```.
-    - Run the entire application.
-    - Test the complete input/output flow.
+  - Located in `./test`.
+  - Run the entire application.
+  - Test the complete input/output flow.
 - Integration tests:
-    - Located inside modules directories.
-    - Run the entire application.
-    - Test external dependencies, like database.
+  - Located inside modules directories.
+  - Run the entire application.
+  - Test external dependencies, like database.
 - Unit tests :
-    - Located inside modules directories.
-    - Mock dependencies
-    - Run functions and classes
+  - Located inside modules directories.
+  - Mock dependencies
+  - Run functions and classes
+
 ### Commands
+
 ```bash
 # unit tests
 $ npm run test
@@ -83,6 +91,22 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Database migrations
+
+Before generating a new migration, you must build your ts files into js files. To automatically build and generate a new migration based on our TypeORM entities, simply execute:
+
+```bash
+$ npm run migration:generate --filename=<NameOfTheMigration>
+```
+
+If you want to create a new migration empty migration, run:
+
+```bash
+$ npm run migration:create --filename=<NameOfTheMigration>
+```
+
+A migration file with .ts extension will be create in `src/migrations` folder.
 
 ## Payloads Bovespa translation
 
