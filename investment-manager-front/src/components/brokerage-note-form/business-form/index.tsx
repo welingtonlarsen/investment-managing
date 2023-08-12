@@ -1,6 +1,7 @@
-import { Box, TextField, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
+import { NumberField } from '../@components/number-field';
 import { UseFormRegister } from 'react-hook-form';
-import { TBrokerageOrder } from '../../../hooks/useBrokerageNoteForm';
+import { TBrokerageOrder, TBrokerageOrderPropType } from '../../../hooks/useBrokerageNoteForm';
 import React from 'react';
 
 type TProps = {
@@ -8,100 +9,60 @@ type TProps = {
 };
 
 const BusinessForm: React.FC<TProps> = ({ register }) => {
+  const fields: { id: string; label: string; field: TBrokerageOrderPropType }[] = [
+    {
+      id: 'debentures',
+      label: 'Debêntures',
+      field: 'businessSummary.debentures',
+    },
+    {
+      id: 'sellInCash',
+      label: 'Vendas à vista',
+      field: 'businessSummary.sellInCash',
+    },
+    {
+      id: 'buyInCash',
+      label: 'Compras à vista',
+      field: 'businessSummary.buyInCash',
+    },
+    {
+      id: 'optionsBuy',
+      label: 'Opções - compras',
+      field: 'businessSummary.optionsBuy',
+    },
+    {
+      id: 'optionsSell',
+      label: 'Opções - vendas',
+      field: 'businessSummary.optionsSell',
+    },
+    {
+      id: 'termOptions',
+      label: 'Operações à termo',
+      field: 'businessSummary.termOptions',
+    },
+    {
+      id: 'federalSecurities',
+      label: 'Títulos públicos',
+      field: 'businessSummary.federalSecurities',
+    },
+    {
+      id: 'operationValues',
+      label: 'Valor das operações',
+      field: 'businessSummary.operationValues',
+    },
+  ];
+
   return (
     <Box>
       <Typography sx={{ mb: 4 }} variant="h6" gutterBottom>
         Resumo dos negócios
       </Typography>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.debentures', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Debêntures"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.sellInCash', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Vendas à vista"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.buyInCash', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Compras à vista"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.optionsBuy', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Opções - compras"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.optionsSell', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Opções - vendas"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.termOptions', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Operações à termo"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.federalSecurities', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Títulos públicos"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} lg={3}>
-          <TextField
-            type="number"
-            sx={{ display: 'flex' }}
-            {...register('businessSummary.operationValues', { valueAsNumber: true })}
-            InputLabelProps={{ shrink: true }}
-            id="outlined-basic"
-            label="Valor das operações"
-            variant="outlined"
-          />
-        </Grid>
+        {fields.map(({ id, label, field }, index) => (
+          <Grid key={index} item xs={12} sm={6} lg={3}>
+            <NumberField register={register} id={id} label={label} field={field} />
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );

@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 export type TBrokerageOrder = {
@@ -53,6 +54,14 @@ export type TBrokerageOrder = {
     netDebitOrCredit: string;
   };
 };
+
+type Paths<T, Prefix extends string = ''> = {
+  [K in keyof T]: T[K] extends Record<string, any>
+    ? Paths<T[K], `${Prefix & string}${Prefix extends '' ? '' : '.'}${K & string}`>
+    : `${Prefix & string}${Prefix extends '' ? '' : '.'}${K & string}`;
+}[keyof T];
+
+export type TBrokerageOrderPropType = Paths<TBrokerageOrder> | 'netDate' | 'netTotalValue' | 'netDebitOrCredit';
 
 export const defaultOrder = {
   market: '',
@@ -113,7 +122,8 @@ export const useBrokerageNoteForm = () => {
     },
   });
 
-  const { register, handleSubmit, control } = form;
+  const { register: formRegister, handleSubmit, control } = form;
+  const { current: register } = useRef(formRegister);
 
   const { fields, append } = useFieldArray({
     control,
