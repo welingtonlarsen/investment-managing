@@ -2,9 +2,11 @@ import { Control, Controller, FieldArrayWithId, UseFieldArrayAppend, UseFormRegi
 import { TBrokerageOrder, defaultOrder } from '../../../hooks/useBrokerageNoteForm';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { Grid, IconButton, MenuItem, Typography } from '@mui/material';
+import { Grid, IconButton, MenuItem, Typography, Autocomplete } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useStockService } from '../../../service/useStockService';
+import { TStock } from '../../../types/stock.type';
 
 type TProps = {
   fields: FieldArrayWithId<TBrokerageOrder, 'orders', 'id'>[];
@@ -14,6 +16,18 @@ type TProps = {
 };
 
 const OrdersForm: React.FC<TProps> = ({ fields, append, register, control }) => {
+  const stockService = useStockService();
+
+  const [stocks, setStocks] = useState<TStock[]>([]);
+
+  useEffect(() => {
+    async function fetchStocks() {
+      const stocksResult = await stockService.getAllIgnoringPagination();
+      setStocks(stocksResult);
+    }
+    fetchStocks();
+  }, []);
+
   const onIncrementOrder = () => {
     append(defaultOrder);
   };
@@ -135,12 +149,38 @@ const OrdersForm: React.FC<TProps> = ({ fields, append, register, control }) => 
                 />
               </Grid>
               <Grid item xs={12} sm={6} lg={2}>
-                <TextField
-                  sx={{ display: 'flex' }}
-                  inputProps={{ ...register(`orders.${index}.title`) }}
-                  label="Título"
-                  variant="outlined"
-                  InputLabelProps={{ shrink: true }}
+                <Controller
+                  control={control}
+                  name={`orders.${index}.title`}
+                  render={({ field: { onChange, value: selectedStock } }) => {
+                    return (
+                      <Autocomplete
+                        onChange={(event, item) => {
+                          onChange(item);
+                        }}
+                        value={selectedStock}
+                        options={stocks.map((stock) => stock.symbol)}
+                        getOptionLabel={(stock) => (stock ? stock : '')}
+                        isOptionEqualToValue={(stock) => {
+                          return stock === selectedStock;
+                        }}
+                        // getOptionSelected={(option, value) =>
+                        //   value === undefined || value === '' || option.title === value.title
+                        // }
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Título"
+                            variant="outlined"
+                            InputLabelProps={{ shrink: true }}
+                            // error={!!errors.item}
+                            // helperText={errors.item && 'item required'}
+                            // required
+                          />
+                        )}
+                      />
+                    );
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={3} lg={1}>

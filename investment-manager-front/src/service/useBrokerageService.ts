@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useNavigate } from 'react-router-dom';
 import { TBrokerageOrder } from '../hooks/useBrokerageNoteForm';
-import { useHttpService } from './http-service';
+import { useHttpService } from './http/http-service';
 
 export const useBrokerageNoteService = () => {
   const httpService = useHttpService();

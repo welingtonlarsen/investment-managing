@@ -1,4 +1,5 @@
 import axios, { isAxiosError, HttpStatusCode } from 'axios';
+import { PaginatedResponse } from './paginated-response.type';
 
 export function useHttpService() {
   async function post<T>(data: T): Promise<boolean> {
@@ -15,5 +16,15 @@ export function useHttpService() {
     }
   }
 
-  return { post };
+  async function get<T>(path: string): Promise<PaginatedResponse<T>> {
+    try {
+      const { data } = await axios.get<PaginatedResponse<T>>(`http://localhost:3000/${path}`);
+      return data;
+    } catch (e) {
+      console.log(e);
+      return null as unknown as PaginatedResponse<T>;
+    }
+  }
+
+  return { post, get };
 }
