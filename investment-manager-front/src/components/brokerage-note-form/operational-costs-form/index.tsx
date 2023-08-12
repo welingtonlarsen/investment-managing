@@ -16,6 +16,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.operationalFee', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -26,6 +27,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.execution', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -36,6 +38,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.custody', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -46,6 +49,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.taxes', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -56,6 +60,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.irrf', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -66,6 +71,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.others', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -76,6 +82,7 @@ export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.operationalCosts.totalCosts', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}

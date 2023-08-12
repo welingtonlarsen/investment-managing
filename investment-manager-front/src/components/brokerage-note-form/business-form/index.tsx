@@ -16,6 +16,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.debentures', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -26,6 +27,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.sellInCash', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -36,6 +38,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.buyInCash', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -46,6 +49,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.optionsBuy', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -56,6 +60,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.optionsSell', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -66,6 +71,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.termOptions', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -76,6 +82,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.federalSecurities', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -86,6 +93,7 @@ const BusinessForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('businessSummary.operationValues', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}

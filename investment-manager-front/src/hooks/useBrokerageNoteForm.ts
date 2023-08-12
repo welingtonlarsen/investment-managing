@@ -49,7 +49,7 @@ export type TBrokerageOrder = {
       totalCosts: number;
     };
     netDate: string;
-    netTotalValue: string;
+    netTotalValue: number;
     netDebitOrCredit: string;
   };
 };

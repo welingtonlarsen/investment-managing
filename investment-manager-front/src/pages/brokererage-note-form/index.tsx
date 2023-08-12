@@ -6,6 +6,7 @@ const BrokerageNoteFormPage = () => {
   const { create } = useBrokerageNoteService();
 
   async function submitCallback(formValues: TBrokerageOrder): Promise<void> {
+    console.log(formValues);
     await create(formValues);
   }
 

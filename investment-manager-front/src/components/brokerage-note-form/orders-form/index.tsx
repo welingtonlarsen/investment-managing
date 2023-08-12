@@ -185,6 +185,7 @@ const OrdersForm: React.FC<TProps> = ({ fields, append, register, control }) => 
               </Grid>
               <Grid item xs={12} sm={3} lg={1}>
                 <TextField
+                  type="number"
                   sx={{ display: 'flex' }}
                   inputProps={{ ...register(`orders.${index}.quantity`, { valueAsNumber: true }) }}
                   label="Quantidade"
@@ -194,6 +195,7 @@ const OrdersForm: React.FC<TProps> = ({ fields, append, register, control }) => 
               </Grid>
               <Grid item xs={12} sm={3} lg={1}>
                 <TextField
+                  type="number"
                   sx={{ display: 'flex' }}
                   inputProps={{ ...register(`orders.${index}.price`, { valueAsNumber: true }) }}
                   label="Preço"
@@ -203,6 +205,7 @@ const OrdersForm: React.FC<TProps> = ({ fields, append, register, control }) => 
               </Grid>
               <Grid item xs={12} sm={3} lg={1}>
                 <TextField
+                  type="number"
                   sx={{ display: 'flex' }}
                   inputProps={{ ...register(`orders.${index}.total`, { valueAsNumber: true }) }}
                   label="Total"

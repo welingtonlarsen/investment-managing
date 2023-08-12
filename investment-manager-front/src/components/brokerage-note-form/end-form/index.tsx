@@ -28,6 +28,7 @@ export const EndForm: React.FC<TProps> = ({ register, control }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.netTotalValue', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}

@@ -15,6 +15,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.clearing.operationsNetValue', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -25,6 +26,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.clearing.settlementFee', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -35,6 +37,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.clearing.registryFee', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -45,6 +48,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.clearing.totalCblc', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -65,6 +69,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.exchange.termOrOptionsFee', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -75,6 +80,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.exchange.anaFee', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -85,6 +91,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.exchange.fees', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}
@@ -95,6 +102,7 @@ const FinancialForm: React.FC<TProps> = ({ register }) => {
         </Grid>
         <Grid item xs={12} sm={6} lg={3}>
           <TextField
+            type="number"
             sx={{ display: 'flex' }}
             {...register('financialSummary.exchange.total', { valueAsNumber: true })}
             InputLabelProps={{ shrink: true }}

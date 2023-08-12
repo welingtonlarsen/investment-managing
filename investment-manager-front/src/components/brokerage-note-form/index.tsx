@@ -24,6 +24,7 @@ const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback }
 
   const [currentStep, setCurrentStep] = useState(0);
 
+  // TODO: Estrangular para um componente
   const renderNavigation = () => {
     const shouldShowPreviousButton = currentStep !== 0;
     const shouldShowNextButton = currentStep !== steps.length - 1;
@@ -62,6 +63,7 @@ const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback }
     );
   };
 
+  // TODO: Estrangular para um componente
   const renderStepsHeader = () => (
     <Box sx={{ width: '100%', mb: 8 }}>
       <Stepper activeStep={currentStep} alternativeLabel>
@@ -90,7 +92,6 @@ const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback }
         onSubmit={handleSubmit(submitCallback)}
       >
         {renderStepsHeader()}
-        <Button type="submit">Fim</Button>
         {currentStep === 0 && <OrdersForm control={control} fields={fields} append={append} register={register} />}
         {currentStep === 1 && <BusinessForm register={register} />}
         {currentStep === 2 && <FinancialForm register={register} />}
