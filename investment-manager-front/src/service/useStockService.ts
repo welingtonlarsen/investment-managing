@@ -12,5 +12,3 @@ export const useStockService = () => {
 
   return { getAllIgnoringPagination };
 };
-
-export default useHttpService;

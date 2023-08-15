@@ -2,17 +2,17 @@ import axios, { isAxiosError, HttpStatusCode } from 'axios';
 import { PaginatedResponse } from './paginated-response.type';
 
 export function useHttpService() {
-  async function post<T>(data: T): Promise<boolean> {
+  async function post<T>(data: T): Promise<number> {
     try {
       await axios.post<T>('http://localhost:3000/brokerage-order', data);
-      return true;
+      return 201;
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === HttpStatusCode.BadRequest) {
         alert(`Problema interno, comunique o suporte com a seguinte mensagem: \n\n${error.response.data.message}`);
-        return false;
+        return 400;
       }
       alert('Erro desconhecido, comunique o suporte!');
-      return false;
+      return 500;
     }
   }
 

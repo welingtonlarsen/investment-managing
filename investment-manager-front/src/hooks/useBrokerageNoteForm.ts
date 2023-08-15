@@ -1,22 +1,24 @@
 import { useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
+type TOrder = {
+  market: string;
+  buyOrSell: string;
+  marketType: string;
+  title: string;
+  quantity: number | undefined;
+  price: number | undefined;
+  total: number | undefined;
+  debitOrCredit: string;
+};
+
 export type TBrokerageOrder = {
   generalInformation: {
     brokerageOrderNumber: number;
     tradingFlorDate: string;
     clientId: string;
   };
-  orders: {
-    market: string;
-    buyOrSell: string;
-    marketType: string;
-    title: string;
-    quantity: number | undefined;
-    price: number | undefined;
-    total: number | undefined;
-    debitOrCredit: string;
-  }[];
+  orders: TOrder[];
   businessSummary: {
     debentures: number;
     sellInCash: number;
@@ -61,7 +63,12 @@ type Paths<T, Prefix extends string = ''> = {
     : `${Prefix & string}${Prefix extends '' ? '' : '.'}${K & string}`;
 }[keyof T];
 
-export type TBrokerageOrderPropType = Paths<TBrokerageOrder> | 'netDate' | 'netTotalValue' | 'netDebitOrCredit';
+export type TBrokerageOrderPropType =
+  | Paths<TBrokerageOrder, any>
+  | Paths<{ orders: TOrder }, any>
+  | 'netDate'
+  | 'netTotalValue'
+  | 'netDebitOrCredit';
 
 export const defaultOrder = {
   market: '',

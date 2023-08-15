@@ -13,12 +13,12 @@ function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-              <Button onClick={() => navigate('/brokeragenotes/form')} sx={{ my: 2, color: 'white', display: 'block' }}>
-                Notas
-              </Button>
-              <Button onClick={() => navigate('/brokeragenotes/table')} sx={{ my: 2, color: 'white', display: 'block' }}>
-                Relatórios
-              </Button>
+            <Button onClick={() => navigate('/brokeragenotes/form')} sx={{ my: 2, color: 'white', display: 'block' }}>
+              REGISTRAR
+            </Button>
+            <Button onClick={() => navigate('/brokeragenotes/table')} sx={{ my: 2, color: 'white', display: 'block' }}>
+              LISTAGEM
+            </Button>
           </Box>
         </Toolbar>
       </Container>

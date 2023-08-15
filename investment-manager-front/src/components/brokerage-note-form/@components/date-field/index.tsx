@@ -7,19 +7,14 @@ type TProps = {
   label: string;
   register: UseFormRegister<any>;
   field: TBrokerageOrderPropType;
-  index?: number;
 };
 
-export const NumberField: React.FC<TProps> = ({ register, field, id, label, index }) => {
-  const splitedField = String(field).split('.');
-
-  const parsedField = index === 0 || index ? `${splitedField[0]}.${index}.${splitedField[1]}` : field;
-
+export const DateField: React.FC<TProps> = ({ register, field, id, label }) => {
   return (
     <MUITextField
-      type="number"
+      type="date"
       sx={{ display: 'flex' }}
-      {...register(String(parsedField), { valueAsNumber: true })}
+      {...register(String(field))}
       InputLabelProps={{ shrink: true }}
       id={id}
       label={label}

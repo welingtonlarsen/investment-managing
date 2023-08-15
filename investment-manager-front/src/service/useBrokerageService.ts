@@ -8,13 +8,17 @@ export const useBrokerageNoteService = () => {
   const navigate = useNavigate();
 
   async function create(brokerageOrder: TBrokerageOrder) {
-    const success = await httpService.post<TBrokerageOrder>(brokerageOrder);
-    if (success) {
+    const statusCode = await httpService.post<TBrokerageOrder>(brokerageOrder);
+    if (statusCode === 201) {
       alert('Nota cadastrada com sucesso.');
+      navigate('/brokeragenotes/table');
+    } else if (statusCode === 400) {
+      // TODO:
+      console.log('implement');
     } else {
       alert('Erro ao cadastrar nota! Comunique o suporte e tente novamente mais tarde.');
+      navigate('/brokeragenotes/table');
     }
-    navigate('/brokeragenotes/table');
   }
 
   return { create };
