@@ -8,7 +8,7 @@ import { BROKERAGE_ORDER_REPOSITORY_TOKEN } from './adapter/repository/brokerage
 import { DataSource } from '../../common/constants/datasource-typeorm';
 
 export function provideBrokerageOrderRepository(): Provider[] {
-  return [
+  const result = [
     {
       provide: BROKERAGE_ORDER_REPOSITORY_TOKEN,
       useFactory: async (
@@ -18,6 +18,7 @@ export function provideBrokerageOrderRepository(): Provider[] {
     },
     BrokerageOrderRepoDependenciesProvider,
   ];
+  return result;
 }
 
 async function provideBrokerageOrderRepositoryFactory(

@@ -45,7 +45,6 @@ const connection = new DataSource({
 export async function databaseIntegrationSetup() {
   try {
     await masterConnection.initialize();
-    // TODO: Incluir o reset tambem no close
     await resetDatabase();
   } catch (err) {
     process.stderr.write(

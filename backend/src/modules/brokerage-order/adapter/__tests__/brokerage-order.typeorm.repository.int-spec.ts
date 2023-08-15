@@ -1,18 +1,16 @@
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import {
   closeDatabaseIntegrationConnections,
   databaseIntegrationSetup,
 } from './config/setup';
 import { Test, TestingModule } from '@nestjs/testing';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { BrokerageOrderModule } from '../../brokerage-order.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { BrokerageOrderTypeormRepository } from '../repository/brokerage-order.typeorm.repository';
 import { Repository } from 'typeorm';
 import { BrokerageOrder } from '../repository/entity/brokerage-order.db.entity';
 import { brokerageOrderEntity } from './seed/brokerage-order-entity';
 import { BROKERAGE_ORDER_REPOSITORY_TOKEN } from '../repository/brokerage-order.interface';
-import { ConfigModule, ConfigType } from '@nestjs/config';
-import databaseConfig from '../../../../config/database.config';
+import { ConfigModule } from '@nestjs/config';
 import { BusinessSummary } from '../repository/entity/business-summary.typeorm.entity';
 import {
   Clearing,
@@ -22,62 +20,42 @@ import {
 } from '../repository/entity/financial-summary.typeorm.entity';
 import { GeneralInformation } from '../repository/entity/general-information.typeorm.entity';
 import { Order } from '../repository/entity/order.typeorm.entity';
+import DatabaseModule from '../../../configuration/database/database.module';
+import { provideBrokerageOrderRepository } from '../../brokerage-order.repository.provider';
 
 describe('Brokerage Order TypeORM Repository tests', () => {
   let app: INestApplication;
   let brokerageOrderRepository: Repository<BrokerageOrder>;
-
   let brokerageOrderTypeormRepository: BrokerageOrderTypeormRepository;
 
   beforeEach(async () => {
     await databaseIntegrationSetup();
 
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+    const testingModule: TestingModule = await Test.createTestingModule({
       imports: [
-        BrokerageOrderModule,
-        // TODO: Compartilhar em um mesmo arquivo pois é o mesmo conteudo do AppModule
-        ConfigModule.forRoot({
-          envFilePath: globalThis.ENV_FILE || 'environments/.env',
-        }),
-        TypeOrmModule.forRootAsync({
-          imports: [ConfigModule.forRoot({ load: [databaseConfig] })],
-          useFactory: (
-            configDatabase: ConfigType<typeof databaseConfig>,
-          ): TypeOrmModuleOptions => ({
-            type: configDatabase.type,
-            host: configDatabase.host,
-            port: configDatabase.port,
-            username: configDatabase.username,
-            password: configDatabase.password,
-            entities: [
-              BrokerageOrder,
-              GeneralInformation,
-              Order,
-              BusinessSummary,
-              Clearing,
-              Exchange,
-              OperationalCosts,
-              FinancialSummary,
-            ],
-            logging: true,
-            synchronize: true,
-            database: configDatabase.database,
-          }),
-          inject: [databaseConfig.KEY],
-        }),
+        ConfigModule.forRoot({ envFilePath: globalThis.ENV_FILE }),
+        DatabaseModule,
+        TypeOrmModule.forFeature([
+          BrokerageOrder,
+          GeneralInformation,
+          Order,
+          BusinessSummary,
+          Clearing,
+          Exchange,
+          OperationalCosts,
+          FinancialSummary,
+        ]),
       ],
+      providers: [...provideBrokerageOrderRepository()],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ transform: true }));
-    await app.init();
+    app = testingModule.createNestApplication();
 
-    brokerageOrderRepository = moduleFixture.get<Repository<BrokerageOrder>>(
+    brokerageOrderRepository = testingModule.get<Repository<BrokerageOrder>>(
       `${BrokerageOrder.name}Repository`,
     );
-
     brokerageOrderTypeormRepository =
-      moduleFixture.get<BrokerageOrderTypeormRepository>(
+      testingModule.get<BrokerageOrderTypeormRepository>(
         BROKERAGE_ORDER_REPOSITORY_TOKEN,
       );
   });
