@@ -29,7 +29,7 @@ export class OrderDto {
   marketType: MarketType;
 
   @IsNotEmpty()
-  title: string;
+  symbol: string;
 
   @IsNumber()
   quantity: number;

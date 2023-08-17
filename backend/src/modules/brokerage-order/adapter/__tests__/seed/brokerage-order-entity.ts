@@ -9,6 +9,7 @@ import {
   Market,
   MarketType,
 } from '../../../domain/dto/order.dto';
+import { StockEntity } from 'src/modules/brokerage-order/domain/entity/stock.entity';
 
 const generalInformationEntity: GeneralInformationEntity = {
   brokerageOrderNumber: 51198038,
@@ -16,12 +17,17 @@ const generalInformationEntity: GeneralInformationEntity = {
   clientId: '2079101',
 };
 
+export const stock: StockEntity = {
+  symbol: 'HGCR11',
+  specification: 'FII CSHGCRI HGCR11',
+};
+
 const ordersEntity: OrderEntity[] = [
   {
     market: Market.BOVESPA,
     buyOrSell: BuyOrSell.BUY,
     marketType: MarketType.VISTA,
-    title: 'SANEPAR UNT N2',
+    stock,
     quantity: 100,
     price: 1850,
     total: 185000,

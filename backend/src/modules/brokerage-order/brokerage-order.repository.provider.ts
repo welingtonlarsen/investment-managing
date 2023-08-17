@@ -5,7 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { BrokerageOrderTypeormRepository } from './adapter/repository/brokerage-order.typeorm.repository';
 import { Provider } from '@nestjs/common';
 import { BROKERAGE_ORDER_REPOSITORY_TOKEN } from './adapter/repository/brokerage-order.interface';
-import { DataSource } from '../../common/constants/datasource-typeorm';
+import { Stock } from './adapter/repository/entity/stock.typeorm.entity';
 
 export function provideBrokerageOrderRepository(): Provider[] {
   const result = [
@@ -26,9 +26,10 @@ async function provideBrokerageOrderRepositoryFactory(
 ) {
   await ConfigModule.envVariablesLoaded;
   switch (process.env.DATABASE_DATASOURCE) {
-    case DataSource.TYPEORM:
+    case 'typeorm':
       return new BrokerageOrderTypeormRepository(
-        dependenciesProvider.typeOrmRepository,
+        dependenciesProvider.brokerageOrderTypeOrmRepository,
+        dependenciesProvider.stockTypeOrmRepository,
       );
     default:
       throw new Error('Data source not implemented');
@@ -38,6 +39,9 @@ async function provideBrokerageOrderRepositoryFactory(
 export class BrokerageOrderRepoDependenciesProvider {
   constructor(
     @InjectRepository(BrokerageOrder)
-    public typeOrmRepository: Repository<BrokerageOrder>,
+    public brokerageOrderTypeOrmRepository: Repository<BrokerageOrder>,
+
+    @InjectRepository(Stock)
+    public stockTypeOrmRepository: Repository<Stock>,
   ) {}
 }

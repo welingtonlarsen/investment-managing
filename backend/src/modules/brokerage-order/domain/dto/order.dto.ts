@@ -20,7 +20,7 @@ export type OrderDto = {
   market: Market;
   buyOrSell: BuyOrSell;
   marketType: MarketType;
-  title: string;
+  symbol: string;
   quantity: number;
   price: number;
   total: number;

@@ -1,3 +1,5 @@
+import { StockEntity } from './stock.entity';
+
 export enum Market {
   BOVESPA = 'BOVESPA',
 }
@@ -20,7 +22,7 @@ export type OrderEntity = {
   market: Market;
   buyOrSell: BuyOrSell;
   marketType: MarketType;
-  title: string;
+  stock: StockEntity;
   quantity: number;
   price: number;
   total: number;

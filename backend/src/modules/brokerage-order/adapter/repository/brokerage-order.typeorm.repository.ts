@@ -9,15 +9,15 @@ import {
   FinancialSummary,
   OperationalCosts,
 } from './entity/financial-summary.typeorm.entity';
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { BrokerageOrderEntity } from '../../domain/entity/brokerage-order.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import {
   paginate,
   Pagination,
   IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 import { BrokerageOrderRepository } from './brokerage-order.interface';
+import { Stock } from './entity/stock.typeorm.entity';
 
 @Injectable()
 export class BrokerageOrderTypeormRepository
@@ -25,6 +25,7 @@ export class BrokerageOrderTypeormRepository
 {
   constructor(
     private readonly brokerageOrderRepository: Repository<BrokerageOrder>,
+    private readonly stockRepository: Repository<Stock>,
   ) {}
 
   async save(entity: BrokerageOrderEntity): Promise<void> {
@@ -40,18 +41,23 @@ export class BrokerageOrderTypeormRepository
     );
 
     // Parse Orders
-    const ordersTypeOrm = orders.map(
-      (order) =>
-        new Order(
+    const ordersTypeOrm = await Promise.all(
+      orders.map(async (order) => {
+        const stock = await this.stockRepository.findOneBy({
+          symbol: order.stock.symbol,
+        });
+
+        return new Order(
           order.market,
           order.buyOrSell,
           order.marketType,
-          order.title,
+          stock,
           order.quantity,
           order.price,
           order.total,
           order.debitOrCredit,
-        ),
+        );
+      }),
     );
 
     // Parse Business Summary

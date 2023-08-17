@@ -8,7 +8,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BrokerageOrderTypeormRepository } from '../repository/brokerage-order.typeorm.repository';
 import { Repository } from 'typeorm';
 import { BrokerageOrder } from '../repository/entity/brokerage-order.db.entity';
-import { brokerageOrderEntity } from './seed/brokerage-order-entity';
+import { brokerageOrderEntity, stock } from './seed/brokerage-order-entity';
 import { BROKERAGE_ORDER_REPOSITORY_TOKEN } from '../repository/brokerage-order.interface';
 import { ConfigModule } from '@nestjs/config';
 import { BusinessSummary } from '../repository/entity/business-summary.typeorm.entity';
@@ -22,10 +22,12 @@ import { GeneralInformation } from '../repository/entity/general-information.typ
 import { Order } from '../repository/entity/order.typeorm.entity';
 import DatabaseModule from '../../../configuration/database/database.module';
 import { provideBrokerageOrderRepository } from '../../brokerage-order.repository.provider';
+import { Stock } from '../repository/entity/stock.typeorm.entity';
 
 describe('Brokerage Order TypeORM Repository tests', () => {
   let app: INestApplication;
   let brokerageOrderRepository: Repository<BrokerageOrder>;
+  let stockRepository: Repository<Stock>;
   let brokerageOrderTypeormRepository: BrokerageOrderTypeormRepository;
 
   beforeEach(async () => {
@@ -44,6 +46,7 @@ describe('Brokerage Order TypeORM Repository tests', () => {
           Exchange,
           OperationalCosts,
           FinancialSummary,
+          Stock,
         ]),
       ],
       providers: [...provideBrokerageOrderRepository()],
@@ -54,10 +57,16 @@ describe('Brokerage Order TypeORM Repository tests', () => {
     brokerageOrderRepository = testingModule.get<Repository<BrokerageOrder>>(
       `${BrokerageOrder.name}Repository`,
     );
+    stockRepository = testingModule.get<Repository<Stock>>(
+      `${Stock.name}Repository`,
+    );
+
     brokerageOrderTypeormRepository =
       testingModule.get<BrokerageOrderTypeormRepository>(
         BROKERAGE_ORDER_REPOSITORY_TOKEN,
       );
+
+    await stockRepository.save(stock);
   });
 
   afterEach(async () => {
@@ -83,7 +92,10 @@ describe('Brokerage Order TypeORM Repository tests', () => {
           market: 'BOVESPA',
           buyOrSell: 'BUY',
           marketType: 'VISTA',
-          title: 'SANEPAR UNT N2',
+          stock: {
+            symbol: 'HGCR11',
+            specification: 'FII CSHGCRI HGCR11',
+          },
           quantity: 100,
           price: 1850,
           total: 185000,
@@ -158,7 +170,10 @@ describe('Brokerage Order TypeORM Repository tests', () => {
             market: 'BOVESPA',
             buyOrSell: 'BUY',
             marketType: 'VISTA',
-            title: 'SANEPAR UNT N2',
+            stock: {
+              symbol: 'HGCR11',
+              specification: 'FII CSHGCRI HGCR11',
+            },
             quantity: 100,
             price: 1850,
             total: 185000,

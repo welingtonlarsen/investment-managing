@@ -13,6 +13,7 @@ export class BrokerageOrderEntityFactory {
     const orders = ordersDto.map((order) => {
       const obj = {
         ...order,
+        stock: { symbol: order.symbol, specification: undefined },
         quantity: order.quantity,
         price: FloatParser.moneyAsCent(order.price),
         total: FloatParser.moneyAsCent(order.total),

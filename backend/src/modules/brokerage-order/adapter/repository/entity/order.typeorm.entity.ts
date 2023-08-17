@@ -8,6 +8,7 @@ import {
 import { Transform } from 'class-transformer';
 import { BrokerageOrder } from './brokerage-order.db.entity';
 import { DecimalTransformer } from '../../../../../util/transformers';
+import { Stock } from './stock.typeorm.entity';
 
 export enum Market {
   BOVESPA = 'BOVESPA',
@@ -52,8 +53,9 @@ export class Order {
   })
   marketType: MarketType;
 
-  @Column()
-  title: string;
+  @ManyToOne(() => Stock, (stock) => stock.symbol, { eager: true })
+  @JoinColumn({ name: 'stock_id', referencedColumnName: 'symbol' })
+  stock: Stock;
 
   @Column()
   quantity: number;
@@ -88,7 +90,7 @@ export class Order {
     market: Market,
     buyOrSell: BuyOrSell,
     marketType: MarketType,
-    title: string,
+    stock: Stock,
     quantity: number,
     price: number,
     total: number,
@@ -97,7 +99,7 @@ export class Order {
     this.market = market;
     this.buyOrSell = buyOrSell;
     this.marketType = marketType;
-    this.title = title;
+    this.stock = stock;
     this.quantity = quantity;
     this.price = price;
     this.total = total;

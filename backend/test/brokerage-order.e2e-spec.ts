@@ -6,20 +6,32 @@ import {
   closeDatabaseIntegrationConnections,
   databaseIntegrationSetup,
 } from '../src/modules/brokerage-order/adapter/__tests__/config/setup';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { Stock } from '../src/modules/brokerage-order/adapter/repository/entity/stock.typeorm.entity';
+import { Repository } from 'typeorm/repository/Repository';
 
 describe('Brokerage Order e2e', () => {
   let app: INestApplication;
+  let stockRepository: Repository<Stock>;
 
   beforeAll(async () => {
-    const databaseConnection = await databaseIntegrationSetup();
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule, TypeOrmModule.forRoot(databaseConnection.options)],
+    await databaseIntegrationSetup();
+
+    const testingModule: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
+    app = testingModule.createNestApplication();
     app.useGlobalPipes(new ValidationPipe({ transform: true }));
     await app.init();
+
+    stockRepository = testingModule.get<Repository<Stock>>(
+      `${Stock.name}Repository`,
+    );
+
+    await stockRepository.save({
+      symbol: 'HGCR11',
+      specification: 'FII CSHGCRI HGCR11',
+    });
   });
 
   afterAll(async () => {
@@ -57,7 +69,7 @@ describe('Brokerage Order e2e', () => {
             market: 'BOVESPA',
             buyOrSell: 'BUY',
             marketType: 'VISTA',
-            title: 'SANEPAR UNT N2',
+            symbol: 'HGCR11',
             quantity: 100,
             price: 18.5,
             total: 1850.0,

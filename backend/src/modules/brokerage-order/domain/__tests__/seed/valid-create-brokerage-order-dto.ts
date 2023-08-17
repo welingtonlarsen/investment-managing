@@ -16,7 +16,7 @@ export const ValidCreateBrokerageOrderDto = {
       market: Market.BOVESPA,
       buyOrSell: BuyOrSell.BUY,
       marketType: MarketType.VISTA,
-      title: 'SANEPAR UNT N2',
+      symbol: 'HGCR11',
       quantity: 100,
       price: 18.5,
       total: 1850.0,

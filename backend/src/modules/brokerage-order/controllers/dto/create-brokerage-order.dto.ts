@@ -1,5 +1,5 @@
 import { IsObject, ValidateNested } from 'class-validator';
-import { Transform, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import { GeneralInformationDto } from './general-information.dto';
 import { OrderDto } from './order.dto';
 import { BusinessSummary } from './business-summary.dto';
