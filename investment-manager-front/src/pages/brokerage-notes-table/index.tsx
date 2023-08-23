@@ -9,8 +9,8 @@ export default function BrokerageNotesPage() {
 
   const createNote = () => {
     navigate('/brokeragenotes/form');
-  }
-  
+  };
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Fab onClick={createNote} sx={{ mb: 3 }} size="small" color="primary" aria-label="add">

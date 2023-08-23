@@ -1,12 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateBrokerageOrderDto } from './dto/create-brokerage-order.dto';
 import { BrokerageOrderEntityFactory } from './factory/brokerage-order-entity.factory';
-import { BrokerageOrder } from '../adapter/repository/entity/brokerage-order.db.entity';
-import { IPaginationOptions, Pagination } from 'nestjs-typeorm-paginate';
+import {
+  IPaginationMeta,
+  IPaginationOptions,
+  Pagination,
+} from 'nestjs-typeorm-paginate';
 import {
   BROKERAGE_ORDER_REPOSITORY_TOKEN,
   BrokerageOrderRepository,
 } from '../adapter/repository/brokerage-order.interface';
+import { BrokerageOrderSummary } from './entity/brokerage-order-summary.entity';
 
 @Injectable()
 export class BrokerageOrderService {
@@ -21,9 +25,23 @@ export class BrokerageOrderService {
     await this.brokerageOrderRepository.save(brokerageOrderEntity);
   }
 
-  public async findAll(
+  public async getAllSumary(
     options: IPaginationOptions,
-  ): Promise<Pagination<BrokerageOrder>> {
-    return this.brokerageOrderRepository.findAll(options);
+  ): Promise<Pagination<BrokerageOrderSummary, IPaginationMeta>> {
+    const brokerageOrders = await this.brokerageOrderRepository.findAll(
+      options,
+    );
+    const summaryItems = brokerageOrders.items.map(
+      (brokerageOrder) => new BrokerageOrderSummary(brokerageOrder),
+    );
+
+    return {
+      ...brokerageOrders,
+      items: summaryItems,
+    };
+  }
+
+  public async delete(id: number): Promise<void> {
+    return this.brokerageOrderRepository.delete(id);
   }
 }

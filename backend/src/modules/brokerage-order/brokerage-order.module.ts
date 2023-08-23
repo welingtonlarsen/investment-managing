@@ -16,6 +16,7 @@ import { provideBrokerageOrderRepository } from './brokerage-order.repository.pr
 import { GetStocksService } from './query/get-stocks.service';
 import { Stock } from './adapter/repository/entity/stock.typeorm.entity';
 import { StockController } from './query/stock.controller';
+import { BrokerageOrderQueryController } from './query/brokerage-order-query.controller';
 
 @Module({
   imports: [
@@ -31,7 +32,11 @@ import { StockController } from './query/stock.controller';
       Stock,
     ]),
   ],
-  controllers: [BrokerageOrderController, StockController],
+  controllers: [
+    BrokerageOrderController,
+    StockController,
+    BrokerageOrderQueryController,
+  ],
   providers: [
     BrokerageOrderService,
     GetStocksService,

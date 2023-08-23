@@ -118,7 +118,20 @@ export class BrokerageOrderTypeormRepository
 
   async findAll(
     options: IPaginationOptions,
-  ): Promise<Pagination<BrokerageOrder>> {
-    return paginate<BrokerageOrder>(this.brokerageOrderRepository, options);
+  ): Promise<Pagination<BrokerageOrderEntity>> {
+    const paginatedDbEntities = await paginate<BrokerageOrder>(
+      this.brokerageOrderRepository,
+      options,
+    );
+
+    const domainEntities = paginatedDbEntities.items.map(
+      (dbEntity) => dbEntity as unknown as BrokerageOrderEntity,
+    );
+
+    return { ...paginatedDbEntities, items: domainEntities };
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.brokerageOrderRepository.delete({ id });
   }
 }

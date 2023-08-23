@@ -5,7 +5,7 @@ type TOrder = {
   market: string;
   buyOrSell: string;
   marketType: string;
-  title: string;
+  symbol: string;
   quantity: number | undefined;
   price: number | undefined;
   total: number | undefined;
@@ -74,7 +74,7 @@ export const defaultOrder = {
   market: '',
   buyOrSell: '',
   marketType: '',
-  title: '',
+  symbol: '',
   quantity: undefined,
   price: undefined,
   total: undefined,

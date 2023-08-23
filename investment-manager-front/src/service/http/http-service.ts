@@ -4,7 +4,7 @@ import { PaginatedResponse } from './paginated-response.type';
 export function useHttpService() {
   async function post<T>(data: T): Promise<number> {
     try {
-      await axios.post<T>('http://localhost:3000/brokerage-order', data);
+      await axios.post<T>('http://localhost:3000/brokerageorders', data);
       return 201;
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === HttpStatusCode.BadRequest) {
@@ -18,7 +18,12 @@ export function useHttpService() {
 
   async function get<T>(path: string): Promise<PaginatedResponse<T>> {
     try {
-      const { data } = await axios.get<PaginatedResponse<T>>(`http://localhost:3000/${path}`);
+      const { data } = await axios.get<PaginatedResponse<T>>(`http://localhost:3000/${path}`, {
+        params: {
+          page: 1,
+          limit: 100,
+        },
+      });
       return data;
     } catch (e) {
       console.log(e);

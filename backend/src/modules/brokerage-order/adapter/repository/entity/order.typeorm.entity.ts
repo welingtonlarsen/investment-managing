@@ -82,7 +82,7 @@ export class Order {
   })
   debitOrCredit: DebitOrCredit;
 
-  @ManyToOne((type) => BrokerageOrder)
+  @ManyToOne((type) => BrokerageOrder, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'brokerage_order_id', referencedColumnName: 'id' })
   brokerageOrder: BrokerageOrder;
 

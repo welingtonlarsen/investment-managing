@@ -12,7 +12,17 @@ const router = createBrowserRouter([
         <Box sx={{ mb: 3 }}>
           <Header />
         </Box>
-        <BrokerageNotesPage />
+        <Box
+          sx={{
+            margin: {
+              xs: 0,
+              sm: 1,
+              md: 2,
+            },
+          }}
+        >
+          <BrokerageNotesPage />
+        </Box>
       </>
     ),
   },
@@ -23,7 +33,17 @@ const router = createBrowserRouter([
         <Box sx={{ mb: 3 }}>
           <Header />
         </Box>
-        <BrokerageNoteFormPage />
+        <Box
+          sx={{
+            margin: {
+              xs: 2,
+              sm: 1,
+              md: 10,
+            },
+          }}
+        >
+          <BrokerageNoteFormPage />
+        </Box>
       </>
     ),
   },

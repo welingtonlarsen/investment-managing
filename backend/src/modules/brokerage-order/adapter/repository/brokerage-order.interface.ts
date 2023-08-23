@@ -8,5 +8,9 @@ export const BROKERAGE_ORDER_REPOSITORY_TOKEN =
 export interface BrokerageOrderRepository {
   save(entity: BrokerageOrderEntity): Promise<void>;
 
-  findAll(options: IPaginationOptions): Promise<Pagination<BrokerageOrder>>;
+  findAll(
+    options: IPaginationOptions,
+  ): Promise<Pagination<BrokerageOrderEntity>>;
+
+  delete(id: number): Promise<void>;
 }

@@ -7,6 +7,8 @@ import { InvalidTotalNetValue } from '../error/create-brokerage-order.usecase';
 import { FloatParser } from '../../../../util/float-parser';
 
 export class BrokerageOrderEntity {
+  readonly id?: number;
+
   constructor(
     readonly generalInformation: GeneralInformationEntity,
     readonly orders: OrderEntity[],

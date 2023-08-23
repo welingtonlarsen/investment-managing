@@ -1,6 +1,6 @@
-export type TBrokerageNoteSummary = {
+export type BrokerageNotesSummaries = {
   id: number;
-  date: string;
+  date: Date;
   exchange: string;
   purchases: number;
   sales: number;

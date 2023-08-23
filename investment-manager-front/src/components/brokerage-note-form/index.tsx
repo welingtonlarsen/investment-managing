@@ -21,19 +21,7 @@ const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback }
 
   return (
     <>
-      <Box
-        component="form"
-        sx={{
-          margin: {
-            xs: 2,
-            sm: 1,
-            md: 10,
-          },
-        }}
-        noValidate
-        autoComplete="off"
-        onSubmit={handleSubmit(submitCallback)}
-      >
+      <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit(submitCallback)}>
         <StepsHeader currentStep={currentStep} steps={steps} />
         {currentStep === 0 && <OrdersForm control={control} fields={fields} append={append} register={register} />}
         {currentStep === 1 && <BusinessForm register={register} />}

@@ -73,7 +73,7 @@ export const Orders: React.FC<TProps> = ({ fields, append, register, control }) 
         <Grid item xs={12} sm={6} lg={2}>
           <Controller
             control={control}
-            name={`orders.${index}.title`}
+            name={`orders.${index}.symbol`}
             render={({ field: { onChange, value: selectedStock } }) => {
               return (
                 <Autocomplete

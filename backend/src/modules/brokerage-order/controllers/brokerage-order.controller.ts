@@ -6,11 +6,13 @@ import {
   DefaultValuePipe,
   ParseIntPipe,
   Query,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { CreateBrokerageOrderDto } from './dto/create-brokerage-order.dto';
 import { BrokerageOrderService } from '../domain/brokerage-order.service';
 
-@Controller('brokerage-order')
+@Controller('brokeragenotes')
 export class BrokerageOrderController {
   constructor(private brokerageOrderService: BrokerageOrderService) {}
 
@@ -19,32 +21,16 @@ export class BrokerageOrderController {
     return this.brokerageOrderService.create(createBrokerageOrderDto);
   }
 
-  @Get()
-  findAll(
+  @Get('/summaries')
+  getAllSummary(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ) {
-    return this.brokerageOrderService.findAll({
-      page,
-      limit,
-    });
+    return this.brokerageOrderService.getAllSumary({ page, limit });
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.brokerageOrderService.findOne(+id);
-  // }
-  //
-  // @Patch(':id')
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updateBrokerageOrderDto: UpdateBrokerageOrderDto,
-  // ) {
-  //   return this.brokerageOrderService.update(+id, updateBrokerageOrderDto);
-  // }
-  //
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.brokerageOrderService.remove(+id);
-  // }
+  @Delete(':id')
+  delete(@Param('id') id: number) {
+    return this.brokerageOrderService.delete(id);
+  }
 }
