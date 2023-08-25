@@ -11,6 +11,7 @@ import {
   BrokerageOrderRepository,
 } from '../adapter/repository/brokerage-order.interface';
 import { BrokerageOrderSummary } from './entity/brokerage-order-summary.entity';
+import { BrokerageOrderEntity } from './entity/brokerage-order.entity';
 
 @Injectable()
 export class BrokerageOrderService {
@@ -25,7 +26,7 @@ export class BrokerageOrderService {
     await this.brokerageOrderRepository.save(brokerageOrderEntity);
   }
 
-  public async getAllSumary(
+  public async getAllSummary(
     options: IPaginationOptions,
   ): Promise<Pagination<BrokerageOrderSummary, IPaginationMeta>> {
     const brokerageOrders = await this.brokerageOrderRepository.findAll(
@@ -43,5 +44,9 @@ export class BrokerageOrderService {
 
   public async delete(id: number): Promise<void> {
     return this.brokerageOrderRepository.delete(id);
+  }
+
+  public async getById(id: number): Promise<BrokerageOrderEntity> {
+    return this.brokerageOrderRepository.getById(id);
   }
 }

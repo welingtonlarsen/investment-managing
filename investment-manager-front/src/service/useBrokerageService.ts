@@ -2,7 +2,8 @@
 import { useNavigate } from 'react-router-dom';
 import { TBrokerageOrder } from '../hooks/useBrokerageNoteForm';
 import { useHttpService } from './http/http-service';
-import axios, { isAxiosError, HttpStatusCode } from 'axios';
+// eslint-disable-next-line import/named
+import axios, {AxiosResponse} from 'axios';
 
 export const useBrokerageNoteService = () => {
   const httpService = useHttpService();
@@ -31,7 +32,12 @@ export const useBrokerageNoteService = () => {
     }
   }
 
-  return { create, deleteNote };
+  // @ts-ignore
+  async function getById(brokerageNoteId: number): Promise<AxiosResponse<TBrokerageOrder>> {
+    return await axios.get(`http://localhost:3000/brokeragenotes/${brokerageNoteId}`)
+  }
+
+  return { create, deleteNote, getById };
 };
 
 export default useBrokerageNoteService;

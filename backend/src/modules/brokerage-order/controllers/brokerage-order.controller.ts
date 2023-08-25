@@ -26,7 +26,12 @@ export class BrokerageOrderController {
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit = 10,
   ) {
-    return this.brokerageOrderService.getAllSumary({ page, limit });
+    return this.brokerageOrderService.getAllSummary({ page, limit });
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: number) {
+    return this.brokerageOrderService.getById(id);
   }
 
   @Delete(':id')

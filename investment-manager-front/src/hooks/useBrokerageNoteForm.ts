@@ -1,11 +1,16 @@
 import { useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-type TOrder = {
+export type TOrder = {
+  id?: string
   market: string;
-  buyOrSell: string;
+  buyOrSell: 'BUY' | 'SELL';
   marketType: string;
-  symbol: string;
+  symbol?: string;
+  stock?: {
+    symbol: string,
+    specification: string
+  }
   quantity: number | undefined;
   price: number | undefined;
   total: number | undefined;

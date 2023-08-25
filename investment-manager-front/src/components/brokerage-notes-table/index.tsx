@@ -5,7 +5,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Box, IconButton, TablePagination } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSummariesService } from '../../service/useSummariesService';
@@ -14,6 +14,7 @@ import { BrokerageNotesSummaries } from '../../types/brokerage-notes-summaries.t
 import SearchIcon from '@mui/icons-material/Search';
 import AlertModal from '../alert-modal';
 import useBrokerageNoteService from '../../service/useBrokerageService';
+import BrokerageNoteModal from "../brokerage-note-modal";
 
 const formatMoney = (value: number) => {
   return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -22,6 +23,7 @@ const formatMoney = (value: number) => {
 export default function BrokerageNotesTable() {
   const { deleteNote } = useBrokerageNoteService();
   const [openModal, setOpenModal] = useState(false);
+  const [openBrokerageNoteModal, setOpenBrokerageNoteModal] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number | null>(null);
   const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
 
@@ -40,10 +42,20 @@ export default function BrokerageNotesTable() {
     setSelectedItem(id);
   };
 
+  const handleOpenBrokerageNoteModal = (id: number) => {
+    setSelectedItem(id)
+    setOpenBrokerageNoteModal(true)
+  }
+
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedItem(null);
   };
+
+  const handleCloseBrokerageNoteModal = () => {
+    setSelectedItem(null);
+    setOpenBrokerageNoteModal(false);
+  }
 
   const handleDeleteItem = async (): Promise<void> => {
     if (selectedItem !== null) {
@@ -61,6 +73,7 @@ export default function BrokerageNotesTable() {
 
   return (
     <>
+      <BrokerageNoteModal brokerageNoteId={selectedItem} open={openBrokerageNoteModal} handleClose={handleCloseBrokerageNoteModal}/>
       <AlertModal open={openModal} handleCloseModal={handleCloseModal} handleConfirm={handleDeleteItem} />
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -98,8 +111,8 @@ export default function BrokerageNotesTable() {
                     <TableCell align="left">{formatMoney(row.net)}</TableCell>
                     <TableCell align="left">{row.debitOrCredit}</TableCell>
                     <TableCell sx={{ display: 'flex', flex: 'row', justifyContent: 'space-around' }}>
-                      <IconButton aria-label="add to shopping cart">
-                        <SearchIcon />
+                      <IconButton aria-label="add to shopping cart" onClick={() => handleOpenBrokerageNoteModal(row.id)}>
+                        <SearchIcon/>
                       </IconButton>
                       <IconButton aria-label="delete" onClick={() => handleOpenModal(row.id)}>
                         <DeleteIcon />

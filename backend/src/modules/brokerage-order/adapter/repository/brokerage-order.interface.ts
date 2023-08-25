@@ -13,4 +13,6 @@ export interface BrokerageOrderRepository {
   ): Promise<Pagination<BrokerageOrderEntity>>;
 
   delete(id: number): Promise<void>;
+
+  getById(id: number): Promise<BrokerageOrderEntity>;
 }

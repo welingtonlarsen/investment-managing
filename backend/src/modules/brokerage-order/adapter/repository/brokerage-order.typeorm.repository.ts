@@ -18,6 +18,8 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { BrokerageOrderRepository } from './brokerage-order.interface';
 import { Stock } from './entity/stock.typeorm.entity';
+import { stock } from '../__tests__/seed/brokerage-order-entity';
+import { options } from '../../../configuration/database/datasource';
 
 @Injectable()
 export class BrokerageOrderTypeormRepository
@@ -133,5 +135,11 @@ export class BrokerageOrderTypeormRepository
 
   async delete(id: number): Promise<void> {
     await this.brokerageOrderRepository.delete({ id });
+  }
+
+  async getById(id: number): Promise<BrokerageOrderEntity> {
+    const dbEntity = await this.brokerageOrderRepository.findOneBy({ id });
+    const domainEntity = dbEntity as unknown as BrokerageOrderEntity
+    return domainEntity;
   }
 }
