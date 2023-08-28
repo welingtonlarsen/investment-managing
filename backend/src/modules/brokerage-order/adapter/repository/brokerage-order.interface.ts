@@ -15,4 +15,9 @@ export interface BrokerageOrderRepository {
   delete(id: number): Promise<void>;
 
   getById(id: number): Promise<BrokerageOrderEntity>;
+
+  update(
+    id: number,
+    brokerageOrderEntity: BrokerageOrderEntity,
+  ): Promise<BrokerageOrderEntity>;
 }

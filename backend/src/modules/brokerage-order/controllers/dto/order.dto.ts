@@ -19,6 +19,8 @@ enum DebitOrCredit {
 }
 
 export class OrderDto {
+  id?: number;
+
   @IsEnum(Market)
   market: Market;
 

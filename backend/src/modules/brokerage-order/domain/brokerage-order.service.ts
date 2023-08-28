@@ -12,6 +12,7 @@ import {
 } from '../adapter/repository/brokerage-order.interface';
 import { BrokerageOrderSummary } from './entity/brokerage-order-summary.entity';
 import { BrokerageOrderEntity } from './entity/brokerage-order.entity';
+import { UpdateBrokerageOrderDto } from '../controllers/dto/update-brokerage-order.dto';
 
 @Injectable()
 export class BrokerageOrderService {
@@ -48,5 +49,11 @@ export class BrokerageOrderService {
 
   public async getById(id: number): Promise<BrokerageOrderEntity> {
     return this.brokerageOrderRepository.getById(id);
+  }
+
+  public async update(id: number, brokerageOrder: UpdateBrokerageOrderDto) {
+    const brokerageOrderEntity =
+      brokerageOrder as unknown as BrokerageOrderEntity;
+    return this.brokerageOrderRepository.update(id, brokerageOrderEntity);
   }
 }

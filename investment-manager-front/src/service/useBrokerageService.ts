@@ -32,12 +32,15 @@ export const useBrokerageNoteService = () => {
     }
   }
 
-  // @ts-ignore
   async function getById(brokerageNoteId: number): Promise<AxiosResponse<TBrokerageOrder>> {
     return await axios.get(`http://localhost:3000/brokeragenotes/${brokerageNoteId}`)
   }
 
-  return { create, deleteNote, getById };
+  async function update(id: number, brokerageNote: TBrokerageOrder) {
+    return await axios.put(`http://localhost:3000/brokeragenotes/${id}`, brokerageNote)
+  }
+
+  return { create, deleteNote, getById, update };
 };
 
 export default useBrokerageNoteService;

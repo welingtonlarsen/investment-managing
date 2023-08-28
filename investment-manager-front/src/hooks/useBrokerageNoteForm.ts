@@ -18,47 +18,48 @@ export type TOrder = {
 };
 
 export type TBrokerageOrder = {
+  id?: number,
   generalInformation: {
-    brokerageOrderNumber: number;
-    tradingFlorDate: string;
-    clientId: string;
+    brokerageOrderNumber: number | undefined;
+    tradingFlorDate: string | undefined;
+    clientId: string | undefined;
   };
   orders: TOrder[];
   businessSummary: {
-    debentures: number;
-    sellInCash: number;
-    buyInCash: number;
-    optionsBuy: number;
-    optionsSell: number;
-    termOptions: number;
-    federalSecurities: number;
-    operationValues: number;
+    debentures: number | undefined;
+    sellInCash: number | undefined;
+    buyInCash: number | undefined;
+    optionsBuy: number | undefined;
+    optionsSell: number | undefined;
+    termOptions: number | undefined;
+    federalSecurities: number | undefined;
+    operationValues: number | undefined;
   };
   financialSummary: {
     clearing: {
-      operationsNetValue: number;
-      settlementFee: number;
-      registryFee: number;
-      totalCblc: number;
+      operationsNetValue: number | undefined;
+      settlementFee: number | undefined;
+      registryFee: number | undefined;
+      totalCblc: number | undefined;
     };
     exchange: {
-      termOrOptionsFee: number;
-      anaFee: number;
-      fees: number;
-      total: number;
+      termOrOptionsFee: number | undefined;
+      anaFee: number | undefined;
+      fees: number | undefined;
+      total: number | undefined;
     };
     operationalCosts: {
-      operationalFee: number;
-      execution: number;
-      custody: number;
-      taxes: number;
-      irrf: number;
-      others: number;
-      totalCosts: number;
+      operationalFee: number | undefined;
+      execution: number | undefined;
+      custody: number | undefined;
+      taxes: number | undefined;
+      irrf: number | undefined;
+      others: number | undefined;
+      totalCosts: number | undefined;
     };
-    netDate: string;
-    netTotalValue: number;
-    netDebitOrCredit: string;
+    netDate: string | undefined;
+    netTotalValue: number | undefined;
+    netDebitOrCredit: string | undefined;
   };
 };
 
@@ -77,7 +78,7 @@ export type TBrokerageOrderPropType =
 
 export const defaultOrder = {
   market: '',
-  buyOrSell: '',
+  buyOrSell: '' as 'BUY' | 'SELL',
   marketType: '',
   symbol: '',
   quantity: undefined,
@@ -86,55 +87,100 @@ export const defaultOrder = {
   debitOrCredit: '',
 };
 
-export const useBrokerageNoteForm = () => {
-  const form = useForm<TBrokerageOrder>({
-    defaultValues: {
-      generalInformation: {
-        brokerageOrderNumber: undefined,
-        tradingFlorDate: '',
-        clientId: '',
-      },
-      orders: [defaultOrder],
-      businessSummary: {
-        debentures: undefined,
-        sellInCash: undefined,
-        buyInCash: undefined,
-        optionsBuy: undefined,
-        optionsSell: undefined,
-        termOptions: undefined,
-        federalSecurities: undefined,
-        operationValues: undefined,
-      },
-      financialSummary: {
-        clearing: {
-          operationsNetValue: undefined,
-          settlementFee: undefined,
-          registryFee: undefined,
-          totalCblc: undefined,
-        },
-        exchange: {
-          termOrOptionsFee: undefined,
-          anaFee: undefined,
-          fees: undefined,
-          total: undefined,
-        },
-        operationalCosts: {
-          operationalFee: undefined,
-          execution: undefined,
-          custody: undefined,
-          taxes: undefined,
-          irrf: undefined,
-          others: undefined,
-          totalCosts: undefined,
-        },
-        netDate: undefined,
-        netTotalValue: undefined,
-        netDebitOrCredit: '',
-      },
+export const defaultValues: TBrokerageOrder = {
+  generalInformation: {
+    brokerageOrderNumber: undefined,
+    tradingFlorDate: '',
+    clientId: '',
+  },
+  orders: [defaultOrder],
+  businessSummary: {
+    debentures: undefined,
+    sellInCash: undefined,
+    buyInCash: undefined,
+    optionsBuy: undefined,
+    optionsSell: undefined,
+    termOptions: undefined,
+    federalSecurities: undefined,
+    operationValues: undefined,
+  },
+  financialSummary: {
+    clearing: {
+      operationsNetValue: undefined,
+      settlementFee: undefined,
+      registryFee: undefined,
+      totalCblc: undefined,
     },
-  });
+    exchange: {
+      termOrOptionsFee: undefined,
+      anaFee: undefined,
+      fees: undefined,
+      total: undefined,
+    },
+    operationalCosts: {
+      operationalFee: undefined,
+      execution: undefined,
+      custody: undefined,
+      taxes: undefined,
+      irrf: undefined,
+      others: undefined,
+      totalCosts: undefined,
+    },
+    netDate: undefined,
+    netTotalValue: undefined,
+    netDebitOrCredit: '',
+  },
+}
 
-  const { register: formRegister, handleSubmit, control } = form;
+export const useBrokerageNoteForm = () => {
+  const defaultValues: TBrokerageOrder = {
+        generalInformation: {
+          brokerageOrderNumber: undefined,
+          tradingFlorDate: '',
+          clientId: '',
+        },
+        orders: [defaultOrder],
+        businessSummary: {
+          debentures: undefined,
+          sellInCash: undefined,
+          buyInCash: undefined,
+          optionsBuy: undefined,
+          optionsSell: undefined,
+          termOptions: undefined,
+          federalSecurities: undefined,
+          operationValues: undefined,
+        },
+        financialSummary: {
+          clearing: {
+            operationsNetValue: undefined,
+            settlementFee: undefined,
+            registryFee: undefined,
+            totalCblc: undefined,
+          },
+          exchange: {
+            termOrOptionsFee: undefined,
+            anaFee: undefined,
+            fees: undefined,
+            total: undefined,
+          },
+          operationalCosts: {
+            operationalFee: undefined,
+            execution: undefined,
+            custody: undefined,
+            taxes: undefined,
+            irrf: undefined,
+            others: undefined,
+            totalCosts: undefined,
+          },
+          netDate: undefined,
+          netTotalValue: undefined,
+          netDebitOrCredit: '',
+        },
+      }
+
+  const form = useForm<TBrokerageOrder>({ defaultValues });
+
+  const { register: formRegister, handleSubmit, control, reset } = form;
   const { current: register } = useRef(formRegister);
 
   const { fields, append } = useFieldArray({
@@ -142,5 +188,5 @@ export const useBrokerageNoteForm = () => {
     name: 'orders',
   });
 
-  return { form, fields, append, handleSubmit, register, control };
+  return { form, fields, append, handleSubmit, register, control, reset };
 };

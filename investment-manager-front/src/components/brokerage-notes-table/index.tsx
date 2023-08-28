@@ -15,6 +15,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AlertModal from '../alert-modal';
 import useBrokerageNoteService from '../../service/useBrokerageService';
 import BrokerageNoteModal from "../brokerage-note-modal";
+import {removeTimeFromDate} from "../../utils/date.utils.ts";
 
 const formatMoney = (value: number) => {
   return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -68,12 +69,13 @@ export default function BrokerageNotesTable() {
       }
     }
     setOpenModal(false);
+    if (openBrokerageNoteModal) setOpenBrokerageNoteModal(false);
     setSelectedItem(null);
   };
 
   return (
     <>
-      <BrokerageNoteModal brokerageNoteId={selectedItem} open={openBrokerageNoteModal} handleClose={handleCloseBrokerageNoteModal}/>
+      <BrokerageNoteModal brokerageNoteId={selectedItem} open={openBrokerageNoteModal} handleClose={handleCloseBrokerageNoteModal} handleOpenModal={handleOpenModal}/>
       <AlertModal open={openModal} handleCloseModal={handleCloseModal} handleConfirm={handleDeleteItem} />
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -103,7 +105,7 @@ export default function BrokerageNotesTable() {
               <TableBody>
                 {brokerageNotesSummaries.map((row) => (
                   <TableRow tabIndex={-1} key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell>{String(row.date)}</TableCell>
+                    <TableCell>{removeTimeFromDate(String(row.date))}</TableCell>
                     <TableCell align="left">{row.exchange}</TableCell>
                     <TableCell align="left">{formatMoney(row.purchases)}</TableCell>
                     <TableCell align="left">{formatMoney(row.sales)}</TableCell>

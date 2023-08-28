@@ -8,11 +8,15 @@ import useBrokerageNoteService from "../../service/useBrokerageService.ts";
 import {TBrokerageOrder} from "../../hooks/useBrokerageNoteForm.ts";
 import {Box, Divider, Grid, Typography} from '@mui/material';
 import Orders from "./Orders.tsx";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from '@mui/icons-material/Edit';
+import {useNavigate} from "react-router-dom";
 
 type TProps = {
     brokerageNoteId: number | null
     open: boolean
     handleClose: () => void
+    handleOpenModal: (id: number) => void
 }
 
 const ItemValue = ({item, value}: {item: string, value: string | number | undefined}) => {
@@ -30,11 +34,10 @@ const SectionHeader = ({title}: {title: string}) => {
         </>
     )
 }
-export default function BrokerageNoteModal({brokerageNoteId, open, handleClose}: TProps) {
+export default function BrokerageNoteModal({brokerageNoteId, open, handleClose, handleOpenModal}: TProps) {
+    const navigate = useNavigate()
     const { getById } = useBrokerageNoteService()
     const [brokerageNote, setBrokerageNote] = useState<TBrokerageOrder | null>(null)
-
-    console.log(brokerageNote)
 
     useEffect(() => {
         (async () => {
@@ -46,6 +49,15 @@ export default function BrokerageNoteModal({brokerageNoteId, open, handleClose}:
 
     }, [brokerageNoteId])
 
+    const handleDelete = () => {
+        if(!brokerageNoteId) throw new Error('There is not brokerage note id');
+        handleOpenModal(brokerageNoteId)
+    }
+
+    const handleEdit = () => {
+        navigate('/brokeragenotes/form', {state: {...brokerageNote}})
+    }
+
     return (
         <React.Fragment>
             <Dialog
@@ -55,6 +67,14 @@ export default function BrokerageNoteModal({brokerageNoteId, open, handleClose}:
                 onClose={handleClose}
             >
                 <DialogTitle>Nota de corretagem</DialogTitle>
+                <Box sx={{display: 'flex', justifyContent: 'center', mb: 1}}>
+                    <Button onClick={handleDelete} size='small' color='error' variant='outlined' startIcon={<DeleteIcon />} sx={{mr: 2}}>
+                        Deletar
+                    </Button>
+                    <Button onClick={handleEdit} size='small' color='info' variant='outlined' startIcon={<EditIcon />}>
+                        Editar
+                    </Button>
+                </Box>
                 <Box>
                     <Box sx={{width: '100%'}}>
                         <SectionHeader title='Informações Gerais' />

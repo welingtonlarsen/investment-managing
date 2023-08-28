@@ -2,12 +2,14 @@ import {
   IsDate,
   IsEnum,
   IsNumber,
-  IsObject,
-  ValidateNested,
-} from 'class-validator';
+  IsObject, IsOptional,
+  ValidateNested
+} from "class-validator";
 import { Type } from 'class-transformer';
 
 class Clearing {
+  id?: number;
+
   @IsNumber()
   operationsNetValue: number;
 
@@ -22,6 +24,8 @@ class Clearing {
 }
 
 class Exchange {
+  id?: number;
+
   @IsNumber()
   termOrOptionsFee: number;
 
@@ -36,6 +40,8 @@ class Exchange {
 }
 
 class OperationalCosts {
+  id?: number;
+
   @IsNumber()
   operationalFee: number;
 

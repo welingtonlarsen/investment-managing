@@ -19,6 +19,7 @@ export enum DebitOrCredit {
 }
 
 export type OrderEntity = {
+  id?: number;
   market: Market;
   buyOrSell: BuyOrSell;
   marketType: MarketType;

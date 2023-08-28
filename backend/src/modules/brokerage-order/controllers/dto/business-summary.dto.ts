@@ -1,6 +1,8 @@
 import { IsNumber } from 'class-validator';
 
 export class BusinessSummary {
+  id?: number;
+
   @IsNumber()
   debentures: number;
 

@@ -139,7 +139,15 @@ export class BrokerageOrderTypeormRepository
 
   async getById(id: number): Promise<BrokerageOrderEntity> {
     const dbEntity = await this.brokerageOrderRepository.findOneBy({ id });
-    const domainEntity = dbEntity as unknown as BrokerageOrderEntity
+    const domainEntity = dbEntity as unknown as BrokerageOrderEntity;
     return domainEntity;
+  }
+
+  async update(
+    id: number,
+    brokerageOrderEntity: BrokerageOrderEntity,
+  ): Promise<BrokerageOrderEntity> {
+    await this.brokerageOrderRepository.save(brokerageOrderEntity);
+    return brokerageOrderEntity;
   }
 }

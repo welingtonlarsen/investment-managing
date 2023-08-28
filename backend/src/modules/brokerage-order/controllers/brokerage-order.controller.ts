@@ -8,9 +8,12 @@ import {
   Query,
   Delete,
   Param,
+  Put,
+  Patch,
 } from '@nestjs/common';
 import { CreateBrokerageOrderDto } from './dto/create-brokerage-order.dto';
 import { BrokerageOrderService } from '../domain/brokerage-order.service';
+import { UpdateBrokerageOrderDto } from './dto/update-brokerage-order.dto';
 
 @Controller('brokeragenotes')
 export class BrokerageOrderController {
@@ -19,6 +22,14 @@ export class BrokerageOrderController {
   @Post()
   create(@Body() createBrokerageOrderDto: CreateBrokerageOrderDto) {
     return this.brokerageOrderService.create(createBrokerageOrderDto);
+  }
+
+  @Put(':id')
+  update(
+    @Body() updateBrokerageOrderDto: UpdateBrokerageOrderDto,
+    @Param('id') id: number,
+  ) {
+    return this.brokerageOrderService.update(id, updateBrokerageOrderDto);
   }
 
   @Get('/summaries')

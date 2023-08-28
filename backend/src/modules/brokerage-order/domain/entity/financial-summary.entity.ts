@@ -1,4 +1,5 @@
 type Clearing = {
+  id?: number;
   operationsNetValue: number;
   settlementFee: number;
   registryFee: number;
@@ -6,6 +7,7 @@ type Clearing = {
 };
 
 type Exchange = {
+  id?: number;
   termOrOptionsFee: number;
   anaFee: number;
   fees: number;
@@ -13,6 +15,7 @@ type Exchange = {
 };
 
 type OperationalCosts = {
+  id?: number;
   operationalFee: number;
   execution: number;
   custody: number;
@@ -28,6 +31,7 @@ export enum DebitOrCredit {
 }
 
 export type FinancialSummaryEntity = {
+  id?: number;
   clearing: Clearing;
   exchange: Exchange;
   operationalCosts: OperationalCosts;
