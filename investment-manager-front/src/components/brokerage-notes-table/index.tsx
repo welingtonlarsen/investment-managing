@@ -9,26 +9,21 @@ import { Box, IconButton } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useSummariesService } from '../../service/useSummariesService';
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import { BrokerageNotesSummaries } from '../../types/brokerage-notes-summaries.type';
 import SearchIcon from '@mui/icons-material/Search';
 import AlertModal from '../alert-modal';
 import useBrokerageNoteService from '../../service/useBrokerageService';
 import BrokerageNoteModal from "../brokerage-note-modal";
 import {removeTimeFromDate} from "../../utils/date.utils.ts";
-
-const formatMoney = (value: number) => {
-  return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
+import {useBrokerageNotesTableModals} from "./useBrokerageNotesTableModals.ts";
+import {formatMoney} from "../../utils/money.utils.ts";
 
 export default function BrokerageNotesTable() {
   const { deleteNote } = useBrokerageNoteService();
-  const [openModal, setOpenModal] = useState(false);
-  const [openBrokerageNoteModal, setOpenBrokerageNoteModal] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<number | null>(null);
-  const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
-
   const { getAll } = useSummariesService();
+  const { modalsStates, dispatch } = useBrokerageNotesTableModals();
+  const [showDeleteErrorAlert, setShowDeleteErrorAlert] = useState(false);
   const [brokerageNotesSummaries, setBrokerageNotesSummaries] = useState<BrokerageNotesSummaries[]>([]);
 
   useEffect(() => {
@@ -39,44 +34,38 @@ export default function BrokerageNotesTable() {
   }, []);
 
   const handleOpenModal = (id: number) => {
-    setOpenModal(true);
-    setSelectedItem(id);
+    dispatch({type: 'OPEN_DELETE_CONFIRMATION_MODAL', selectedItem: id})
   };
 
   const handleOpenBrokerageNoteModal = (id: number) => {
-    setSelectedItem(id)
-    setOpenBrokerageNoteModal(true)
+    dispatch({type: 'OPEN_BROKERAGE_NOTE_MODAL', selectedItem: id})
   }
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-    setSelectedItem(null);
+    dispatch({type: 'CLOSE_DELETE_CONFIRMATION_MODAL'})
   };
 
   const handleCloseBrokerageNoteModal = () => {
-    setSelectedItem(null);
-    setOpenBrokerageNoteModal(false);
+    dispatch({type: 'CLOSE_BROKERAGE_NOTE_MODAL'})
   }
 
   const handleDeleteItem = async (): Promise<void> => {
-    if (selectedItem !== null) {
+    if (modalsStates.selectedItem !== null) {
       try {
-        await deleteNote(selectedItem);
-        const updatedBrokerageNotesSummary = brokerageNotesSummaries.filter((item) => item.id !== selectedItem);
+        await deleteNote(modalsStates.selectedItem);
+        const updatedBrokerageNotesSummary = brokerageNotesSummaries.filter((item) => item.id !== modalsStates.selectedItem);
         setBrokerageNotesSummaries(updatedBrokerageNotesSummary);
       } catch (e) {
         setShowDeleteErrorAlert(true);
       }
     }
-    setOpenModal(false);
-    if (openBrokerageNoteModal) setOpenBrokerageNoteModal(false);
-    setSelectedItem(null);
+    dispatch({type: 'CLOSE_ALL_MODALS'})
   };
 
   return (
     <>
-      <BrokerageNoteModal brokerageNoteId={selectedItem} open={openBrokerageNoteModal} handleClose={handleCloseBrokerageNoteModal} handleOpenModal={handleOpenModal}/>
-      <AlertModal open={openModal} handleCloseModal={handleCloseModal} handleConfirm={handleDeleteItem} />
+      <BrokerageNoteModal brokerageNoteId={modalsStates.selectedItem} open={modalsStates.isBrokerageNoteModalOpened} handleClose={handleCloseBrokerageNoteModal} handleOpenModal={handleOpenModal}/>
+      <AlertModal open={modalsStates.isDeleteConfirmationModalOpened} handleCloseModal={handleCloseModal} handleConfirm={handleDeleteItem} />
       <Box sx={{ width: '100%' }}>
         <Paper sx={{ width: '100%', mb: 2, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
           <TableContainer>
