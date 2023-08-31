@@ -6,7 +6,7 @@ export const BROKERAGE_ORDER_REPOSITORY_TOKEN =
   'brokerage-order-repository-token';
 
 export interface BrokerageOrderRepository {
-  save(entity: BrokerageOrderEntity): Promise<void>;
+  upsert(entity: BrokerageOrderEntity): Promise<void>;
 
   findAll(
     options: IPaginationOptions,

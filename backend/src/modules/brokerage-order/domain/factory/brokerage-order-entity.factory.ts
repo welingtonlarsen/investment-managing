@@ -22,6 +22,7 @@ export class BrokerageOrderEntityFactory {
     });
 
     const businessSummary = {
+      id: businessSummaryDto.id,
       debentures: FloatParser.moneyAsCent(businessSummaryDto.debentures),
       sellInCash: FloatParser.moneyAsCent(businessSummaryDto.sellInCash),
       buyInCash: FloatParser.moneyAsCent(businessSummaryDto.buyInCash),
@@ -44,7 +45,9 @@ export class BrokerageOrderEntityFactory {
 
     const financialSummary = {
       ...financialSummaryDto,
+      id: financialSummaryDto.id,
       clearing: {
+        id: clearingDto.id,
         operationsNetValue: FloatParser.moneyAsCent(
           clearingDto.operationsNetValue,
         ),
@@ -53,12 +56,14 @@ export class BrokerageOrderEntityFactory {
         totalCblc: FloatParser.moneyAsCent(clearingDto.totalCblc),
       },
       exchange: {
+        id: exchangeDto.id,
         termOrOptionsFee: FloatParser.moneyAsCent(exchangeDto.termOrOptionsFee),
         anaFee: FloatParser.moneyAsCent(exchangeDto.anaFee),
         fees: FloatParser.moneyAsCent(exchangeDto.fees),
         total: FloatParser.moneyAsCent(exchangeDto.total),
       },
       operationalCosts: {
+        id: operationalCostsDto.id,
         operationalFee: FloatParser.moneyAsCent(
           operationalCostsDto.operationalFee,
         ),

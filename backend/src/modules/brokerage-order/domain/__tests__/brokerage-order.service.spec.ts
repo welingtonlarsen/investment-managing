@@ -13,7 +13,7 @@ describe('BrokerageOrderService', () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const brokerageOrderTypeORMRepositoryMock: BrokerageOrderTypeormRepository = {
-    save: jest.fn(),
+    upsert: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -36,7 +36,7 @@ describe('BrokerageOrderService', () => {
 
   it('should save brokerage order', async () => {
     await service.create(ValidCreateBrokerageOrderDto);
-    expect(brokerageOrderTypeORMRepositoryMock.save).toHaveBeenCalledWith(
+    expect(brokerageOrderTypeORMRepositoryMock.upsert).toHaveBeenCalledWith(
       BrokerageOrderEntityFactory.from(ValidCreateBrokerageOrderDto),
     );
   });

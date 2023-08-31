@@ -9,6 +9,7 @@ const BrokerageNoteFormPage = () => {
 
   async function submitCallback(formValues: TBrokerageOrder): Promise<void> {
     if (formValues.id) {
+      console.log(formValues)
       await update(formValues.id, formValues)
       navigate('/brokeragenotes/table');
     } else {

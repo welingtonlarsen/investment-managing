@@ -62,7 +62,7 @@ export class Order {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -70,7 +70,7 @@ export class Order {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -95,7 +95,9 @@ export class Order {
     price: number,
     total: number,
     debitOrCredit: DebitOrCredit,
+    id?: number,
   ) {
+    this.id = id;
     this.market = market;
     this.buyOrSell = buyOrSell;
     this.marketType = marketType;

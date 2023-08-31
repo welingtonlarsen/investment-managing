@@ -23,7 +23,7 @@ const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback})
   const { fields, append, handleSubmit, register, control, reset } = useBrokerageNoteForm();
   const [currentStep, setCurrentStep] = useState(0);
 
-
+console.log(fields)
   useEffect(() => {
     if(location.state) {
       const { state } = location

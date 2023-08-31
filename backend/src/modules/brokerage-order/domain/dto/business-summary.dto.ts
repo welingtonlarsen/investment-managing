@@ -1,4 +1,5 @@
 export type BusinessSummary = {
+  id?: number;
   debentures: number;
   sellInCash: number;
   buyInCash: number;

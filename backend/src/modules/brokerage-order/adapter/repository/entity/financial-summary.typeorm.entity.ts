@@ -17,7 +17,7 @@ export class Clearing {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -25,7 +25,7 @@ export class Clearing {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -33,7 +33,7 @@ export class Clearing {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -44,11 +44,13 @@ export class Clearing {
     settlementFee: number,
     registryFee: number,
     totalCblc: number,
+    id: number,
   ) {
     this.operationsNetValue = operationsNetValue;
     this.settlementFee = settlementFee;
     this.registryFee = registryFee;
     this.totalCblc = totalCblc;
+    this.id = id;
   }
 }
 
@@ -59,7 +61,7 @@ export class Exchange {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -67,7 +69,7 @@ export class Exchange {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -75,7 +77,7 @@ export class Exchange {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -83,7 +85,7 @@ export class Exchange {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -94,11 +96,13 @@ export class Exchange {
     anaFee: number,
     fees: number,
     total: number,
+    id?: number,
   ) {
     this.termOrOptionsFee = termOrOptionsFee;
     this.anaFee = anaFee;
     this.fees = fees;
     this.total = total;
+    this.id = id;
   }
 }
 
@@ -109,7 +113,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -117,7 +121,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -125,7 +129,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -133,7 +137,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -141,7 +145,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -149,7 +153,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -157,7 +161,7 @@ export class OperationalCosts {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -171,6 +175,7 @@ export class OperationalCosts {
     irrf: number,
     others: number,
     totalCosts: number,
+    id?: number,
   ) {
     this.operationalFee = operationalFee;
     this.execution = execution;
@@ -179,6 +184,7 @@ export class OperationalCosts {
     this.irrf = irrf;
     this.others = others;
     this.totalCosts = totalCosts;
+    this.id = id;
   }
 }
 
@@ -209,7 +215,7 @@ export class FinancialSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -228,7 +234,9 @@ export class FinancialSummary {
     netDate: Date,
     netTotalValue: number,
     netDebitOrCredit: DebitOrCredit,
+    id?: number,
   ) {
+    this.id = id;
     this.clearing = clearing;
     this.exchange = exchange;
     this.operationalCosts = operationalCosts;

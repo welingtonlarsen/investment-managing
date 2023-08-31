@@ -39,7 +39,9 @@ export class BrokerageOrder {
     orders: Order[],
     businessSummary: BusinessSummary,
     financialSummary: FinancialSummary,
+    id?: number,
   ) {
+    this.id = id;
     this.generalInformation = generalInformation;
     this.orders = orders;
     this.businessSummary = businessSummary;

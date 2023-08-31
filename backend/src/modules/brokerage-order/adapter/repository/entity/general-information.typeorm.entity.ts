@@ -18,7 +18,9 @@ export class GeneralInformation {
     brokerageOrderNumber: number,
     tradingFlorDate: Date,
     clientId: string,
+    id?: number,
   ) {
+    this.id = id;
     this.brokerageOrderNumber = brokerageOrderNumber;
     this.tradingFlorDate = tradingFlorDate;
     this.clientId = clientId;

@@ -18,8 +18,7 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { BrokerageOrderRepository } from './brokerage-order.interface';
 import { Stock } from './entity/stock.typeorm.entity';
-import { stock } from '../__tests__/seed/brokerage-order-entity';
-import { options } from '../../../configuration/database/datasource';
+import { BrokerageOrderFactory } from "./factory/BrokerageOrderFactory";
 
 @Injectable()
 export class BrokerageOrderTypeormRepository
@@ -30,7 +29,7 @@ export class BrokerageOrderTypeormRepository
     private readonly stockRepository: Repository<Stock>,
   ) {}
 
-  async save(entity: BrokerageOrderEntity): Promise<void> {
+  async upsert(entity: BrokerageOrderEntity): Promise<void> {
     const { generalInformation, orders, businessSummary, financialSummary } =
       entity;
     const { clearing, exchange, operationalCosts } = financialSummary;
@@ -40,6 +39,7 @@ export class BrokerageOrderTypeormRepository
       generalInformation.brokerageOrderNumber,
       generalInformation.tradingFlorDate,
       generalInformation.clientId,
+      generalInformation.id,
     );
 
     // Parse Orders
@@ -58,6 +58,7 @@ export class BrokerageOrderTypeormRepository
           order.price,
           order.total,
           order.debitOrCredit,
+          order.id,
         );
       }),
     );
@@ -72,6 +73,7 @@ export class BrokerageOrderTypeormRepository
       businessSummary.termOptions,
       businessSummary.federalSecurities,
       businessSummary.operationValues,
+      businessSummary.id,
     );
 
     // Parse Financial Summary
@@ -80,12 +82,14 @@ export class BrokerageOrderTypeormRepository
       clearing.settlementFee,
       clearing.registryFee,
       clearing.totalCblc,
+      clearing.id,
     );
     const exchangeTypeOrm = new Exchange(
       exchange.termOrOptionsFee,
       exchange.anaFee,
       exchange.fees,
       exchange.total,
+      exchange.id,
     );
     const operationalCostsTypeOrm = new OperationalCosts(
       operationalCosts.operationalFee,
@@ -95,6 +99,7 @@ export class BrokerageOrderTypeormRepository
       operationalCosts.irrf,
       operationalCosts.others,
       operationalCosts.totalCosts,
+      operationalCosts.id,
     );
     const financialSummaryTypeOrm = new FinancialSummary(
       clearingTypeOrm,
@@ -103,6 +108,7 @@ export class BrokerageOrderTypeormRepository
       financialSummary.netDate,
       financialSummary.netTotalValue,
       financialSummary.netDebitOrCredit,
+      financialSummary.id,
     );
 
     // Parse Brokerage Order
@@ -111,6 +117,7 @@ export class BrokerageOrderTypeormRepository
       ordersTypeOrm,
       businessSummaryTypeOrm,
       financialSummaryTypeOrm,
+      entity.id,
     );
 
     await this.brokerageOrderRepository.save(brokerageOrderTypeOrm);
@@ -139,8 +146,7 @@ export class BrokerageOrderTypeormRepository
 
   async getById(id: number): Promise<BrokerageOrderEntity> {
     const dbEntity = await this.brokerageOrderRepository.findOneBy({ id });
-    const domainEntity = dbEntity as unknown as BrokerageOrderEntity;
-    return domainEntity;
+    return BrokerageOrderFactory.parseToBrokerageOrderDomain(dbEntity);
   }
 
   async update(

@@ -75,7 +75,7 @@ describe('Brokerage Order TypeORM Repository tests', () => {
   });
 
   it('should successful save a brokerage order', async () => {
-    await brokerageOrderTypeormRepository.save(brokerageOrderEntity);
+    await brokerageOrderTypeormRepository.upsert(brokerageOrderEntity);
 
     const persistedBrokerageOrders = await brokerageOrderRepository.find();
     expect(persistedBrokerageOrders.length).toBe(1);

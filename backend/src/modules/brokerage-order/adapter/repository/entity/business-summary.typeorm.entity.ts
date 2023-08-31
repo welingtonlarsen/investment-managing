@@ -8,7 +8,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -16,7 +16,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -24,7 +24,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -32,7 +32,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -40,7 +40,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -48,7 +48,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -56,7 +56,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -64,7 +64,7 @@ export class BusinessSummary {
 
   @Column({
     type: 'decimal',
-    precision: 10,
+    precision: 20,
     scale: 2,
     transformer: new DecimalTransformer(),
   })
@@ -79,7 +79,9 @@ export class BusinessSummary {
     termOptions: number,
     federalSecurities: number,
     operationValues: number,
+    id?: number,
   ) {
+    this.id = id;
     this.debentures = debentures;
     this.sellInCash = sellInCash;
     this.buyInCash = buyInCash;

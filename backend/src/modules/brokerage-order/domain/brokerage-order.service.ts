@@ -24,7 +24,7 @@ export class BrokerageOrderService {
   public async create(data: CreateBrokerageOrderDto): Promise<void> {
     const brokerageOrderEntity = BrokerageOrderEntityFactory.from(data);
     // brokerageOrderEntity.validateTotalNetValue();
-    await this.brokerageOrderRepository.save(brokerageOrderEntity);
+    await this.brokerageOrderRepository.upsert(brokerageOrderEntity);
   }
 
   public async getAllSummary(
@@ -48,12 +48,15 @@ export class BrokerageOrderService {
   }
 
   public async getById(id: number): Promise<BrokerageOrderEntity> {
-    return this.brokerageOrderRepository.getById(id);
+    const brokerageOrder = await this.brokerageOrderRepository.getById(id);
+    return brokerageOrder.parseFinancialValuesToFloat();
   }
 
   public async update(id: number, brokerageOrder: UpdateBrokerageOrderDto) {
-    const brokerageOrderEntity =
-      brokerageOrder as unknown as BrokerageOrderEntity;
-    return this.brokerageOrderRepository.update(id, brokerageOrderEntity);
+    const brokerageOrderEntity = {
+      ...BrokerageOrderEntityFactory.from(brokerageOrder),
+      id,
+    } as unknown as BrokerageOrderEntity;
+    return this.brokerageOrderRepository.upsert(brokerageOrderEntity);
   }
 }

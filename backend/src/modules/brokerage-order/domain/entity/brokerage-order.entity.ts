@@ -7,13 +7,12 @@ import { InvalidTotalNetValue } from '../error/create-brokerage-order.usecase';
 import { FloatParser } from '../../../../util/float-parser';
 
 export class BrokerageOrderEntity {
-  readonly id?: number;
-
   constructor(
     readonly generalInformation: GeneralInformationEntity,
     readonly orders: OrderEntity[],
     readonly businessSummary: BusinessSummaryEntity,
     readonly financialSummary: FinancialSummaryEntity,
+    readonly id?: number,
   ) {}
 
   validateTotalNetValue() {
@@ -55,15 +54,16 @@ export class BrokerageOrderEntity {
   parseFinancialValuesToFloat(): BrokerageOrderEntity {
     const orders = this.orders.map((order) => {
       const obj = {
+        ...order,
         quantity: FloatParser.floatMoney(order.quantity),
         price: FloatParser.floatMoney(order.price),
         total: FloatParser.floatMoney(order.total),
-        ...order,
       };
       return obj;
     });
 
     const businessSummary = {
+      ...this.businessSummary,
       debentures: FloatParser.floatMoney(this.businessSummary.debentures),
       sellInCash: FloatParser.floatMoney(this.businessSummary.sellInCash),
       buyInCash: FloatParser.floatMoney(this.businessSummary.buyInCash),
@@ -81,19 +81,23 @@ export class BrokerageOrderEntity {
     const { clearing, exchange, operationalCosts } = this.financialSummary;
 
     const financialSummary = {
+      ...this.financialSummary,
       clearing: {
+        ...clearing,
         operationsNetValue: FloatParser.floatMoney(clearing.operationsNetValue),
         settlementFee: FloatParser.floatMoney(clearing.settlementFee),
         registryFee: FloatParser.floatMoney(clearing.registryFee),
         totalCblc: FloatParser.floatMoney(clearing.totalCblc),
       },
       exchange: {
+        ...exchange,
         termOrOptionsFee: FloatParser.floatMoney(exchange.termOrOptionsFee),
         anaFee: FloatParser.floatMoney(exchange.anaFee),
         fees: FloatParser.floatMoney(exchange.fees),
         total: FloatParser.floatMoney(exchange.total),
       },
       operationalCosts: {
+        ...operationalCosts,
         operationalFee: FloatParser.floatMoney(operationalCosts.operationalFee),
         execution: FloatParser.floatMoney(operationalCosts.execution),
         custody: FloatParser.floatMoney(operationalCosts.custody),
@@ -105,7 +109,6 @@ export class BrokerageOrderEntity {
       netTotalValue: FloatParser.floatMoney(
         this.financialSummary.netTotalValue,
       ),
-      ...this.financialSummary,
     };
 
     return new BrokerageOrderEntity(
@@ -113,6 +116,7 @@ export class BrokerageOrderEntity {
       orders,
       businessSummary,
       financialSummary,
+      this.id,
     );
   }
 }
