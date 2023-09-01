@@ -1,2 +1,7 @@
-node_modules/
-dist/
+package-lock.json
+node_modules
+public
+enviroments
+coverage
+build
+src/Utils/animations

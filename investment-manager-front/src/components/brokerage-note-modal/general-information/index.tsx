@@ -1,9 +1,10 @@
 import { Box } from '@mui/material';
-import { removeTimeFromDate } from '../../../../utils/date.utils.ts';
-import * as React from 'react';
-import { SectionHeader } from '../section-header';
+import { removeTimeFromDate } from '../../../utils/date.utils.ts';
+import { SectionHeader } from '../@components/section-header';
+import { ItemValue } from '../@components/item-value/item-value.tsx';
+import { TProps } from '../types.ts';
 
-const GeneralInformation = () => {
+const GeneralInformation = ({ brokerageNote }: TProps) => {
   return (
     <Box sx={{ width: '100%' }}>
       <SectionHeader title="Informações Gerais" />

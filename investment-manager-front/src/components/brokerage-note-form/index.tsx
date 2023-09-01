@@ -1,37 +1,32 @@
 import Box from '@mui/material/Box';
-import {TBrokerageOrder, useBrokerageNoteForm} from '../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote, useBrokerageNoteForm } from '../../hooks/useBrokerageNoteForm';
 import OrdersForm from './orders-form';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import BusinessForm from './business-form';
 import FinancialForm from './financial-form';
 import OperationalCostsForm from './operational-costs-form';
 import EndForm from './end-form';
 import Navigation from './navigation';
 import StepsHeader from './steps-header';
-import {useLocation} from "react-router-dom";
-import {removeTimeFromDate} from "../../utils/date.utils.ts";
+import { useLocation } from 'react-router-dom';
 
 const steps = ['Ordens', 'Negócios', 'Financeiro', 'Despesas', 'Final'];
 
 interface TBrokerageNoteFormProps {
-  submitCallback(formValues: TBrokerageOrder): Promise<void>;
+  submitCallback(formValues: TBrokerageNote): Promise<void>;
 }
 
-const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback}) => {
-  const location = useLocation() as {state: TBrokerageOrder}
+const BrokerageNoteForm: React.FC<TBrokerageNoteFormProps> = ({ submitCallback }) => {
+  const location = useLocation() as { state: TBrokerageNote };
 
   const { fields, append, handleSubmit, register, control, reset } = useBrokerageNoteForm();
   const [currentStep, setCurrentStep] = useState(0);
 
-console.log(fields)
   useEffect(() => {
-    if(location.state) {
-      const { state } = location
-      const tradingFlorDate = removeTimeFromDate(state.generalInformation.tradingFlorDate || '')
-      const generalInformation = {...state.generalInformation, tradingFlorDate}
-      const orders = state.orders.map((order) => ({...order, symbol: order.stock?.symbol}))
-      const financialSummary = {...state.financialSummary, netDate: removeTimeFromDate(state.financialSummary.netDate || '')}
-      reset({...state, orders, generalInformation, financialSummary})
+    if (location.state) {
+      const { state } = location;
+      const orders = state.orders.map((order) => ({ ...order, symbol: order.stock?.symbol }));
+      reset({ ...state, orders });
     }
   }, []);
 

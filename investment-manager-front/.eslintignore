@@ -1,3 +1,13 @@
-node_modules/
-dist/
-env.d.ts
+node_modules
+src/types
+src/modules.d.ts
+src/Utils/animations
+enviroments
+coverage
+public
+commitlint.config.js
+config-overrides.js
+jest.config.js
+build
+dist
+webpack.config.js

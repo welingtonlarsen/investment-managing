@@ -1,13 +1,17 @@
 import { TStock } from '../types/stock.type';
-import { useHttpService } from './http/http-service';
+import axios from 'axios';
+import { PaginatedResponse } from './paginated-response.type.ts';
 
 export const useStockService = () => {
-  const httpService = useHttpService();
-
   async function getAllIgnoringPagination(): Promise<TStock[]> {
-    const result = await httpService.get<TStock>('stocks');
-    // TODO: Ignore pagination
-    return result.items;
+    const { data } = await axios.get<PaginatedResponse<TStock>>(`http://localhost:3000/stocks`, {
+      params: {
+        page: 1,
+        limit: 100,
+      },
+    });
+    // TODO: Ignore or implement pagination? Currently we've been using a big limit to avoid it
+    return data.items;
   }
 
   return { getAllIgnoringPagination };

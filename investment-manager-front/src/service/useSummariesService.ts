@@ -1,13 +1,20 @@
-import { BrokerageNotesSummaries } from '../types/brokerage-notes-summaries.type';
-import { useHttpService } from './http/http-service';
-import { PaginatedResponse } from './http/paginated-response.type';
+import { BrokerageNoteSummary } from '../types/brokerage-notes-summaries.type';
+import { PaginatedResponse } from './paginated-response.type.ts';
+import axios from 'axios';
 
 export const useSummariesService = () => {
-  const httpService = useHttpService();
-
-  async function getAll(): Promise<PaginatedResponse<BrokerageNotesSummaries>> {
-    const result = await httpService.get<BrokerageNotesSummaries>('brokeragenotes/summaries');
-    return result;
+  // TODO: Pagination options
+  async function getAll(): Promise<PaginatedResponse<BrokerageNoteSummary>> {
+    const { data } = await axios.get<PaginatedResponse<BrokerageNoteSummary>>(
+      `http://localhost:3000/brokeragenotes/summaries`,
+      {
+        params: {
+          page: 1,
+          limit: 100,
+        },
+      },
+    );
+    return data;
   }
 
   return { getAll };

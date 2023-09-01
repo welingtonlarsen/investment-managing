@@ -1,4 +1,4 @@
-export type BrokerageNotesSummaries = {
+export type BrokerageNoteSummary = {
   id: number;
   date: Date;
   exchange: string;

@@ -1,10 +1,10 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TBrokerageOrder } from '../../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote } from '../../../hooks/useBrokerageNoteForm';
 import { Clearing } from './clearing';
 import { Exchange } from './exchange';
 
 type TProps = {
-  register: UseFormRegister<TBrokerageOrder>;
+  register: UseFormRegister<TBrokerageNote>;
 };
 
 const FinancialForm: React.FC<TProps> = ({ register }) => {

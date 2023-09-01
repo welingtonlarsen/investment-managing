@@ -1,5 +1,5 @@
 import { FieldArrayWithId, UseFieldArrayAppend, UseFormRegister, Control, Controller } from 'react-hook-form';
-import { TBrokerageOrder, defaultOrder } from '../../../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote, defaultOrder } from '../../../../hooks/useBrokerageNoteForm';
 import { useState, useEffect } from 'react';
 import { TStock } from '../../../../types/stock.type';
 import { useStockService } from '../../../../service/useStockService';
@@ -9,10 +9,10 @@ import { SelectField } from '../../@components/select-field';
 import { NumberField } from '../../@components/number-field';
 
 type TProps = {
-  fields: FieldArrayWithId<TBrokerageOrder, 'orders', 'id'>[];
-  append: UseFieldArrayAppend<TBrokerageOrder, 'orders'>;
-  register: UseFormRegister<TBrokerageOrder>;
-  control: Control<TBrokerageOrder, unknown>;
+  fields: FieldArrayWithId<TBrokerageNote, 'orders', 'id'>[];
+  append: UseFieldArrayAppend<TBrokerageNote, 'orders'>;
+  register: UseFormRegister<TBrokerageNote>;
+  control: Control<TBrokerageNote, unknown>;
 };
 
 export const Orders: React.FC<TProps> = ({ fields, append, register, control }) => {
@@ -32,7 +32,7 @@ export const Orders: React.FC<TProps> = ({ fields, append, register, control }) 
     append(defaultOrder);
   };
 
-  const renderFields = (field: FieldArrayWithId<TBrokerageOrder, 'orders', 'id'>, index: any) => {
+  const renderFields = (field: FieldArrayWithId<TBrokerageNote, 'orders', 'id'>, index: any) => {
     return (
       <Grid key={index} sx={{ mb: 4 }} container spacing={2}>
         <Grid item xs={12} sm={6} lg={2}>

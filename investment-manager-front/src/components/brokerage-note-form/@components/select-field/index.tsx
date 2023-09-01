@@ -1,12 +1,12 @@
 import { TextField as MUITextField, MenuItem } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
-import { TBrokerageOrder, TBrokerageOrderPropType } from '../../../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote, TBrokerageOrderPropType } from '../../../../hooks/useBrokerageNoteForm';
 
 type TProps = {
   id: string;
   label: string;
   field: TBrokerageOrderPropType;
-  control: Control<TBrokerageOrder, unknown>;
+  control: Control<TBrokerageNote, unknown>;
   index?: number;
   options: { key: string; value: string; title: string }[];
 };

@@ -1,11 +1,11 @@
 import { UseFormRegister } from 'react-hook-form';
-import { TBrokerageOrder, TBrokerageOrderPropType } from '../../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote, TBrokerageOrderPropType } from '../../../hooks/useBrokerageNoteForm';
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { NumberField } from '../@components/number-field';
 
 type TProps = {
-  register: UseFormRegister<TBrokerageOrder>;
+  register: UseFormRegister<TBrokerageNote>;
 };
 
 export const OperationalCostsForm: React.FC<TProps> = ({ register }) => {

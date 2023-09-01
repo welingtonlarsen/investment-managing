@@ -2,23 +2,23 @@ import { useRef } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 export type TOrder = {
-  id?: string
+  id?: string;
   market: string;
   buyOrSell: 'BUY' | 'SELL';
   marketType: string;
   symbol?: string;
   stock?: {
-    symbol: string,
-    specification: string
-  }
+    symbol: string;
+    specification: string;
+  };
   quantity: number | undefined;
   price: number | undefined;
   total: number | undefined;
   debitOrCredit: string;
 };
 
-export type TBrokerageOrder = {
-  id?: number,
+export type TBrokerageNote = {
+  id?: number;
   generalInformation: {
     brokerageOrderNumber: number | undefined;
     tradingFlorDate: string | undefined;
@@ -70,7 +70,7 @@ type Paths<T, Prefix extends string = ''> = {
 }[keyof T];
 
 export type TBrokerageOrderPropType =
-  | Paths<TBrokerageOrder, any>
+  | Paths<TBrokerageNote, any>
   | Paths<{ orders: TOrder }, any>
   | 'netDate'
   | 'netTotalValue'
@@ -87,7 +87,7 @@ export const defaultOrder = {
   debitOrCredit: '',
 };
 
-export const defaultValues: TBrokerageOrder = {
+export const defaultValues: TBrokerageNote = {
   generalInformation: {
     brokerageOrderNumber: undefined,
     tradingFlorDate: '',
@@ -130,55 +130,55 @@ export const defaultValues: TBrokerageOrder = {
     netTotalValue: undefined,
     netDebitOrCredit: '',
   },
-}
+};
 
 export const useBrokerageNoteForm = () => {
-  const defaultValues: TBrokerageOrder = {
-        generalInformation: {
-          brokerageOrderNumber: undefined,
-          tradingFlorDate: '',
-          clientId: '',
-        },
-        orders: [defaultOrder],
-        businessSummary: {
-          debentures: undefined,
-          sellInCash: undefined,
-          buyInCash: undefined,
-          optionsBuy: undefined,
-          optionsSell: undefined,
-          termOptions: undefined,
-          federalSecurities: undefined,
-          operationValues: undefined,
-        },
-        financialSummary: {
-          clearing: {
-            operationsNetValue: undefined,
-            settlementFee: undefined,
-            registryFee: undefined,
-            totalCblc: undefined,
-          },
-          exchange: {
-            termOrOptionsFee: undefined,
-            anaFee: undefined,
-            fees: undefined,
-            total: undefined,
-          },
-          operationalCosts: {
-            operationalFee: undefined,
-            execution: undefined,
-            custody: undefined,
-            taxes: undefined,
-            irrf: undefined,
-            others: undefined,
-            totalCosts: undefined,
-          },
-          netDate: undefined,
-          netTotalValue: undefined,
-          netDebitOrCredit: '',
-        },
-      }
+  const defaultValues: TBrokerageNote = {
+    generalInformation: {
+      brokerageOrderNumber: undefined,
+      tradingFlorDate: '',
+      clientId: '',
+    },
+    orders: [defaultOrder],
+    businessSummary: {
+      debentures: undefined,
+      sellInCash: undefined,
+      buyInCash: undefined,
+      optionsBuy: undefined,
+      optionsSell: undefined,
+      termOptions: undefined,
+      federalSecurities: undefined,
+      operationValues: undefined,
+    },
+    financialSummary: {
+      clearing: {
+        operationsNetValue: undefined,
+        settlementFee: undefined,
+        registryFee: undefined,
+        totalCblc: undefined,
+      },
+      exchange: {
+        termOrOptionsFee: undefined,
+        anaFee: undefined,
+        fees: undefined,
+        total: undefined,
+      },
+      operationalCosts: {
+        operationalFee: undefined,
+        execution: undefined,
+        custody: undefined,
+        taxes: undefined,
+        irrf: undefined,
+        others: undefined,
+        totalCosts: undefined,
+      },
+      netDate: undefined,
+      netTotalValue: undefined,
+      netDebitOrCredit: '',
+    },
+  };
 
-  const form = useForm<TBrokerageOrder>({ defaultValues });
+  const form = useForm<TBrokerageNote>({ defaultValues });
 
   const { register: formRegister, handleSubmit, control, reset } = form;
   const { current: register } = useRef(formRegister);

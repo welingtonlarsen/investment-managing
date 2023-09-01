@@ -1,12 +1,12 @@
 import { Box, Typography, Grid } from '@mui/material';
 import { UseFormRegister } from 'react-hook-form';
-import { TBrokerageOrder } from '../../../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote } from '../../../../hooks/useBrokerageNoteForm';
 import { NumberField } from '../../@components/number-field';
 import { DateField } from '../../@components/date-field';
 import { TextField } from '../../@components/text-field';
 
 type TProps = {
-  register: UseFormRegister<TBrokerageOrder>;
+  register: UseFormRegister<TBrokerageNote>;
 };
 
 export const GeneralInformation: React.FC<TProps> = ({ register }) => {

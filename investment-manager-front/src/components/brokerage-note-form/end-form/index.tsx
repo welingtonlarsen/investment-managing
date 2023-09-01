@@ -1,5 +1,5 @@
 import { Control, UseFormRegister } from 'react-hook-form';
-import { TBrokerageOrder } from '../../../hooks/useBrokerageNoteForm';
+import { TBrokerageNote } from '../../../hooks/useBrokerageNoteForm';
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import { DateField } from '../@components/date-field';
@@ -7,8 +7,8 @@ import { NumberField } from '../@components/number-field';
 import { SelectField } from '../@components/select-field';
 
 type TProps = {
-  register: UseFormRegister<TBrokerageOrder>;
-  control: Control<TBrokerageOrder, unknown>;
+  register: UseFormRegister<TBrokerageNote>;
+  control: Control<TBrokerageNote, unknown>;
 };
 
 export const EndForm: React.FC<TProps> = ({ register, control }) => {
