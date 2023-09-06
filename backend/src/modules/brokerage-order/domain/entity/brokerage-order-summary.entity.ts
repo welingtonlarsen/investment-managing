@@ -1,4 +1,3 @@
-import { Broker } from './broker.entity';
 import { BrokerageOrderEntity } from './brokerage-order.entity';
 import { BuyOrSell, DebitOrCredit, OrderEntity } from './order.entity';
 
@@ -23,10 +22,9 @@ export class BrokerageOrderSummary {
     this.id = brokerageOrder.id;
     this.date = brokerageOrder.generalInformation.tradingFlorDate;
     this.exchange = 'Corretora Padrão';
-    this.purchases = brokerageOrder.businessSummary.buyInCash / 100;
-    this.sales = brokerageOrder.businessSummary.sellInCash / 100;
-    this.costs =
-      brokerageOrder.financialSummary.operationalCosts.totalCosts / 100;
+    this.purchases = brokerageOrder.businessSummary.buyInCash;
+    this.sales = brokerageOrder.businessSummary.sellInCash;
+    this.costs = brokerageOrder.financialSummary.operationalCosts.totalCosts;
     this.net = brokerageOrder.financialSummary.netTotalValue;
     this.debitOrCredit = brokerageOrder.financialSummary.netDebitOrCredit;
   }

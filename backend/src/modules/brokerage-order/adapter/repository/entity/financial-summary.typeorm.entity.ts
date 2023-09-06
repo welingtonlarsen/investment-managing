@@ -210,7 +210,7 @@ export class FinancialSummary {
   @JoinColumn()
   operationalCosts: OperationalCosts;
 
-  @Column()
+  @Column({ type: 'date' })
   netDate: Date;
 
   @Column({

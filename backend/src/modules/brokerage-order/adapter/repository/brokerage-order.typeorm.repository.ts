@@ -18,7 +18,7 @@ import {
 } from 'nestjs-typeorm-paginate';
 import { BrokerageOrderRepository } from './brokerage-order.interface';
 import { Stock } from './entity/stock.typeorm.entity';
-import { BrokerageOrderFactory } from "./factory/BrokerageOrderFactory";
+import { BrokerageOrderFactory } from './factory/BrokerageOrderFactory';
 
 @Injectable()
 export class BrokerageOrderTypeormRepository

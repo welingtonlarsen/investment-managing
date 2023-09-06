@@ -13,10 +13,9 @@ import {
 } from './adapter/repository/entity/financial-summary.typeorm.entity';
 import { BusinessSummary } from './adapter/repository/entity/business-summary.typeorm.entity';
 import { provideBrokerageOrderRepository } from './brokerage-order.repository.provider';
-import { GetStocksService } from './query/get-stocks.service';
+import { StockService } from './domain/stock.service';
 import { Stock } from './adapter/repository/entity/stock.typeorm.entity';
-import { StockController } from './query/stock.controller';
-import { BrokerageOrderQueryController } from './query/brokerage-order-query.controller';
+import { StockController } from './controllers/stock.controller';
 
 @Module({
   imports: [
@@ -32,14 +31,10 @@ import { BrokerageOrderQueryController } from './query/brokerage-order-query.con
       Stock,
     ]),
   ],
-  controllers: [
-    BrokerageOrderController,
-    StockController,
-    BrokerageOrderQueryController,
-  ],
+  controllers: [BrokerageOrderController, StockController],
   providers: [
     BrokerageOrderService,
-    GetStocksService,
+    StockService,
     ...provideBrokerageOrderRepository(),
   ],
 })

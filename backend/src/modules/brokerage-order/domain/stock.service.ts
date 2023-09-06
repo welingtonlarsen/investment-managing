@@ -9,14 +9,13 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
-export class GetStocksService {
+export class StockService {
   constructor(
     @InjectRepository(Stock)
     private stockRepository: Repository<Stock>,
   ) {}
 
-  async execute(options: IPaginationOptions): Promise<Pagination<Stock>> {
-    const r = await paginate<Stock>(this.stockRepository, options);
-    return r;
+  async getAll(options: IPaginationOptions): Promise<Pagination<Stock>> {
+    return await paginate<Stock>(this.stockRepository, options);
   }
 }

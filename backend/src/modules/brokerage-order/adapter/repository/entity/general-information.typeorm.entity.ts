@@ -8,7 +8,7 @@ export class GeneralInformation {
   @Column()
   brokerageOrderNumber: number;
 
-  @Column()
+  @Column({ type: 'date' })
   tradingFlorDate: Date;
 
   @Column()

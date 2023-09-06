@@ -9,11 +9,11 @@ import {
   Delete,
   Param,
   Put,
-  Patch,
 } from '@nestjs/common';
-import { CreateBrokerageOrderDto } from './dto/create-brokerage-order.dto';
+import { CreateBrokerageOrderDto } from './dto/request/create-brokerage-order.dto';
 import { BrokerageOrderService } from '../domain/brokerage-order.service';
-import { UpdateBrokerageOrderDto } from './dto/update-brokerage-order.dto';
+import { UpdateBrokerageOrderDto } from './dto/request/update-brokerage-order.dto';
+import { BrokerageOrderResponseDto } from './dto/response/brokerage-order.response.dto';
 
 @Controller('brokeragenotes')
 export class BrokerageOrderController {
@@ -41,7 +41,7 @@ export class BrokerageOrderController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: number) {
+  getById(@Param('id') id: number): Promise<BrokerageOrderResponseDto> {
     return this.brokerageOrderService.getById(id);
   }
 

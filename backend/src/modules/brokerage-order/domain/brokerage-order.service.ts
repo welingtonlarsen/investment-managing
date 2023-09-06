@@ -12,7 +12,10 @@ import {
 } from '../adapter/repository/brokerage-order.interface';
 import { BrokerageOrderSummary } from './entity/brokerage-order-summary.entity';
 import { BrokerageOrderEntity } from './entity/brokerage-order.entity';
-import { UpdateBrokerageOrderDto } from '../controllers/dto/update-brokerage-order.dto';
+import { UpdateBrokerageOrderDto } from '../controllers/dto/request/update-brokerage-order.dto';
+import { BrokerageOrderResponseDto } from '../controllers/dto/response/brokerage-order.response.dto';
+import { SummaryResponseDto } from '../controllers/dto/response/summary.response.dto';
+import { SummaryFactory } from './factory/summary.factory';
 
 @Injectable()
 export class BrokerageOrderService {
@@ -23,19 +26,19 @@ export class BrokerageOrderService {
 
   public async create(data: CreateBrokerageOrderDto): Promise<void> {
     const brokerageOrderEntity = BrokerageOrderEntityFactory.from(data);
-    // brokerageOrderEntity.validateTotalNetValue();
     await this.brokerageOrderRepository.upsert(brokerageOrderEntity);
   }
 
   public async getAllSummary(
     options: IPaginationOptions,
-  ): Promise<Pagination<BrokerageOrderSummary, IPaginationMeta>> {
+  ): Promise<Pagination<SummaryResponseDto, IPaginationMeta>> {
     const brokerageOrders = await this.brokerageOrderRepository.findAll(
       options,
     );
-    const summaryItems = brokerageOrders.items.map(
-      (brokerageOrder) => new BrokerageOrderSummary(brokerageOrder),
-    );
+    const summaryItems = brokerageOrders.items.map((brokerageOrder) => {
+      const entity = new BrokerageOrderSummary(brokerageOrder);
+      return SummaryFactory.toResponseDto(entity);
+    });
 
     return {
       ...brokerageOrders,
@@ -47,9 +50,9 @@ export class BrokerageOrderService {
     return this.brokerageOrderRepository.delete(id);
   }
 
-  public async getById(id: number): Promise<BrokerageOrderEntity> {
+  public async getById(id: number): Promise<BrokerageOrderResponseDto> {
     const brokerageOrder = await this.brokerageOrderRepository.getById(id);
-    return brokerageOrder.parseFinancialValuesToFloat();
+    return BrokerageOrderEntityFactory.toResponseDto(brokerageOrder);
   }
 
   public async update(id: number, brokerageOrder: UpdateBrokerageOrderDto) {

@@ -1,4 +1,12 @@
-import { IsEnum, IsNotEmpty, IsNumber } from 'class-validator';
+import {
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  registerDecorator,
+  ValidationOptions,
+} from 'class-validator';
+import { Transform } from 'class-transformer';
+import { MultiplyBy100 } from '../../../../../decorators/multiply-by-100';
 
 enum Market {
   BOVESPA = 'BOVESPA',
@@ -37,9 +45,11 @@ export class OrderDto {
   quantity: number;
 
   @IsNumber()
+  @MultiplyBy100()
   price: number;
 
   @IsNumber()
+  @MultiplyBy100()
   total: number;
 
   @IsEnum(DebitOrCredit)

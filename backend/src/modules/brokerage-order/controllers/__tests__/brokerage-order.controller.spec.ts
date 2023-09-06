@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BrokerageOrderController } from './brokerage-order.controller';
-import { BrokerageOrderService } from '../domain/brokerage-order.service';
-import { CreateBrokerageOrderDto } from './dto/create-brokerage-order.dto';
+import { BrokerageOrderController } from '../brokerage-order.controller';
+import { BrokerageOrderService } from '../../domain/brokerage-order.service';
+import { CreateBrokerageOrderDto } from '../dto/request/create-brokerage-order.dto';
 
 describe('BrokerageOrderController', () => {
   let controller: BrokerageOrderController;

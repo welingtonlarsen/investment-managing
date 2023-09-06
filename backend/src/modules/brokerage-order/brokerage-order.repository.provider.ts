@@ -31,6 +31,7 @@ async function provideBrokerageOrderRepositoryFactory(
         dependenciesProvider.brokerageOrderTypeOrmRepository,
         dependenciesProvider.stockTypeOrmRepository,
       );
+    case 'prisma':
     default:
       throw new Error('Data source not implemented');
   }
