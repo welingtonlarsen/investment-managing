@@ -8,7 +8,7 @@ export default function BrokerageNotesPage() {
   const navigate = useNavigate();
 
   const createNote = () => {
-    navigate('/brokeragenotes/form');
+    navigate('/form');
   };
 
   return (

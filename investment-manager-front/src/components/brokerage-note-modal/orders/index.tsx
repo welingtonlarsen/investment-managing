@@ -9,6 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
 import { parseBuySellToSymbol } from '../../../utils/parses.utils.ts';
 import TableContainer from '@mui/material/TableContainer';
+import { formatMoney } from '../../../utils/money.utils.ts';
 
 const Orders = ({ brokerageNote }: TProps) => (
   <Box sx={{ width: '100%', mt: 3 }}>
@@ -58,8 +59,8 @@ const Orders = ({ brokerageNote }: TProps) => (
                 <TableCell align="center">{order.stock?.specification}</TableCell>
                 <TableCell align="center">{order.stock?.symbol}</TableCell>
                 <TableCell align="center">{order.quantity}</TableCell>
-                <TableCell align="center">{order.price}</TableCell>
-                <TableCell align="center">{order.total}</TableCell>
+                <TableCell align="center">{formatMoney(order.price || 0)}</TableCell>
+                <TableCell align="center">{formatMoney(order.total || 0)}</TableCell>
                 <TableCell align="center">{order.debitOrCredit.charAt(0)}</TableCell>
               </TableRow>
             ))}

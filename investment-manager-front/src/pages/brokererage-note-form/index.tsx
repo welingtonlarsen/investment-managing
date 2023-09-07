@@ -12,11 +12,11 @@ const BrokerageNoteFormPage = () => {
     try {
       if (formValues.id) {
         await update(formValues.id, formValues);
-        navigate('/brokeragenotes/table');
+        navigate('/table');
       } else {
         await create(formValues);
         alert('Nota cadastrada com sucesso.');
-        navigate('/brokeragenotes/table');
+        navigate('/table');
       }
     } catch (e) {
       if (isAxiosError(e) && e.response?.status === HttpStatusCode.BadRequest) {

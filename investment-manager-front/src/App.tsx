@@ -3,9 +3,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import CssBaseline from '@mui/material/CssBaseline';
-import LayoutPage from './pages/layout';
-
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import LayoutPage from './pages/layout';
 
 export const themeOptions = {
   palette: {
@@ -23,12 +22,10 @@ const theme = createTheme(themeOptions);
 
 function App() {
   return (
-    <div>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <LayoutPage />
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <LayoutPage />
+    </ThemeProvider>
   );
 }
 

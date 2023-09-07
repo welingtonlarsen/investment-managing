@@ -2,6 +2,7 @@ import { TProps } from '../types.ts';
 import { Box, Grid } from '@mui/material';
 import { ItemValue } from '../@components/item-value/item-value.tsx';
 import { SectionHeader } from '../@components/section-header';
+import { formatMoney } from '../../../utils/money.utils.ts';
 
 const Clearing = ({ brokerageNote }: TProps) => (
   <Grid item>
@@ -9,11 +10,17 @@ const Clearing = ({ brokerageNote }: TProps) => (
     <Box sx={{ ml: 5, mt: 2 }}>
       <ItemValue
         item="Valor líquido das operações"
-        value={brokerageNote?.financialSummary.clearing.operationsNetValue}
+        value={formatMoney(brokerageNote?.financialSummary.clearing.operationsNetValue || 0)}
       />
-      <ItemValue item="Taxa de liquídação" value={brokerageNote?.financialSummary.clearing.settlementFee} />
-      <ItemValue item="Taxa de registro" value={brokerageNote?.financialSummary.clearing.registryFee} />
-      <ItemValue item="Total CBLC" value={brokerageNote?.financialSummary.clearing.totalCblc} />
+      <ItemValue
+        item="Taxa de liquídação"
+        value={formatMoney(brokerageNote?.financialSummary.clearing.settlementFee || 0)}
+      />
+      <ItemValue
+        item="Taxa de registro"
+        value={formatMoney(brokerageNote?.financialSummary.clearing.registryFee || 0)}
+      />
+      <ItemValue item="Total CBLC" value={formatMoney(brokerageNote?.financialSummary.clearing.totalCblc || 0)} />
     </Box>
   </Grid>
 );

@@ -50,7 +50,7 @@ export default function BrokerageNoteModal({
   };
 
   const handleEdit = () => {
-    navigate('/brokeragenotes/form', {
+    navigate('/form', {
       state: {
         ...brokerageNote,
         generalInformation: {
