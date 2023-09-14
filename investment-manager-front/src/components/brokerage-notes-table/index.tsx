@@ -27,6 +27,10 @@ export default function BrokerageNotesTable() {
   const [brokerageNotesSummaries, setBrokerageNotesSummaries] = useState<BrokerageNoteSummary[]>([]);
 
   useEffect(() => {
+    console.log('hello');
+  }, []);
+
+  useEffect(() => {
     (async () => {
       const summaries = await getAll();
       setBrokerageNotesSummaries(summaries.items);
@@ -114,7 +118,7 @@ export default function BrokerageNotesTable() {
                     <TableCell align="left">{row.debitOrCredit}</TableCell>
                     <TableCell sx={{ display: 'flex', flex: 'row', justifyContent: 'space-around' }}>
                       <IconButton
-                        aria-label="add to shopping cart"
+                        aria-label="open brokerage note modal"
                         onClick={() => handleOpenBrokerageNoteModal(row.id)}
                       >
                         <SearchIcon />

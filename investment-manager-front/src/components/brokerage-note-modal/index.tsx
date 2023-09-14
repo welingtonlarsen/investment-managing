@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -66,42 +65,40 @@ export default function BrokerageNoteModal({
   };
 
   return (
-    <React.Fragment>
-      <Dialog fullWidth={true} maxWidth={'xl'} open={open} onClose={handleClose}>
-        <DialogTitle>Nota de corretagem</DialogTitle>
+    <Dialog data-testid="brokerage-note-modal" fullWidth={true} maxWidth={'xl'} open={open} onClose={handleClose}>
+      <DialogTitle>Nota de corretagem</DialogTitle>
 
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
-          <Button
-            onClick={handleDelete}
-            size="small"
-            color="error"
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-            sx={{ mr: 2 }}
-          >
-            Deletar
-          </Button>
-          <Button onClick={handleEdit} size="small" color="info" variant="outlined" startIcon={<EditIcon />}>
-            Editar
-          </Button>
-        </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
+        <Button
+          onClick={handleDelete}
+          size="small"
+          color="error"
+          variant="outlined"
+          startIcon={<DeleteIcon />}
+          sx={{ mr: 2 }}
+        >
+          Deletar
+        </Button>
+        <Button onClick={handleEdit} size="small" color="info" variant="outlined" startIcon={<EditIcon />}>
+          Editar
+        </Button>
+      </Box>
 
-        <Box>
-          <GeneralInformation brokerageNote={brokerageNote} />
-          <Orders brokerageNote={brokerageNote} />
-          <Grid container sx={{ width: '100%', mt: 5 }}>
-            <BusinessSummary brokerageNote={brokerageNote} />
-            <Clearing brokerageNote={brokerageNote} />
-            <Exchange brokerageNote={brokerageNote} />
-            <OperationalCosts brokerageNote={brokerageNote} />
-          </Grid>
-          <FinalInformation brokerageNote={brokerageNote} />
-        </Box>
+      <Box>
+        <GeneralInformation brokerageNote={brokerageNote} />
+        <Orders brokerageNote={brokerageNote} />
+        <Grid container sx={{ width: '100%', mt: 5 }}>
+          <BusinessSummary brokerageNote={brokerageNote} />
+          <Clearing brokerageNote={brokerageNote} />
+          <Exchange brokerageNote={brokerageNote} />
+          <OperationalCosts brokerageNote={brokerageNote} />
+        </Grid>
+        <FinalInformation brokerageNote={brokerageNote} />
+      </Box>
 
-        <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+      <DialogActions>
+        <Button onClick={handleClose}>Close</Button>
+      </DialogActions>
+    </Dialog>
   );
 }
