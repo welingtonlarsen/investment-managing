@@ -1,22 +1,22 @@
 import { TBrokerageNote } from '../hooks/useBrokerageNoteForm';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import axiosInstance from './axios-instance.ts';
 
 export const useBrokerageNoteService = () => {
   async function create(brokerageOrder: TBrokerageNote) {
-    // TODO: Include base url to axios
-    await axios.post<TBrokerageNote>('http://localhost:3000/brokeragenotes', brokerageOrder);
+    await axiosInstance.post<TBrokerageNote>('brokeragenotes', brokerageOrder);
   }
 
   async function deleteNote(brokerageNoteId: number) {
-    await axios.delete(`http://localhost:3000/brokeragenotes/${brokerageNoteId}`);
+    await axiosInstance.delete(`brokeragenotes/${brokerageNoteId}`);
   }
 
   async function getById(brokerageNoteId: number): Promise<AxiosResponse<TBrokerageNote>> {
-    return await axios.get(`http://localhost:3000/brokeragenotes/${brokerageNoteId}`);
+    return await axiosInstance.get(`brokeragenotes/${brokerageNoteId}`);
   }
 
   async function update(id: number, brokerageNote: TBrokerageNote) {
-    return await axios.put(`http://localhost:3000/brokeragenotes/${id}`, brokerageNote);
+    return await axiosInstance.put(`brokeragenotes/${id}`, brokerageNote);
   }
 
   return { create, deleteNote, getById, update };

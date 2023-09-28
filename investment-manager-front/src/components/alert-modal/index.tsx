@@ -13,12 +13,7 @@ type TProps = {
 
 export default function AlertModal({ open, handleCloseModal, handleConfirm }: TProps) {
   return (
-    <Dialog
-      open={open}
-      onClose={handleCloseModal}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
+    <Dialog open={open} onClose={handleCloseModal} data-testid="delete-alert">
       <DialogTitle id="alert-dialog-title">{'Deletar nota de corretagem?'}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">

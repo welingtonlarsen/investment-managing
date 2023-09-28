@@ -27,10 +27,6 @@ export default function BrokerageNotesTable() {
   const [brokerageNotesSummaries, setBrokerageNotesSummaries] = useState<BrokerageNoteSummary[]>([]);
 
   useEffect(() => {
-    console.log('hello');
-  }, []);
-
-  useEffect(() => {
     (async () => {
       const summaries = await getAll();
       setBrokerageNotesSummaries(summaries.items);
@@ -118,12 +114,15 @@ export default function BrokerageNotesTable() {
                     <TableCell align="left">{row.debitOrCredit}</TableCell>
                     <TableCell sx={{ display: 'flex', flex: 'row', justifyContent: 'space-around' }}>
                       <IconButton
-                        aria-label="open brokerage note modal"
+                        aria-label="open brokerage note modal button"
                         onClick={() => handleOpenBrokerageNoteModal(row.id)}
                       >
                         <SearchIcon />
                       </IconButton>
-                      <IconButton aria-label="delete" onClick={() => openDeleteConfirmationModal(row.id)}>
+                      <IconButton
+                        aria-label="delete brokerage note button"
+                        onClick={() => openDeleteConfirmationModal(row.id)}
+                      >
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
