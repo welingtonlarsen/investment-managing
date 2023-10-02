@@ -32,6 +32,7 @@ export const Orders: React.FC<TProps> = ({ fields, append, register, control }) 
     append(defaultOrder);
   };
 
+  // @ts-ignore
   const renderFields = (field: FieldArrayWithId<TBrokerageNote, 'orders', 'id'>, index: any) => {
     return (
       <Grid key={index} sx={{ mb: 4 }} container spacing={2}>
@@ -77,7 +78,7 @@ export const Orders: React.FC<TProps> = ({ fields, append, register, control }) 
             render={({ field: { onChange, value: selectedStock } }) => {
               return (
                 <Autocomplete
-                  onChange={(event, item) => {
+                  onChange={(_event, item) => {
                     onChange(item);
                   }}
                   value={selectedStock}
